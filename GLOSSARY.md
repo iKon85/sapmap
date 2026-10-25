@@ -46,6 +46,14 @@ _Avoid_: EOL, Supportende, Auslaufdatum
 Wie weit ein Steckbrief durch geprüfte Quellen gedeckt ist (belegt, teilweise belegt, unbelegt).
 _Avoid_: Verifizierung, Qualität
 
+**Kundenlandschaft**:
+Die Menge der Bausteine, die ein Berater für einen Kunden auf der Seite markiert, egal ob im Einsatz oder geplant.
+_Avoid_: Scope, Bebauungsplan, Mein Projekt
+
+**Auswirkungsanalyse**:
+Die regelbasierte Bewertung einer Kundenlandschaft: welche Wartungsenden, Statuswechsel und Nachfolger auf den Kunden zukommen.
+_Avoid_: Bewertung, Impact-Analyse
+
 **Recherche-Stand**:
 Das Datum, zu dem die Inhalte der Steckbriefe zuletzt gegen Quellen geprüft wurden.
 _Avoid_: Version, Release
