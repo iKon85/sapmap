@@ -1,0 +1,974 @@
+<title>S/4HANA-Landkarte 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: Systemlandschaft als Architektur-Poster (Kern unten, Plattform darüber, Projekt-Rahmen oben),
+   rechts ein festes Steckbrief-Panel. Zonenfarben kodieren den Bereich, Status-Pills den Lebenszyklus. */
+:root{
+  --bg:#EEF1F4; --surface:#FFFFFF; --surface-2:#F7F9FB; --ink:#16202B; --muted:#566273; --faint:#8A95A4;
+  --line:#D3D9E1; --line-strong:#AEB8C5; --accent:#0B6A86; --accent-ink:#FFFFFF; --focus:#0B6A86;
+  --z-core:#3646B8; --z-core-t:#E8EAFB;
+  --z-plat:#0E766F; --z-plat-t:#E2F3F1;
+  --z-int:#B9530F; --z-int-t:#FCEEE3;
+  --z-data:#7339A8; --z-data-t:#F1E9FA;
+  --z-ai:#A0306B; --z-ai-t:#FAE8F1;
+  --z-lob:#2C7A32; --z-lob-t:#E6F3E6;
+  --z-proj:#8A6200; --z-proj-t:#FBF2DC;
+  --z-quer:#5E6573; --z-quer-t:#ECEEF1;
+  --st-neu:#1C7A45; --st-neu-t:#E1F4E9;
+  --st-umb:#2353B3; --st-umb-t:#E4ECFB;
+  --st-aus:#9A5200; --st-aus-t:#FCEFD9;
+  --st-abg:#B0261C; --st-abg-t:#FBE5E3;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10161D; --surface:#18202A; --surface-2:#1D2631; --ink:#E6EBF1; --muted:#A3AEBC; --faint:#77838F;
+  --line:#2B3643; --line-strong:#45525F; --accent:#4FB3CF; --accent-ink:#0B1218; --focus:#6CC4DC;
+  --z-core:#8F9BFF; --z-core-t:#232A4A;
+  --z-plat:#4DC3B8; --z-plat-t:#16302E;
+  --z-int:#F0954F; --z-int-t:#3A2617;
+  --z-data:#C29BEB; --z-data-t:#2E2140;
+  --z-ai:#EB8BBF; --z-ai-t:#3A1E2D;
+  --z-lob:#7BCB7F; --z-lob-t:#1A2F1C;
+  --z-proj:#E2B451; --z-proj-t:#352A12;
+  --z-quer:#AAB3C0; --z-quer-t:#262E38;
+  --st-neu:#6FD39A; --st-neu-t:#173226;
+  --st-umb:#8CB0F5; --st-umb-t:#1C2948;
+  --st-aus:#F2B15F; --st-aus-t:#3A2A14;
+  --st-abg:#F38A80; --st-abg-t:#3D1C1A;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#10161D; --surface:#18202A; --surface-2:#1D2631; --ink:#E6EBF1; --muted:#A3AEBC; --faint:#77838F;
+  --line:#2B3643; --line-strong:#45525F; --accent:#4FB3CF; --accent-ink:#0B1218; --focus:#6CC4DC;
+  --z-core:#8F9BFF; --z-core-t:#232A4A;
+  --z-plat:#4DC3B8; --z-plat-t:#16302E;
+  --z-int:#F0954F; --z-int-t:#3A2617;
+  --z-data:#C29BEB; --z-data-t:#2E2140;
+  --z-ai:#EB8BBF; --z-ai-t:#3A1E2D;
+  --z-lob:#7BCB7F; --z-lob-t:#1A2F1C;
+  --z-proj:#E2B451; --z-proj-t:#352A12;
+  --z-quer:#AAB3C0; --z-quer-t:#262E38;
+  --st-neu:#6FD39A; --st-neu-t:#173226;
+  --st-umb:#8CB0F5; --st-umb-t:#1C2948;
+  --st-aus:#F2B15F; --st-aus-t:#3A2A14;
+  --st-abg:#F38A80; --st-abg-t:#3D1C1A;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 32px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+a{color:var(--accent)}
+.wrap{max-width:1480px;margin:0 auto}
+
+/* Kopf */
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-block:22px 14px}
+.head h1{font-family:var(--f-display);font-stretch:82%;font-weight:800;font-size:clamp(26px,3.4vw,40px);line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.head h1 span{color:var(--accent)}
+.head p{margin:6px 0 0;color:var(--muted);max-width:64ch}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.search{position:relative}
+.search input{font:inherit;width:min(300px,78vw);padding:8px 12px 8px 32px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface);color:var(--ink)}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--faint)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.fbtn{border:1px solid var(--line);background:var(--surface);padding:6px 10px;border-radius:99px;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.fbtn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fbtn .sw{width:8px;height:8px;border-radius:50%}
+
+/* Tabs */
+.tabs{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--line);margin-bottom:16px;scrollbar-width:thin}
+.tab{border:0;background:none;padding:10px 14px;cursor:pointer;color:var(--muted);font-weight:500;border-bottom:3px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tab small{font-family:var(--f-mono);font-size:11px;color:var(--faint);margin-left:4px}
+
+/* Tab-Leiste mit Auswahl */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.tabbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:var(--bg);display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tabbar .tabs{border-bottom:0;margin-bottom:0;flex:1;min-width:0}
+#selbar{display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);border-radius:99px;padding:4px 4px 4px 12px;font-size:12.5px;max-width:45%;min-width:0}
+#selbar[hidden]{display:none}
+#selbar .sl{opacity:.7}
+#selbar b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.xbtn{border:0;background:var(--bg);color:var(--ink);width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:12px;line-height:1;flex:none;display:inline-flex;align-items:center;justify-content:center}
+.xbtn:hover{background:var(--accent);color:var(--accent-ink)}
+/* X im ausgewählten Baustein */
+.chip.sel::after,.tile.sel::after,.tcard.sel::after{content:"✕";display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;font-size:10px;background:var(--surface);color:var(--ink);flex:none;margin-left:2px}
+.tile,.tcard{position:relative}
+.tile.sel::after,.tcard.sel::after{position:absolute;top:6px;right:6px;width:20px;height:20px;font-size:11px}
+.tcard.sel::after{background:var(--accent);color:var(--accent-ink)}
+.tcard.sel b,.tile.sel b{padding-right:22px}
+svg .xmark{cursor:pointer}
+svg .xmark circle{fill:var(--ink)}
+svg .xmark text{fill:var(--bg);font-size:11px;font-weight:700}
+@media (max-width:900px){#selbar{max-width:60%}}
+
+/* Hauptraster */
+.main{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;align-items:start}
+.view{min-width:0}
+
+/* Landkarte */
+.map{display:grid;gap:10px;
+  grid-template-columns:minmax(0,1fr) minmax(0,2.3fr) minmax(0,1fr);
+  grid-template-areas:"proj proj proj" "lob plat sec" "lob ext sec" "lob core sec" "ops ops ops"}
+.a-proj{grid-area:proj}.a-lob{grid-area:lob}.a-plat{grid-area:plat}.a-ext{grid-area:ext}.a-core{grid-area:core}.a-sec{grid-area:sec}.a-ops{grid-area:ops}
+.zone{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px 12px;min-width:0;position:relative}
+.zone>.zt{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:8px}
+.zt h3{margin:0;font-family:var(--f-display);font-stretch:85%;font-weight:700;font-size:15px;letter-spacing:.01em;color:var(--zc)}
+.zt .n{font-family:var(--f-mono);font-size:11px;color:var(--faint)}
+.zone .zd{margin:-4px 0 8px;font-size:12px;color:var(--muted)}
+.z-core{--zc:var(--z-core);--zt:var(--z-core-t)}
+.z-plat{--zc:var(--z-plat);--zt:var(--z-plat-t)}
+.z-int{--zc:var(--z-int);--zt:var(--z-int-t)}
+.z-data{--zc:var(--z-data);--zt:var(--z-data-t)}
+.z-ai{--zc:var(--z-ai);--zt:var(--z-ai-t)}
+.z-lob{--zc:var(--z-lob);--zt:var(--z-lob-t)}
+.z-proj{--zc:var(--z-proj);--zt:var(--z-proj-t)}
+.z-quer{--zc:var(--z-quer);--zt:var(--z-quer-t)}
+.zone{border-top:3px solid var(--zc)}
+.group{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--zc);border-radius:8px;padding:10px;min-width:0}
+.group>.gt{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;gap:8px}
+.gt h2{margin:0;font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.06em;color:var(--zc)}
+.gt span{font-size:12px;color:var(--muted)}
+.subgrid{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.subgrid .zone{background:var(--surface-2)}
+.a-plat .subgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.a-plat .subgrid .z-int{grid-column:1/-1;background:var(--zt)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:5px;padding:4px 8px;font-size:12.5px;line-height:1.25;cursor:pointer;text-align:left;max-width:100%;transition:opacity .15s,border-color .15s,background .15s}
+.chip:hover{border-color:var(--zc);background:var(--zt)}
+.chip .dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--zc)}
+.chip.st-neu .dot{background:var(--st-neu);box-shadow:0 0 0 2px var(--st-neu-t)}
+.chip.st-umbenannt .dot{background:var(--st-umb);box-shadow:0 0 0 2px var(--st-umb-t)}
+.chip.st-auslaufend .dot,.chip.st-abgekuendigt .dot{background:transparent;border:2px solid var(--st-aus)}
+.chip.st-abgekuendigt .dot{border-color:var(--st-abg)}
+.chip.st-auslaufend,.chip.st-abgekuendigt{color:var(--muted)}
+.chip.st-abgekuendigt .nm{text-decoration:line-through;text-decoration-color:var(--st-abg)}
+.chip.unv{border-style:dashed}
+.chip.child{font-size:11.5px;padding:3px 7px;background:var(--surface-2)}
+.chip.child::before{content:"↳";color:var(--faint);margin-right:-2px}
+.chip.sel{border-color:var(--zc);background:var(--zc);color:var(--surface)}
+.chip.sel .dot{background:var(--surface);box-shadow:none;border-color:var(--surface)}
+.map.has-sel .chip:not(.sel):not(.rel){opacity:.38}
+.chip.rel{border-color:var(--zc);border-width:1.5px;background:var(--zt)}
+.chip.miss{opacity:.18}
+.map.has-sel .chip.miss{opacity:.12}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:8px}
+.tile{border:1px solid var(--line);background:var(--zt);border-radius:6px;padding:8px 10px;text-align:left;cursor:pointer;min-width:0}
+.tile b{display:block;font-family:var(--f-display);font-stretch:88%;font-size:14px;line-height:1.2}
+.tile span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.tile:hover{border-color:var(--zc)}
+.tile.sel{background:var(--zc);color:var(--surface);border-color:var(--zc)}
+.tile.sel span{color:inherit;opacity:.85}
+.map.has-sel .tile:not(.sel):not(.rel){opacity:.38}
+.tile.rel{border-color:var(--zc);border-width:1.5px}
+.tile.miss{opacity:.18}
+.stratum{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:8px;margin:2px 2px -2px}
+.stratum::after{content:"";flex:1;border-top:1px dashed var(--line-strong)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:12px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.legend .lg-aus{background:transparent;border:2px solid var(--st-aus)}
+.legend .lg-unv{width:18px;height:10px;border-radius:3px;border:1px dashed var(--line-strong)}
+
+/* Detail-Panel */
+.detail{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 18px 20px;min-width:0}
+.detail .close{display:none}
+.d-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.d-eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--zc);display:flex;align-items:center;gap:6px}
+.d-eyebrow::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--zc)}
+.detail h2{font-family:var(--f-display);font-stretch:84%;font-weight:800;font-size:24px;line-height:1.1;margin:6px 0 2px;text-wrap:balance}
+.d-aka{font-size:12.5px;color:var(--muted)}
+.d-kurz{font-size:15px;margin:10px 0 12px}
+.d-status{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.pill{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.pill.aktiv{color:var(--muted)}
+.pill.neu{color:var(--st-neu);background:var(--st-neu-t)}
+.pill.umbenannt{color:var(--st-umb);background:var(--st-umb-t)}
+.pill.auslaufend{color:var(--st-aus);background:var(--st-aus-t)}
+.pill.abgekuendigt{color:var(--st-abg);background:var(--st-abg-t)}
+.pill.bel-ja{color:var(--st-neu)}.pill.bel-teilweise{color:var(--st-aus)}.pill.bel-nein{color:var(--st-abg)}
+.d-sec{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+.d-sec h4{margin:0 0 3px;font-size:11.5px;font-family:var(--f-mono);font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.d-sec p{margin:0}
+.d-sec.test{display:none}
+body.show-test .d-sec.test{display:block}
+.d-sec.test{background:var(--z-proj-t);border:0;border-radius:8px;padding:10px 12px;margin-top:12px}
+.d-sec.test h4{color:var(--z-proj)}
+.d-dates{list-style:none;padding:0;margin:0;display:grid;gap:4px}
+.d-dates li{display:grid;grid-template-columns:86px 1fr;gap:8px;font-size:13px}
+.d-dates time{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.d-rel{display:flex;flex-wrap:wrap;gap:5px}
+.d-src{padding-left:18px;margin:0;font-size:12.5px}
+.d-src li{margin:2px 0;word-break:break-word}
+.d-note{font-size:12.5px;color:var(--muted);margin-top:8px;border-left:3px solid var(--st-aus);padding-left:10px}
+.intro h2{font-size:22px}
+.intro ol{padding-left:20px;margin:8px 0 0}
+.intro li{margin:6px 0}
+.link{border:0;background:none;padding:0;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:2px;font:inherit;text-align:left}
+
+/* Allgemeine Ansichten */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.panel h2{font-family:var(--f-display);font-stretch:84%;font-weight:800;font-size:22px;margin:0 0 4px}
+.panel>p.lead{margin:0 0 14px;color:var(--muted);max-width:75ch}
+.figscroll{overflow-x:auto}
+figure{margin:0}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:8px;max-width:80ch}
+svg.dia{display:block;width:100%;min-width:760px;height:auto;color:var(--ink);font-family:var(--f-body)}
+svg .box{fill:var(--surface-2);stroke:var(--line-strong)}
+svg .boxt{font-family:var(--f-display);font-stretch:85%;font-weight:700;font-size:14px}
+svg .hit{cursor:pointer}
+svg .hit rect{fill:var(--surface);stroke:var(--line)}
+svg .hit text{font-size:12px;fill:currentColor}
+svg .hit:hover rect,svg .hit:focus rect{stroke:var(--accent);stroke-width:1.5}
+svg .hit.ttl.sel text{fill:var(--accent)}
+svg .hit.ttl:hover rect{stroke:transparent!important}
+svg .hit.hub rect{stroke:var(--accent);stroke-width:2}
+svg .hit.sel rect{fill:var(--accent);stroke:var(--accent)}
+svg .hit.sel text{fill:var(--accent-ink)}
+svg .edge{stroke:currentColor;stroke-width:1.4;fill:none;opacity:.7}
+svg .edge.dash{stroke-dasharray:5 4}
+svg .elab{font-size:11px;fill:var(--muted)}
+svg .elab-bg{fill:var(--bg)}
+svg .plain{font-size:12px;fill:var(--muted)}
+
+/* Toolchain */
+#tc-fig .tcl{display:none}
+#tc-fig.has-sel .tcl.on{display:inline}
+#tc-fig.has-sel .tce{opacity:.15}
+#tc-fig.has-sel .tce.on{opacity:1;stroke:var(--accent);stroke-width:2.2}
+#tc-fig.has-sel .tce.on{color:var(--accent)}
+.ftab{width:100%;border-collapse:collapse;font-size:12.5px}
+.ftab th{text-align:left;font-family:var(--f-mono);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);border-bottom:1px solid var(--line);padding:4px 8px 4px 0}
+.ftab td{border-bottom:1px solid var(--line);padding:5px 8px 5px 0;vertical-align:top}
+.ftab td:nth-child(-n+2){white-space:nowrap}
+.ftab tr.on td{background:var(--z-proj-t)}
+.tabwrap{overflow-x:auto}
+
+/* Toolchain-Bahnen */
+.tcg{display:grid;grid-template-columns:132px repeat(6,minmax(128px,1fr));gap:0;min-width:1000px}
+.tcg .ph{padding:8px 8px 10px;border-bottom:2px solid var(--line-strong)}
+.tcg .ph b{display:block;font-family:var(--f-display);font-stretch:85%;font-size:15px}
+.tcg .ph span{font-size:11.5px;color:var(--muted)}
+.tcg .ln{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.tcg .lb{grid-column:2/-1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;padding:8px 0;border-bottom:1px solid var(--line);
+  background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:calc(100%/6) 100%}
+.tcg .ln.spine,.tcg .lb.spine{background-color:var(--z-proj-t)}
+.tcg .ln.spine{color:var(--z-proj);font-weight:500}
+.tcg .ln.legacy,.tcg .lb.legacy{background-color:var(--st-aus-t)}
+.tcard{background:var(--surface);border:1px solid var(--line-strong);border-radius:7px;padding:7px 9px;cursor:pointer;min-width:0;font-size:12.5px;line-height:1.35}
+.tcard:hover{border-color:var(--accent)}
+.tcard b{display:block;font-size:13px}
+.tcard .td{display:block;color:var(--muted);margin-top:2px}
+.tcard ul{list-style:none;margin:6px 0 0;padding:6px 0 0;border-top:1px dashed var(--line);display:grid;gap:3px}
+.tcard li{font-size:11.5px;color:var(--ink)}
+.tcard li i{font-style:normal;font-family:var(--f-mono);color:var(--accent);margin-right:4px}
+.tcard.leg{border-style:dashed;border-color:var(--st-aus)}
+.tcard .succ{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px;font-size:12px}
+.tcard .succ .to{font-weight:600;color:var(--st-neu)}
+.tcard .succ .to.none{color:var(--st-abg)}
+.tcard.sel{outline:2px solid var(--accent);outline-offset:1px}
+.tcard.rel{border-color:var(--accent)}
+#tc.has-sel .tcard:not(.sel):not(.rel){opacity:.45}
+
+/* Schichtenmodell */
+.phead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:flex-start}
+.zoom{display:flex;gap:6px}
+.stackscroll{border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+svg.stack{display:block;width:1800px;max-width:none;height:auto;color:var(--ink);font-family:var(--f-body)}
+svg.stack.fit{width:100%;min-width:0}
+svg .sc{stroke-width:1.3;stroke-dasharray:6 4}
+svg .sc.c-ui{fill:var(--surface);stroke:var(--line-strong)}
+svg .sc.c-saas{fill:var(--z-lob-t);stroke:var(--z-lob)}
+svg .sc.c-btp{fill:var(--z-plat-t);stroke:var(--z-plat)}
+svg .sc.c-ai{fill:var(--z-ai-t);stroke:var(--z-ai)}
+svg .sc.c-bdc{fill:var(--z-data-t);stroke:var(--z-data)}
+svg .sc.c-non{fill:var(--surface-2);stroke:var(--line-strong)}
+svg .sc.c-bus{fill:var(--z-int-t);stroke:var(--z-int)}
+svg .sc.c-s4{fill:var(--z-core-t);stroke:var(--z-core)}
+svg .sc.c-cc{fill:var(--surface);stroke:var(--z-core);stroke-dasharray:none;stroke-width:1.6}
+svg .sc.c-in{fill:var(--surface-2);stroke:var(--line-strong);stroke-dasharray:none}
+svg .sc.c-quer{fill:var(--z-quer-t);stroke:var(--z-quer)}
+svg .sc.c-lc{fill:var(--z-proj-t);stroke:var(--z-proj)}
+svg .sct{font-family:var(--f-display);font-stretch:86%;font-weight:700;font-size:14px;fill:currentColor}
+svg .rowlab{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;fill:var(--faint)}
+svg .pbox{fill:var(--surface);stroke:var(--line);stroke-dasharray:3 3}
+svg .hit.leg rect{stroke:var(--st-aus);stroke-dasharray:4 3}
+svg .hit.leg text{fill:var(--muted)}
+svg .ccline{stroke:var(--st-abg);stroke-width:1.6;stroke-dasharray:8 5}
+svg .cclab{font-size:12px;font-weight:600;fill:var(--st-abg)}
+svg .conn{stroke:currentColor;stroke-width:1.5;fill:none;opacity:.75}
+.chip .home{font-size:11px;color:var(--faint)}
+.unsel{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2);border-radius:99px;padding:3px 10px;cursor:pointer;font-size:12px;margin-bottom:8px}
+.unsel:hover{border-color:var(--accent)}
+
+/* Clean Core */
+.ladder{display:grid;gap:6px;margin:4px 0 18px}
+.rung{display:grid;grid-template-columns:62px minmax(0,1fr) minmax(0,1.1fr);gap:12px;align-items:start;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2)}
+.rung .lv{font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:30px;line-height:1}
+.rung.l-a .lv{color:var(--st-neu)}.rung.l-b .lv{color:var(--st-umb)}.rung.l-c .lv{color:var(--st-aus)}.rung.l-d .lv{color:var(--st-abg)}
+.rung h4{margin:0 0 2px;font-size:14px}
+.rung p{margin:0;font-size:13px;color:var(--muted)}
+.models{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.model{border:1px solid var(--line);border-radius:8px;padding:12px}
+.model h4{margin:0 0 4px;font-family:var(--f-display);font-stretch:86%;font-size:16px}
+.model p{margin:0 0 8px;font-size:13px}
+.model .where{font-family:var(--f-mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+
+/* Zeitleiste */
+.tl{display:grid;gap:0}
+.yr{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.yr h3{margin:0;font-family:var(--f-display);font-stretch:80%;font-weight:800;font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
+.yr.cliff h3{color:var(--st-aus)}
+.yr ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.yr li{display:grid;grid-template-columns:70px minmax(0,1fr);gap:10px;font-size:13px;align-items:baseline}
+.yr li time{font-family:var(--f-mono);font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.yr li.eol .what::before{content:"";display:inline-block;width:7px;height:7px;border:2px solid var(--st-aus);border-radius:50%;margin-right:6px;vertical-align:1px}
+.yr .what .link{font-weight:600}
+.tlf{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.note-box{background:var(--st-aus-t);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:13.5px}
+
+/* Responsiv */
+@media (max-width:1180px){
+  .main{grid-template-columns:minmax(0,1fr) 340px}
+  .map{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"proj proj" "plat plat" "ext ext" "core core" "lob sec" "ops ops"}
+}
+@media (max-width:900px){
+  .main{grid-template-columns:minmax(0,1fr)}
+  .detail{position:fixed;left:0;right:0;bottom:0;top:auto;max-height:78vh;border-radius:14px 14px 0 0;z-index:20;
+    padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));
+    box-shadow:0 -10px 30px rgba(0,0,0,.18);transform:translateY(105%);transition:transform .22s ease}
+  .detail.open{transform:none}
+  .detail .close{display:inline-flex;position:sticky;top:0;float:right;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 12px;cursor:pointer;font-size:12.5px}
+  .map{grid-template-columns:minmax(0,1fr);grid-template-areas:"proj" "plat" "ext" "core" "lob" "sec" "ops"}
+  .a-plat .subgrid{grid-template-columns:minmax(0,1fr)}
+  .tiles{grid-template-columns:minmax(0,1fr)}
+  .models{grid-template-columns:minmax(0,1fr)}
+  .rung{grid-template-columns:44px minmax(0,1fr)}
+  .rung>div:last-child{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <div>
+      <h1>S/4HANA-<span>Landkarte</span> 2026</h1>
+      <p>Produkte in und um SAP S/4HANA, Stand Oktober 2026: <b id="cnt"></b> Steckbriefe in zwölf Bereichen, nachrecherchiert zu Utilities, Cloud-ALM-Test und Migration. Ein Klick auf einen Baustein öffnet den Steckbrief und hebt die verwandten Bausteine hervor.</p>
+    </div>
+    <div class="tools">
+      <label class="search"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="11" y1="11" x2="15" y2="15" stroke="currentColor" stroke-width="1.6"/></svg>
+        <input id="q" type="search" placeholder="Suchen, z. B. PI/PO, Datasphere, Tosca" aria-label="Bausteine durchsuchen"></label>
+      <div class="filters" role="group" aria-label="Nach Status filtern">
+        <button class="fbtn" data-st="all" aria-pressed="true">Alle</button>
+        <button class="fbtn" data-st="neu" aria-pressed="false"><span class="sw" style="background:var(--st-neu)"></span>Neu</button>
+        <button class="fbtn" data-st="umbenannt" aria-pressed="false"><span class="sw" style="background:var(--st-umb)"></span>Umbenannt</button>
+        <button class="fbtn" data-st="auslaufend" aria-pressed="false"><span class="sw" style="border:2px solid var(--st-aus)"></span>Läuft aus</button>
+      </div>
+      <button class="fbtn" id="testview" aria-pressed="false" title="Blendet in jedem Steckbrief ein, was die Lösung für Test und Qualitätssicherung bedeutet">Testperspektive</button>
+    </div>
+  </header>
+
+  <div class="tabbar">
+  <nav class="tabs" role="tablist" aria-label="Ansichten">
+    <button class="tab" role="tab" data-view="karte" aria-selected="true">Landkarte</button>
+    <button class="tab" role="tab" data-view="schichten" aria-selected="false">Schichtenmodell</button>
+    <button class="tab" role="tab" data-view="integration" aria-selected="false">Integrationswege</button>
+    <button class="tab" role="tab" data-view="toolchain" aria-selected="false">Toolchain</button>
+    <button class="tab" role="tab" data-view="cleancore" aria-selected="false">Clean Core</button>
+    <button class="tab" role="tab" data-view="zeitleiste" aria-selected="false">Zeitleiste</button>
+  </nav>
+  <div id="selbar" hidden><span class="sl">Auswahl:</span><b id="selname"></b><button class="xbtn" type="button" data-unsel aria-label="Auswahl aufheben">✕</button></div>
+  </div>
+
+  <div class="main">
+    <div class="view" id="v-karte">
+      <div class="map" id="map"></div>
+      <div class="legend">
+        <span><i style="background:var(--faint)"></i>aktiv</span>
+        <span><i style="background:var(--st-neu)"></i>neu seit 2025</span>
+        <span><i style="background:var(--st-umb)"></i>umbenannt</span>
+        <span><i class="lg-aus"></i>läuft aus / abgekündigt</span>
+        <span><i class="lg-unv"></i>nur teilweise belegt</span>
+        <span>↗ auch in einem anderen Bereich zu Hause</span>
+        <span>Auswahl aufheben: erneut klicken, Esc oder „Auswahl aufheben“ im Steckbrief</span>
+      </div>
+    </div>
+
+    <div class="view" id="v-schichten" hidden>
+      <div class="panel">
+        <div class="phead"><div><h2>Schichtenmodell</h2>
+        <p class="lead">Welche Kästen wie zusammengesteckt sind: unten Infrastruktur und Datenbank, darauf der S/4HANA-Kern mit seiner Clean-Core-Grenze, darüber die Integrationsschicht und die Anwendungen daneben. Links querschnittlich Security, rechts die Projektwerkzeuge. Jeder Kasten ist anklickbar; die Grafik ist groß und lässt sich seitlich scrollen.</p></div>
+        <div class="zoom" role="group" aria-label="Darstellungsgröße"><button class="fbtn" data-zoom="full" aria-pressed="true">Originalgröße</button><button class="fbtn" data-zoom="fit" aria-pressed="false">Einpassen</button></div></div>
+        <div class="figscroll stackscroll"><figure id="stack-fig"></figure></div>
+      </div>
+    </div>
+
+    <div class="view" id="v-integration" hidden>
+      <div class="panel">
+        <h2>Integrationswege rund um S/4HANA</h2>
+        <p class="lead">Wie Daten, Ereignisse und Benutzer zwischen S/4HANA und dem Rest der Landschaft fließen. Jede Beschriftung an einer Linie nennt die Technik. Die Bausteine sind anklickbar.</p>
+        <div class="figscroll"><figure id="int-fig"></figure></div>
+      </div>
+    </div>
+
+    <div class="view" id="v-toolchain" hidden>
+      <div class="panel">
+        <h2>Agent-led Toolchain</h2>
+        <p class="lead">Welches Werkzeug in welcher Projektphase arbeitet, was es tut und was es an wen liefert. SAP Cloud ALM ist das Rückgrat, an das die anderen Werkzeuge andocken. Seit der Sapphire 2026 heißt die frühere „Integrated Toolchain“ so. Agenten sollen die Übergaben zwischen den Tools übernehmen.</p>
+        <div class="figscroll"><div id="tc"></div></div>
+        <div id="tc-flows"></div>
+      </div>
+    </div>
+
+    <div class="view" id="v-cleancore" hidden>
+      <div class="panel" id="cc"></div>
+    </div>
+
+    <div class="view" id="v-zeitleiste" hidden>
+      <div class="panel" id="tlp"></div>
+    </div>
+
+    <aside class="detail" id="detail" aria-live="polite"></aside>
+  </div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/[];
+const FLOWS = /*__FLOWS__*/[];
+
+const LAYERS = {
+  core:{n:"S/4HANA-Kern & Deployment",z:"core"}, ext:{n:"Clean Core & Erweiterbarkeit",z:"core"},
+  btp:{n:"Plattform & Entwicklung",z:"plat"}, ai:{n:"Business AI & Joule",z:"ai"},
+  int:{n:"Integration",z:"int"}, data:{n:"Daten & Analytics",z:"data"},
+  lob:{n:"LoB-Cloud-Apps & Branchen",z:"lob"}, tool:{n:"Toolchain, ALM & Test",z:"proj"},
+  mig:{n:"Migration & Transformation",z:"proj"}, pm:{n:"Einführungsprojekt steuern",z:"proj"},
+  sec:{n:"Security, Identity & GRC",z:"quer"}, ops:{n:"Betrieb & Infrastruktur",z:"quer"}
+};
+const ZDESC = {
+  core:"Das ERP selbst, seine Betriebsvarianten und die eingebauten Komponenten, darunter das Projektmanagement des Unternehmens (PS, EPPM, CPM).",
+  ext:"Wie man S/4HANA erweitert, ohne den Kern zu verbiegen.",
+  lob:"SaaS-Lösungen, die S/4HANA fachlich ergänzen, plus Utilities.",
+  sec:"Querschnitt: Identitäten, Berechtigungen, Compliance.",
+  ops:"Wer betreibt was, wo läuft es, welche Werkzeuge helfen.",
+  int:"Das Bindegewebe: Schnittstellen, Events, Replikation. Ersetzt PI/PO.",
+  pm:"Methodik und Werkzeuge, um die S/4HANA-Einführung selbst zu planen und zu steuern. Projektmanagement als Fachfunktion (PS, EPPM, CPM) steckt im S/4HANA-Kern."
+};
+const DEPLOY = ["s4-cloud-erp","s4-private","s4-onprem"];
+// Bausteine, die zusätzlich in einem anderen Bereich erscheinen
+const ALSO = {"data-services":["mig"],"slt":["mig"],"atc":["mig"],"business-partner":["mig"],"migration-assessment":["mig"],"embedded-analytics":["data"],"hana-cloud":["data"]};
+const ST = {aktiv:"aktiv",neu:"neu",umbenannt:"umbenannt",auslaufend:"läuft aus",abgekuendigt:"abgekündigt"};
+const BEL = {ja:"belegt",teilweise:"teilweise belegt",nein:"unbelegt"};
+
+const byId = Object.fromEntries(DATA.map(d=>[d.id,d]));
+const order = Object.fromEntries(DATA.map((d,i)=>[d.id,i]));
+const esc = s => String(s ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const inLayer = l => DATA.filter(d=>d.layer===l);
+
+// Rückverweise ergänzen: wer mich als verwandt nennt, ist auch mit mir verwandt
+const REL = {};
+DATA.forEach(d=>{REL[d.id]=new Set((d.verwandt||[]).filter(x=>byId[x]&&x!==d.id));});
+DATA.forEach(d=>REL[d.id].forEach(x=>REL[x].add(d.id)));
+
+document.getElementById("cnt").textContent = DATA.length;
+const KIDS = {}; DATA.forEach(d=>{ if(d.parent&&byId[d.parent]) (KIDS[d.parent]=KIDS[d.parent]||[]).push(d.id); });
+
+/* ---------- Landkarte ---------- */
+function chip(d){
+  let unv = d.belegt==="nein" ? " unv" : "";
+  const home = arguments[1] && arguments[1]!==d.layer ? `<span class="home" title="gehört zu ${esc(LAYERS[d.layer].n)}">↗</span>` : "";
+  if(d.parent) unv += " child";
+  return `<button class="chip st-${esc(d.status)}${unv}" data-id="${esc(d.id)}" title="${esc(d.kurz)}"><span class="dot"></span><span class="nm">${esc(d.name)}</span>${home}</button>`;
+}
+function zone(layer, extraCls="", desc=true){
+  const L = LAYERS[layer]; let items = inLayer(layer).concat(DATA.filter(d=>(ALSO[d.id]||[]).includes(layer)));
+  let tiles = "";
+  if(layer==="core"){
+    const dep = DEPLOY.map(id=>byId[id]).filter(Boolean);
+    tiles = `<div class="tiles">${dep.map(d=>`<button class="tile" data-id="${esc(d.id)}"><b>${esc(d.name)}</b><span>${esc(d.kurz)}</span></button>`).join("")}</div>`;
+    items = items.filter(d=>!DEPLOY.includes(d.id));
+  }
+  return `<section class="zone z-${L.z} ${extraCls}" aria-label="${esc(L.n)}">
+    <div class="zt"><h3>${esc(L.n)}</h3><span class="n">${inLayer(layer).length}</span></div>
+    ${desc&&ZDESC[layer]?`<p class="zd">${esc(ZDESC[layer])}</p>`:""}
+    ${tiles}<div class="chips">${items.map(d=>chip(d,layer)).join("")}</div></section>`;
+}
+function renderMap(){
+  const m = document.getElementById("map");
+  m.innerHTML = `
+  <div class="group z-proj a-proj"><div class="gt"><h2>Projekt & Lebenszyklus</h2><span>Werkzeuge, mit denen die Einführung geplant, gebaut, getestet und überführt wird</span></div>
+    <div class="subgrid">${zone("tool","",false)}${zone("mig","",false)}${zone("pm","",true)}</div></div>
+  ${zone("lob","a-lob")}
+  <div class="group z-plat a-plat"><div class="gt"><h2>SAP BTP · Business AI Platform</h2><span>Seite an Seite neben dem Kern</span></div>
+    <div class="subgrid">${zone("int")}${zone("btp","",false)}${zone("data","",false)}${zone("ai","",false)}</div></div>
+  <div class="a-ext" style="display:grid;gap:6px"><div class="stratum">Clean-Core-Grenze · Erweiterungen nur über freigegebene Schnittstellen</div>${zone("ext")}</div>
+  ${zone("core","a-core")}
+  <div class="a-sec" style="display:grid;gap:10px;align-content:start">${zone("sec")}</div>
+  ${zone("ops","a-ops")}`;
+}
+
+/* ---------- Auswahl & Detail ---------- */
+let SEL = null;
+const detail = document.getElementById("detail");
+function sec(t,body,cls=""){ return body ? `<div class="d-sec ${cls}"><h4>${t}</h4><p>${esc(body)}</p></div>` : ""; }
+function relChip(id){ const d=byId[id]; if(!d) return ""; const z=LAYERS[d.layer].z; return `<button class="chip z-${z} st-${esc(d.status)}" data-id="${esc(d.id)}"><span class="dot"></span><span class="nm">${esc(d.name)}</span></button>`; }
+function renderDetail(d){
+  const L = LAYERS[d.layer];
+  const dates = (d.daten||[]).filter(x=>x&&x.text);
+  const rel = [...REL[d.id]].filter(x=>!(KIDS[d.id]||[]).includes(x)&&x!==d.parent).sort((a,b)=>order[a]-order[b]);
+  const src = (d.quellen||[]).filter(s=>s&&/^https?:\/\//.test(s.url||""));
+  detail.className = `detail open z-${L.z}`;
+  detail.innerHTML = `
+    <div class="d-top"><button class="unsel" type="button" data-unsel>✕ Auswahl aufheben</button></div>
+    <div class="d-eyebrow">${esc(L.n)}</div>
+    ${d.parent&&byId[d.parent]?`<div class="d-aka" style="margin-top:4px">Teil von <button class="link" data-id="${esc(d.parent)}">${esc(byId[d.parent].name)}</button></div>`:""}
+    <h2>${esc(d.name)}</h2>
+    ${(d.aka&&d.aka.length)?`<div class="d-aka">auch: ${esc(d.aka.join(" · "))}</div>`:""}
+    <p class="d-kurz">${esc(d.kurz)}</p>
+    <div class="d-status"><span class="pill ${esc(d.status)}">${esc(ST[d.status]||d.status)}</span>${esc(d.statusText||"")}</div>
+    ${sec("Was es macht",d.was)}
+    ${sec("Wie es funktioniert",d.wie)}
+    ${sec("Bezug zu S/4HANA",d.s4)}
+    ${sec("Wann einsetzen",d.wann)}
+    ${sec("Testperspektive: was das für Test & Qualität heißt",d.test,"test")}
+    ${sec("Lizenz & Paketierung",d.lizenz)}
+    ${dates.length?`<div class="d-sec"><h4>Daten</h4><ul class="d-dates">${dates.map(x=>`<li><time>${esc(fmtDate(x.datum))}</time><span>${esc(x.text)}</span></li>`).join("")}</ul></div>`:""}
+    ${KIDS[d.id]?`<div class="d-sec"><h4>Einzelprodukte</h4><div class="d-rel">${KIDS[d.id].map(relChip).join("")}</div></div>`:""}
+    ${rel.length?`<div class="d-sec"><h4>Hängt zusammen mit</h4><div class="d-rel">${rel.map(relChip).join("")}</div></div>`:""}
+    <div class="d-sec"><h4>Quellen <span class="pill bel-${esc(d.belegt)}" style="margin-left:6px">${esc(BEL[d.belegt]||d.belegt)}</span></h4>
+      ${src.length?`<ul class="d-src">${src.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.titel||s.url)}</a></li>`).join("")}</ul>`:`<p style="font-size:12.5px;color:var(--muted)">Keine verlinkbare Quelle; Angaben aus Fachwissen.</p>`}
+      ${d.hinweis?`<div class="d-note">${esc(d.hinweis)}</div>`:""}
+    </div>`;
+  detail.scrollTop = 0;
+}
+function fmtDate(s){
+  s=String(s||""); const m=s.match(/^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?/);
+  if(!m) return s; if(m[3]) return `${m[3]}.${m[2]}.${m[1]}`; if(m[2]) return `${m[2]}/${m[1]}`; return m[1];
+}
+const SHOW_INTRO = () => {
+  detail.className = "detail z-plat";
+  const L = id => byId[id] ? `<button class="link" data-id="${id}">${esc(byId[id].name)}</button>` : "";
+  detail.innerHTML = `<div class="intro">
+    <div class="d-eyebrow">Einstieg</div>
+    <h2>Was sich seit ECC-Zeiten verschoben hat</h2>
+    <p class="d-kurz" style="font-size:14px">Acht Verschiebungen, die man vor dem ersten Workshop kennen sollte. Jeder Name öffnet den Steckbrief.</p>
+    <ol>
+      <li>Die Produktnamen: Public Edition heißt ${L("s4-cloud-erp")}, Private Edition ${L("s4-private")}; alles hängt unter der ${L("business-suite")}.</li>
+      <li>${L("clean-core")} wird seit August 2025 in Stufen A bis D gemessen, nicht mehr im Drei-Tier-Modell.</li>
+      <li>PI/PO endet: ${L("pipo")} → ${L("integration-suite")}, hybrid über die ${L("eic")}.</li>
+      <li>Daten wandern in die ${L("bdc")}; ${L("datasphere")} und ${L("sac")} sind dort Bausteine.</li>
+      <li>Die Werkzeuge der Einführung bilden eine Kette: ${L("agent-led-toolchain")} mit ${L("signavio")}, ${L("leanix")} und ${L("cloud-alm")}.</li>
+      <li>${L("solman")} läuft Ende 2027 aus; Test und ALM ziehen nach ${L("cloud-alm")} und zu ${L("tricentis-ect")}.</li>
+      <li>KI ist Teil der Plattform: ${L("joule")}, ${L("autonomous-suite")} und ${L("joule-studio")}.</li>
+      <li>2027 laufen viele Wartungen aus, darunter ${L("idm")}, ${L("grc")} und ${L("lama")}. Die Zeitleiste zeigt alle Daten.</li>
+    </ol>
+    <div class="d-sec"><h4>So liest man die Karte</h4><p>Unten der Kern, darüber die Clean-Core-Grenze, darüber die Plattform mit Integration, Entwicklung, Daten und KI. Links die SaaS-Apps, rechts Security, oben die Projektwerkzeuge, unten der Betrieb. Gestrichelte Bausteine stützen sich nur teilweise auf Quellen.</p></div>
+  </div>`;
+  if(matchMedia("(max-width:900px)").matches) detail.classList.remove("open");
+};
+
+function markSelection(){
+  document.querySelectorAll("#map .chip, #map .tile").forEach(el=>{
+    const id = el.dataset.id;
+    el.classList.toggle("sel", id===SEL);
+    el.classList.toggle("rel", !!SEL && REL[SEL] && REL[SEL].has(id));
+  });
+  document.getElementById("map").classList.toggle("has-sel", !!SEL);
+  const sb=document.getElementById("selbar"); sb.hidden=!SEL; if(SEL) document.getElementById("selname").textContent=byId[SEL].name;
+  document.querySelectorAll("svg .xmark").forEach(x=>x.remove());
+  if(SEL) document.querySelectorAll(`svg .hit[data-id="${SEL}"]`).forEach(g=>{
+    const r=g.querySelector("rect"); if(!r) return;
+    const x=+r.getAttribute("x")+ +r.getAttribute("width"), y=+r.getAttribute("y");
+    const m=document.createElementNS("http://www.w3.org/2000/svg","g");
+    m.setAttribute("class","xmark"); m.setAttribute("data-unsel",""); m.setAttribute("role","button"); m.setAttribute("aria-label","Auswahl aufheben");
+    m.innerHTML=`<circle cx="${x-2}" cy="${y+2}" r="8"/><text x="${x-2}" y="${y+6}" text-anchor="middle">✕</text>`;
+    g.parentNode.appendChild(m);
+  });
+  document.querySelectorAll("svg .hit").forEach(g=>g.classList.toggle("sel", g.dataset.id===SEL));
+  document.querySelectorAll(".tcard").forEach(c=>{ c.classList.toggle("sel", c.dataset.id===SEL); c.classList.toggle("rel", !!SEL && REL[SEL] && REL[SEL].has(c.dataset.id)); });
+  const tcEl=document.getElementById("tc"); if(tcEl) tcEl.classList.toggle("has-sel", !!SEL && !!tcEl.querySelector(`.tcard[data-id="${SEL}"]`));
+}
+function select(id, opts={}){
+  const d = byId[id]; if(!d) return;
+  SEL = id; renderDetail(d); markSelection();
+  if(!opts.noHash){ try{ history.replaceState(null,"","#"+id); }catch(e){} }
+}
+function clearSel(){ SEL=null; markSelection(); SHOW_INTRO(); try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){} }
+
+document.addEventListener("click", e=>{
+  if(e.target.closest("[data-unsel]")){ clearSel(); return; }
+  const z = e.target.closest("[data-zoom]");
+  if(z){ document.querySelectorAll("[data-zoom]").forEach(b=>b.setAttribute("aria-pressed",String(b===z))); const s=document.querySelector("svg.stack"); if(s) s.classList.toggle("fit", z.dataset.zoom==="fit"); return; }
+  const t = e.target.closest("[data-id]");
+  if(t){ e.preventDefault(); if(t.dataset.id===SEL && !t.closest("#detail")) clearSel(); else select(t.dataset.id); return; }
+  if(SEL && e.target.closest("#map, #stack-fig, #int-fig, #tc") ) clearSel();
+});
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape"){ clearSel(); }
+  const g = e.target.closest && e.target.closest('[role="button"][data-id]');
+  if(g && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); select(g.dataset.id); }
+});
+
+/* ---------- Suche & Filter ---------- */
+let ST_F = "all";
+const norm = s => String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[\/\-]/g," ");
+const HAY = Object.fromEntries(DATA.map(d=>[d.id, norm([d.name,(d.aka||[]).join(" "),d.kurz,d.was,d.id].join(" "))]));
+function applyFilter(){
+  const q = norm(document.getElementById("q").value).trim();
+  const terms = q ? q.split(/\s+/) : [];
+  let hits = [];
+  document.querySelectorAll("#map .chip, #map .tile").forEach(el=>{
+    const d = byId[el.dataset.id]; if(!d) return;
+    const okQ = terms.every(t=>HAY[d.id].includes(t));
+    const st = d.status==="abgekuendigt" ? "auslaufend" : d.status;
+    const okS = ST_F==="all" || st===ST_F;
+    const ok = okQ && okS;
+    el.classList.toggle("miss", !ok);
+    if(ok && (terms.length||ST_F!=="all")) hits.push(d.id);
+  });
+  return hits;
+}
+document.getElementById("q").addEventListener("input", ()=>{ if(currentView!=="karte") show("karte"); applyFilter(); });
+document.getElementById("q").addEventListener("keydown", e=>{ if(e.key==="Enter"){ const h=[...new Set(applyFilter())]; if(h.length) select(h[0]); }});
+document.querySelectorAll(".fbtn[data-st]").forEach(b=>b.addEventListener("click",()=>{
+  ST_F = b.dataset.st;
+  document.querySelectorAll(".fbtn[data-st]").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+  if(currentView!=="karte") show("karte");
+  applyFilter();
+}));
+
+/* ---------- Ansichten ---------- */
+let currentView = "karte";
+const VIEWS = ["karte","schichten","integration","toolchain","cleancore","zeitleiste"];
+function show(v){
+  currentView = v;
+  VIEWS.forEach(x=>{ document.getElementById("v-"+x).hidden = x!==v; });
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", String(t.dataset.view===v)));
+  try{ if(v!=="karte") history.replaceState(null,"","#"+v); else if(!SEL) history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>show(t.dataset.view)));
+
+/* ---------- SVG-Helfer ---------- */
+const NS = "http://www.w3.org/2000/svg";
+function hitItem(id,x,y,w,label){
+  const d = byId[id]; const name = label || (d ? d.name : id);
+  if(!d) return `<text class="plain" x="${x+8}" y="${y+15}">${esc(name)}</text>`;
+  return `<g class="hit" data-id="${esc(id)}" tabindex="0" role="button" aria-label="${esc(d.name)}"><rect x="${x}" y="${y}" width="${w}" height="22" rx="4"/><text x="${x+8}" y="${y+15}">${esc(name)}</text></g>`;
+}
+function boxG(x,y,w,h,title,titleId,items,cols=1){
+  let s = `<rect class="box" x="${x}" y="${y}" width="${w}" height="${h}" rx="8"/>`;
+  s += titleId && byId[titleId]
+    ? `<g class="hit ttl" data-id="${titleId}" tabindex="0" role="button" aria-label="${esc(title)}"><rect x="${x+8}" y="${y+8}" width="${w-16}" height="24" rx="4" style="fill:transparent;stroke:transparent"/><text class="boxt" x="${x+14}" y="${y+25}" style="font-size:14px;font-weight:700">${esc(title)} ›</text></g>`
+    : `<text class="boxt" x="${x+14}" y="${y+25}">${esc(title)}</text>`;
+  const cw = (w-16-(cols-1)*6)/cols;
+  items.forEach((it,i)=>{
+    const c=i%cols, r=Math.floor(i/cols);
+    const ix = x+8+c*(cw+6), iy = y+38+r*27;
+    s += Array.isArray(it) ? hitItem(it[0],ix,iy,cw,it[1]) : `<text class="plain" x="${ix+8}" y="${iy+15}">${esc(it)}</text>`;
+  });
+  return s;
+}
+function edge(x1,y1,x2,y2,label,opt={}){
+  const id = "ah";
+  let s = `<line class="edge${opt.dash?" dash":""}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" marker-end="url(#${id})" ${opt.both?`marker-start="url(#${id}s)"`:""}/>`;
+  if(label){
+    const lines = label.split("|"); const lx = opt.lx ?? (x1+x2)/2, ly = opt.ly ?? (y1+y2)/2;
+    const anchor = opt.anchor || "middle";
+    const wmax = Math.max(...lines.map(l=>l.length))*6.2+10;
+    const bx = anchor==="middle" ? lx-wmax/2 : anchor==="start" ? lx-4 : lx-wmax+4;
+    s += `<rect class="elab-bg" x="${bx}" y="${ly-11}" width="${wmax}" height="${lines.length*13+5}" rx="3"/>`;
+    s += `<text class="elab" text-anchor="${anchor}">${lines.map((l,i)=>`<tspan x="${lx}" y="${ly+i*13}">${esc(l)}</tspan>`).join("")}</text>`;
+  }
+  return s;
+}
+const DEFS = `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M10,0 L0,5 L10,10 z" fill="currentColor"/></marker></defs>`;
+
+/* ---------- Schichtenmodell ---------- */
+function renderStack(){
+  const CH=6.7, IH=26, GAP=6;
+  const fit=(s,w)=>{ const n=Math.floor((w-16)/CH); return s.length>n ? s.slice(0,Math.max(3,n-1))+"…" : s; };
+  const placed=new Set();
+  function item(it,x,y,w){
+    if(!Array.isArray(it)) return `<rect class="pbox" x="${x}" y="${y}" width="${w}" height="${IH}" rx="4"/><text class="plain" x="${x+8}" y="${y+17}">${esc(fit(it,w))}</text>`;
+    const d=byId[it[0]]; const label=it[1]||(d?d.name:it[0]);
+    if(!d) return "";
+    placed.add(d.id);
+    const leg=d.status==="auslaufend"||d.status==="abgekuendigt";
+    return `<g class="hit${leg?" leg":""}" data-id="${esc(d.id)}" tabindex="0" role="button" aria-label="${esc(d.name)}"><title>${esc(d.name+": "+d.kurz)}</title><rect x="${x}" y="${y}" width="${w}" height="${IH}" rx="4"/><text x="${x+8}" y="${y+17}">${esc(fit(label,w))}</text></g>`;
+  }
+  function flow(items,x,w,pad=10){
+    const pos=[]; let cx=x+pad, cy=0;
+    items.forEach(it=>{
+      const label=Array.isArray(it)?(it[1]||(byId[it[0]]||{}).name||it[0]):it;
+      if(Array.isArray(it)&&!byId[it[0]]) return;
+      const iw=Math.min(w-2*pad, Math.max(64, label.length*CH+18));
+      if(cx+iw>x+w-pad+0.5 && cx>x+pad){ cx=x+pad; cy+=IH+GAP; }
+      pos.push({it,x:cx,y:cy,w:iw}); cx+=iw+GAP;
+    });
+    return {h:pos.length?cy+IH:0, draw:y0=>pos.map(p=>item(p.it,p.x,y0+p.y,p.w)).join("")};
+  }
+  function box(x,w,o){
+    const f=flow(o.items||[],x,w);
+    let off=30+f.h+(f.h?10:0);
+    const subs=(o.sub||[]).map(s=>{ const c=box(x+10,w-20,{cls:"c-in",...s}); const r={c,off}; off+=c.h+8; return r; });
+    const h=off+(subs.length?2:0);
+    return {h, draw:(y,hh)=>{
+      let s=`<rect class="sc ${o.cls}" x="${x}" y="${y}" width="${w}" height="${hh||h}" rx="8"/>`;
+      const title=esc(o.t||"");
+      s += o.tid&&byId[o.tid] ? `<g class="hit ttl" data-id="${o.tid}" tabindex="0" role="button" aria-label="${title}"><rect x="${x+6}" y="${y+5}" width="${Math.min(w-12,title.length*7.6+30)}" height="22" rx="4" style="fill:transparent;stroke:transparent"/><text class="sct" x="${x+10}" y="${y+21}">${title} ›</text></g>` : `<text class="sct" x="${x+10}" y="${y+21}">${title}</text>`;
+      if(o.tid) placed.add(o.tid);
+      s+=f.draw(y+30); subs.forEach(r=>s+=r.c.draw(y+r.off)); return s; }};
+  }
+  // Raster
+  const SEC={x:20,w:170}, MID={x:260,w:1280}, LC={x:1610,w:170};
+  const SAAS={x:260,w:270}, BTP={x:546,w:420}, BDC={x:982,w:280}, NON={x:1278,w:262};
+  const lab=(y,txt)=>`<text class="rowlab" x="${MID.x}" y="${y-9}">${esc(txt)}</text>`;
+  const cfg = {
+    ui:[ [SAAS,{cls:"c-ui",items:["Oberflächen der SaaS-Apps"]}], [BTP,{cls:"c-ui",items:[["fiori","Fiori Launchpad"],["work-zone","Build Work Zone"],["joule","Joule"],["joule-work","Joule Work"]]}],
+         [BDC,{cls:"c-ui",items:[["sac","SAP Analytics Cloud"],["businessobjects","BusinessObjects"]]}], [NON,{cls:"c-ui",items:["Partner- und Lieferantenportale"]}] ],
+    app:[ [SAAS,{cls:"c-saas",t:"SAP-Cloud-Apps (SaaS)",items:[["successfactors","SuccessFactors"],["ecp","EC Payroll"],["ariba","Ariba"],["concur","Concur"],["fieldglass","Fieldglass"],["sales-service-cloud","Sales & Service Cloud"],["commerce-emarsys","Commerce, Emarsys, CPQ"],["fsm","Field Service Mgmt"],["ibp","IBP"],["dmc","Digital Manufacturing"],["apm","Asset Performance Mgmt"],["taulia-cashapp","Taulia, Cash App"],["drc","E-Rechnung (DRC)"],["sustainability","Green Ledger, SFM"],["prm","Project & Resource Mgmt"],["cloud-for-energy","Cloud for Energy"],["der","Distributed Energy Res."],["maco-cloud","MaCo Cloud (MaKo)"],["business-network","Business Network"],["bn-logistics","BN for Logistics"]]}],
+          [BTP,{cls:"c-btp",t:"SAP BTP · Business AI Platform",tid:"btp",sub:[
+             {t:"Eigene Apps & Prozesse (Side-by-Side)",items:[["build-code","Build Code"],["cap","CAP"],["build-pa","Build Process Automation"],["task-center","Task Center"],["build-apps","Build Apps"]]},
+             {t:"KI & Agenten",cls:"c-ai",items:[["joule-studio","Joule Studio"],["autonomous-suite","Joule Agents"],["ai-agent-hub","AI Agent Hub"],["joule-dev","Joule for Developers"],["rpt-1","SAP-RPT-1"]]},
+             {t:"Laufzeiten & Dienste",items:[["cf-runtime","Cloud Foundry"],["kyma","Kyma"],["abap-env","ABAP Environment"],["ai-core","AI Core, Gen AI Hub"],["hana-cloud","HANA Cloud"],["ctms","Transport Mgmt, CI/CD"],["neo","Neo (endet 2028)"]]}]}],
+          [BDC,{cls:"c-bdc",t:"SAP Business Data Cloud",tid:"bdc",items:["Data Products (SAP-verwaltet)",["datasphere","Datasphere"],["bw","BW PCE, BW/4HANA"],["sap-databricks","SAP Databricks"],["bdc-connect","BDC Connect"],["dremio","Dremio (Lakehouse)"],["hana-cloud","HANA Cloud, Data Lake"]]}],
+          [NON,{cls:"c-non",t:"Nicht-SAP & Partner",items:["Fremdsysteme (CRM, MES, GIS)","Banken, Zahlungsverkehr","Marktpartner (EDIFACT, AS4)",["eda-at","EDA Österreich (Ponton)"],["redispatch","Redispatch 2.0 (Partner)"],"Behörden (Peppol)","Hyperscaler-Dienste"]}] ],
+    bus:{cls:"c-bus",t:"Integration & Events · läuft auf SAP BTP",tid:"integration-suite",items:[["cloud-integration","Cloud Integration"],["api-mgmt","API Management"],["integration-advisor-tpm","Integration Advisor, TPM"],["open-connectors","Open Connectors"],["sap-graph","Graph"],["event-mesh","Event Mesh"],["aem","Advanced Event Mesh"],["event-hub","Cloud Application Event Hub"],["mdi","Master Data Integration"],["eic","Edge Integration Cell"],["integration-assessment","Integration Assessment (ISA-M)"],["migration-assessment","PI/PO-Migration Assessment"],["accelerator-hub","Business Accelerator Hub"],["slt","SLT (Replikation)"],["data-services","Data Services"],["data-intelligence","Data Intelligence"],["pipo","PI/PO (endet 2027)"]]},
+    s4:{cls:"c-s4",t:"SAP S/4HANA",tid:"s4-private",items:[["s4-private","Cloud ERP Private (RISE)"],["s4-cloud-erp","Cloud ERP (Public)"],["s4-onprem","On-Premise"],["rise-grow","RISE, GROW"],["business-suite","Business Suite"]],sub:[
+       {t:"Schnittstellen nach außen · Clean-Core-Grenze",tid:"clean-core",cls:"c-cc",items:[["s4-apis","Released APIs (OData, SOAP, IDoc, RFC)"],["s4-business-events","Business Events"],["embedded-analytics","CDS-Views, VDM, Embedded Analytics"]]},
+       {t:"Erweiterungen im System (On-Stack)",items:[["key-user-ext","Key-User-Erweiterungen"],["abap-cloud","ABAP Cloud, RAP"],["atc","ABAP Test Cockpit"]]},
+       {t:"Anwendungskern",items:[["business-partner","Business Partner, CVI"],["central-finance","Central Finance"],["group-reporting","Group Reporting"],["ewm","EWM"],["tm","TM"],["ppds-aatp","PP/DS, aATP"],["mdg","MDG"],["gts","GTS"],["is-u","S/4HANA Utilities"],["ide-ape","IDE, APE (MaKo-Prozesse)"],["h4s4","HCM for S/4HANA"],["eppm","PS, PPM, Invest. Mgmt"],["cpm","Commercial Project Mgmt"],["public-projects","Enterprise Projects"]]}]},
+    db:{cls:"c-s4",t:"Datenbank",items:[["hana-db","SAP HANA (In-Memory-Datenbank unter S/4HANA)"]]},
+    infra:{cls:"c-quer",t:"Infrastruktur & Betrieb",items:[["rise-ecs","RISE-Betrieb (ECS), DR"],["sovereign-cloud","Hyperscaler, Sovereign Cloud, STACKIT"],["focused-run","Focused Run"],["cloud-alm-ops","Cloud ALM for Operations"],["lama","LaMa (endet 2027)"]]},
+    sec:{cls:"c-quer",t:"Security & Identity",items:[["cloud-identity","Cloud Identity Services"],["iag","Identity Access Gov."],["grc","SAP GRC"],["etd","Threat Detection"],["uidp","UI Data Protection"],["data-privacy","ILM, Data Privacy"],["idm","IdM (endet 2027)"]]},
+    lc:{cls:"c-lc",t:"Projekt & Lebenszyklus",sub:[
+       {t:"Einführung steuern",items:[["activate","SAP Activate"],["calm-pm","Cloud ALM Projekte"],["joule-consultants","Joule for Consultants"],["jira-ado","Jira / Azure DevOps"],["agent-led-toolchain","Agent-led Toolchain"],["signavio","SAP Signavio"],["process-navigator","Process Navigator"],["leanix","SAP LeanIX"]]},
+       {t:"Bauen & testen",items:[["cloud-alm","SAP Cloud ALM"],["calm-test","Cloud ALM Test Mgmt"],["calm-test-automation","Cloud ALM Testautom."],["calm-test-api","Test-Schnittstelle"],["tricentis-ect","Tricentis ECT"],["tricentis-cia","Tricentis LiveCompare"],["tricentis-perf-data","Tricentis Perf./Daten"],["walkme","WalkMe, Enable Now"]]},
+       {t:"Überführen",items:[["readiness-check","Readiness Check"],["maintenance-planner","Maintenance Planner"],["migration-cockpit","Migration Cockpit"],["syniti-admm","Syniti ADMM"],["sum-dmo","SUM / DMO"],["custom-code-migration","Custom Code Migration"],["btc","Transformation Center"],["sdt","Selektive Datenübern."],["dmlt","DMLT"],["snp-kyano","SNP Kyano"],["tdms","Testdaten (TDMS)"],["data-services","Data Services"],["slt","SLT"],["transition-option","ERP Transition Option"]]},
+       {t:"Wird abgelöst",items:[["solman","Solution Manager → Cloud ALM"],["tdms","TDMS (kein Nachfolger)"]]}]}
+  };
+  // Neue, noch nicht verortete Bausteine automatisch einsortieren
+  const known=new Set(JSON.stringify(cfg).match(/"[a-z0-9-]+"/g).map(s=>s.slice(1,-1)));
+  DATA.forEach(d=>{ if(known.has(d.id)||d.parent) return;
+    if(["mig"].includes(d.layer)) cfg.lc.sub[2].items.push([d.id]);
+    else if(["tool","pm"].includes(d.layer)) cfg.lc.sub[1].items.push([d.id]);
+    else if(d.layer==="lob") cfg.app[0][1].items.push([d.id]);
+    else if(["core","ext"].includes(d.layer)) cfg.s4.sub[2].items.push([d.id]);
+    else if(d.layer==="int") cfg.bus.items.push([d.id]);
+    else if(d.layer==="sec") cfg.sec.items.push([d.id]);
+    else if(d.layer==="ops") cfg.infra.items.push([d.id]);
+  });
+  let s=DEFS, conn="", y=44;
+  // Zeile 1: Anwender
+  const ui=cfg.ui.map(([c,o])=>[c,box(c.x,c.w,o)]); const hUI=Math.max(...ui.map(u=>u[1].h));
+  s+=lab(y,"ANWENDER & KANÄLE"); ui.forEach(([c,b])=>s+=b.draw(y,hUI)); const yUI=y; y+=hUI+36;
+  // Zeile 2: Anwendungen
+  const app=cfg.app.map(([c,o])=>[c,box(c.x,c.w,o)]); const hAPP=Math.max(...app.map(a=>a[1].h));
+  s+=lab(y,"ANWENDUNGEN NEBEN DEM KERN"); app.forEach(([c,b])=>s+=b.draw(y,hAPP)); const yAPP=y; y+=hAPP+58;
+  // Zeile 3: Integration
+  const bus=box(MID.x,MID.w,cfg.bus); s+=lab(y,"INTEGRATION & EVENTS"); s+=bus.draw(y); const yBUS=y, hBUS=bus.h; y+=hBUS+80;
+  const yCC=yBUS+hBUS+40;
+  // Zeile 4: S/4HANA
+  const s4=box(MID.x,MID.w,cfg.s4); s+=lab(y,"S/4HANA-KERN"); s+=s4.draw(y); const yS4=y; y+=s4.h+30;
+  const db=box(MID.x,MID.w,cfg.db); s+=lab(y,"DATENBANK"); s+=db.draw(y); y+=db.h+30;
+  const inf=box(MID.x,MID.w,cfg.infra); s+=lab(y,"INFRASTRUKTUR & BETRIEB"); s+=inf.draw(y); y+=inf.h;
+  const yEND=y;
+  // Seitenstreifen
+  const sec=box(SEC.x,SEC.w,cfg.sec), lc=box(LC.x,LC.w,cfg.lc);
+  const H=Math.max(yEND, yUI+lc.h, yUI+sec.h);
+  s+=`<text class="rowlab" x="${SEC.x}" y="${yUI-9}">QUERSCHNITT</text>`+sec.draw(yUI,H-yUI);
+  s+=`<text class="rowlab" x="${LC.x}" y="${yUI-9}">PROJEKT</text>`+lc.draw(yUI,H-yUI);
+  // Clean-Core-Linie
+  s+=`<line class="ccline" x1="${MID.x-6}" y1="${yCC}" x2="${MID.x+MID.w+6}" y2="${yCC}"/>`;
+  s+=`<g class="hit ttl" data-id="clean-core" tabindex="0" role="button" aria-label="Clean Core"><rect x="${MID.x+MID.w-290}" y="${yCC-22}" width="290" height="18" style="fill:transparent;stroke:transparent"/><text class="cclab" text-anchor="end" x="${MID.x+MID.w}" y="${yCC-8}">Clean-Core-Grenze: nur freigegebene APIs ›</text></g>`;
+  // Verbindungen (hinter den Kästen)
+  const v=(x,y1,y2,lab,o={})=>{ let r=`<line class="conn" x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" marker-end="url(#ah)" ${o.both?'marker-start="url(#ahs)"':""}/>`;
+    if(lab) r+=`<text class="elab" x="${x+(o.left?-8:8)}" y="${o.ly}" text-anchor="${o.left?"end":"start"}">${esc(lab)}</text>`; return r; };
+  const g1=yAPP+hAPP, g2=yBUS;
+  conn+=v(SAAS.x+200,g1+2,g2-2,"Standard-Integrationspakete",{both:true,left:true,ly:(g1+g2)/2+4});
+  conn+=v(BTP.x+260,g1+2,g2-2,"APIs, Events",{both:true,ly:(g1+g2)/2+4});
+  conn+=v(NON.x+130,g1+2,g2-2,"Adapter, EDI, AS4",{both:true,ly:(g1+g2)/2+4});
+  const ccx=MID.x+640;
+  conn+=v(ccx,yBUS+hBUS+2,yS4-2,"OData, SOAP, IDoc, RFC",{both:true,left:true,ly:yBUS+hBUS+22});
+  conn+=v(ccx+300,yS4-2,yBUS+hBUS+2,"Business Events",{ly:yCC+22});
+  // Fiori-Linie: vom Launchpad zur S/4-Schnittstelle, in der Spalten-Lücke
+  const fx=538, fy=yUI+hUI;
+  conn+=`<polyline class="conn" points="${BTP.x+70},${fy} ${BTP.x+70},${yAPP-14} ${fx},${yAPP-14} ${fx},${yS4-2}" marker-end="url(#ah)"/>`;
+  conn+=`<text class="elab" x="${fx+8}" y="${yCC+22}">Fiori-Apps über OData</text>`;
+  // Data Products: S/4 → BDC
+  const dx=BDC.x+40;
+  conn+=`<line class="conn" x1="${dx}" y1="${yS4-2}" x2="${dx}" y2="${g1+2}" marker-end="url(#ah)"/><text class="elab" x="${dx+8}" y="${(g1+g2)/2+4}">Data Products aus S/4HANA</text>`;
+  // Seitenstreifen → S/4
+  const hy=yS4+60;
+  conn+=`<line class="conn" x1="${SEC.x+SEC.w+2}" y1="${hy}" x2="${MID.x-4}" y2="${hy}" marker-end="url(#ah)"/><text class="elab" x="${(SEC.x+SEC.w+MID.x)/2}" y="${hy-18}" text-anchor="middle">Identitäten,</text><text class="elab" x="${(SEC.x+SEC.w+MID.x)/2}" y="${hy-6}" text-anchor="middle">Rollen</text>`;
+  conn+=`<line class="conn" x1="${LC.x-2}" y1="${hy}" x2="${MID.x+MID.w+4}" y2="${hy}" marker-end="url(#ah)"/><text class="elab" x="${(LC.x+MID.x+MID.w)/2}" y="${hy-18}" text-anchor="middle">Tests,</text><text class="elab" x="${(LC.x+MID.x+MID.w)/2}" y="${hy-6}" text-anchor="middle">Transporte</text>`;
+  // Cloud Connector auf der Grenze
+  const cc = byId["cloud-connector"] ? `<g class="hit" data-id="cloud-connector" tabindex="0" role="button" aria-label="Cloud Connector"><title>${esc(byId["cloud-connector"].kurz)}</title><rect x="${ccx-70}" y="${yCC-13}" width="140" height="26" rx="4"/><text x="${ccx}" y="${yCC+4}" text-anchor="middle">Cloud Connector</text></g>` : "";
+  const W=1800;
+  document.getElementById("stack-fig").innerHTML = `<svg class="stack" viewBox="0 0 ${W} ${H+30}" role="img" aria-label="Schichtenmodell der SAP-Landschaft: Infrastruktur, Datenbank und S/4HANA-Kern unten, darüber Integration, Anwendungen und Anwender; links Security, rechts Projektwerkzeuge.">${conn}${s}${cc}</svg>
+  <figcaption style="padding:8px 12px">Pfeile zeigen die Hauptwege: Fiori greift über OData auf den Kern zu, Integration läuft über freigegebene Schnittstellen und den Cloud Connector, Ereignisse gehen an die Event-Broker, Analysedaten als Data Products in die Business Data Cloud. Gestrichelt umrandete Kästen laufen aus. Über jedem Kasten zeigt ein Tooltip die Kurzbeschreibung.</figcaption>`;
+}
+
+/* ---------- Integrationswege ---------- */
+function renderIntegration(){
+  const C1=20,C2=340,C3=710, W1=230, W2=280;
+  let s = DEFS;
+  s += boxG(C1,30,W1,150,"SAP-Cloud-Apps",null,[["successfactors","SAP SuccessFactors"],["ariba","SAP Ariba"],["concur","SAP Concur"],["sales-service-cloud","Sales & Service Cloud"]]);
+  s += boxG(C2,30,W2,150,"SAP Integration Suite","integration-suite",[["cloud-integration","Cloud Integration"],["api-mgmt","API Management"],["integration-advisor-tpm","Advisor & TPM"],["open-connectors","Open Connectors"],["sap-graph","Graph"],["pipo","ersetzt PI/PO"]],2);
+  s += boxG(C3,30,W1,150,"Nicht-SAP & B2B-Partner",null,["Banken, Behörden, Lieferanten","Eigen- und Fremdsysteme",["maco-cloud","Marktkommunikation (MaKo)"],["drc","E-Rechnung (Peppol)"]]);
+  s += boxG(C1,270,W1,120,"Anwender & UI",null,[["fiori","Fiori Launchpad"],["work-zone","Build Work Zone"],["joule"]]);
+  s += boxG(C2,270,W2,120,"SAP S/4HANA","s4-private",[["s4-apis","Released APIs (OData, SOAP, IDoc, RFC)"],["s4-business-events","Business Events"],["clean-core","Clean Core: nur freigegebene APIs"]]);
+  s += boxG(C3,270,W1,120,"Event-Broker",null,[["aem","Advanced Event Mesh"],["event-mesh","SAP Event Mesh"],["event-hub","Cloud Application Event Hub"]]);
+  s += boxG(C1,480,W1,95,"Netzwerk",null,[["business-network","SAP Business Network"],["bn-logistics","Business Network for Logistics"]]);
+  s += boxG(C2,480,W2,95,"Stammdaten & Replikation",null,[["mdi","MDI"],["mdg","MDG"],["slt","SLT"],["data-services","Data Services"]],2);
+  s += boxG(C3,480,W1,95,"Business Data Cloud","bdc",[["datasphere","SAP Datasphere"],["sac","SAP Analytics Cloud"]]);
+  // Kanten
+  s += edge(C1+W1,105,C2-4,105,"Standard-|Integrationspakete",{both:true,ly:92});
+  s += edge(C2+W2,105,C3-4,105,"Adapter, APIs,|EDI (TPM)",{both:true,ly:92});
+  s += edge(480,180,480,266,"OData · SOAP|IDoc · RFC",{both:true,lx:470,ly:212,anchor:"end"});
+  s += hitItem("cloud-connector",492,196,108,"Cloud Connector");
+  s += hitItem("eic",492,224,108,"Edge Int. Cell");
+  s += edge(C1+W1,330,C2-4,330,"Fiori-Apps|über OData",{ly:316});
+  s += edge(C2+W2,330,C3-4,330,"Business Events|(CloudEvents)",{ly:316});
+  s += edge(825,270,825,184,"abonnieren",{lx:835,ly:232,anchor:"start"});
+  s += edge(480,390,480,476,"Stammdaten-|verteilung",{both:true,lx:470,ly:426,anchor:"end"});
+  s += edge(600,390,760,476,"Data Products|(Replikation)",{lx:700,ly:420});
+  s += edge(200,480,360,394,"Bestellungen,|Rechnungen",{both:true,lx:262,ly:430});
+  const svg = `<svg class="dia" viewBox="0 0 960 600" role="img" aria-label="Integrationsarchitektur: S/4HANA in der Mitte, darüber die Integration Suite als Drehscheibe zu SAP-Cloud-Apps und Nicht-SAP-Systemen, rechts Event-Broker, unten Stammdaten-Replikation, Business Network und Business Data Cloud.">${s}</svg>`;
+  document.getElementById("int-fig").innerHTML = svg + `<figcaption>Prozessintegration läuft über die Integration Suite (in der Cloud oder hybrid über die Edge Integration Cell), Ereignisse über einen Event-Broker, Analysedaten als Data Products in die Business Data Cloud, Stammdaten über MDI oder MDG. Bei S/4HANA im eigenen oder RISE-Rechenzentrum verbindet der Cloud Connector die Cloud-Dienste mit dem System.</figcaption>`;
+}
+
+/* ---------- Toolchain ---------- */
+const PHASES=[["Discover","entdecken, Business Case"],["Prepare","Projekt aufsetzen"],["Explore","Fit-to-Standard"],["Realize","bauen, migrieren, testen"],["Deploy","Cutover, Go-live"],["Run","Betrieb, Weiterentwicklung"]];
+const TC_LANES=[
+ {n:"Prozesse & Architektur",cards:[
+  {id:"process-navigator",c:[1,2],d:"Best-Practice-Prozesse von SAP als Startpunkt für Scope und Workshops.",f:["→ Signavio: Prozessinhalte","→ Cloud ALM: Scope","→ Tricentis: Basis für Testfälle"]},
+  {id:"signavio",c:[1,3],d:"Prozesse modellieren, mit Process Mining analysieren, Zielprozesse festlegen.",f:["⇄ Cloud ALM: Prozesse hin, ALM-Daten zurück","⇄ LeanIX: Prozesse ↔ Anwendungen","← S/4HANA: Prozess-Kennzahlen"]},
+  {id:"leanix",c:[1,2],d:"Anwendungslandschaft und Schnittstellen dokumentieren, Zielarchitektur planen.",f:["⇄ Cloud ALM: Initiative ↔ Projekt, Status zurück","← Readiness Check: Custom-Code-Befunde","← WalkMe: SaaS-Nutzung"]},
+  {id:"leanix",c:[6,6],d:"Architektur im Betrieb aktuell halten.",f:["← Cloud ALM: Schnittstellen-Discovery"]}]},
+ {n:"Analyse & Überführung",cards:[
+  {id:"readiness-check",c:[1,2],d:"Altsystem prüfen: Simplification Items, Custom Code, Add-ons, Datenvolumen.",f:["→ Cloud ALM: Befunde als Aufgaben","→ Transformation Center: Nutzungsprofil","→ LeanIX: Custom Code Intelligence"]},
+  {id:"maintenance-planner",c:[2,3],d:"Konvertierung planen: Zielversion, Add-on-Prüfung, Stack-XML für SUM.",f:["→ SUM: Stack-XML"]},
+  {id:"btc",c:[2,4],d:"Selektive Datenübernahme planen und ausführen; läuft innerhalb von Cloud ALM.",f:[]},
+  {id:"custom-code-migration",c:[3,4],d:"Kundencode an S/4HANA anpassen, Simplification Items abarbeiten.",f:[]},
+  {id:"atc",c:[4,4],d:"Code gegen Clean-Core-Regeln prüfen.",f:["→ Cloud ALM: ATC-Befunde"]},
+  {id:"syniti-admm",c:[3,5],d:"Daten bereinigen, harmonisieren und die Migration steuern; Solution Extension von Syniti.",f:["→ Migration Cockpit: geladene Daten"]},
+  {id:"migration-cockpit",c:[4,5],d:"Stamm- und Bewegungsdaten laden, per Staging-Tabellen oder Direkttransfer, mit Simulationslauf.",f:[]},
+  {id:"sum-dmo",c:[4,5],d:"Technische Konvertierung des Altsystems (Brownfield).",f:[]}]},
+ {n:"SAP Cloud ALM",spine:true,cards:[
+  {id:"calm-pm",c:[2,2],d:"Projekt, Roadmap-Import, Sprints, Quality Gates.",f:["← SAP Activate: Roadmap-Import"]},
+  {id:"cloud-alm",c:[3,3],d:"Anforderungen, User Stories, Fit-to-Standard-Ergebnisse.",f:["⇄ Jira / Azure DevOps: Aufgaben"]},
+  {id:"cloud-alm",c:[4,4],d:"Features und Transporte (CTS, cTMS) steuern.",f:["→ S/4HANA: Transporte","→ Cloud Transport Mgmt: BTP-Deployments"]},
+  {id:"calm-test",c:[4,5],d:"Prozessbasierte Testfälle, Testpläne, Ausführung, Defects mit Retest, Traceability bis zur Anforderung; Features als Test-Gate.",f:["→ Testautomatisierung: Läufe starten","← Tricentis ECT: Ergebnisse"]},
+  {id:"cloud-alm-ops",c:[6,6],d:"Monitoring von Prozessen, Schnittstellen, Jobs.",f:[]}]},
+ {n:"Test & Qualität",cards:[
+  {id:"calm-test-automation",c:[4,5],d:"Automatisierte Tests aus Cloud ALM starten: Test Automation Tool (Public Edition) oder eingebettetes Tricentis TTA.",f:["⇄ Cloud ALM: Läufe und Ergebnisse"]},
+  {id:"calm-test-api",c:[4,6],d:"Offene Schnittstelle für Drittwerkzeuge (Tricentis, UiPath, Panaya, SmartBear) per OAuth2-Endpunkt.",f:["⇄ Cloud ALM: Testfälle, Läufe, Ergebnisse"]},
+  {id:"tricentis-ect",c:[4,6],d:"Testfälle automatisieren und ausführen (Tosca), zunehmend agentisch.",f:["← Cloud ALM: Testplanung","→ Cloud ALM: Ergebnisse"]},
+  {id:"tricentis-cia",c:[4,6],d:"Änderungen analysieren und betroffene Tests risikobasiert auswählen (LiveCompare).",f:["→ Tricentis ECT: Testauswahl","→ Jira / ADO: Befunde"]},
+  {id:"tricentis-perf-data",c:[5,5],d:"Last- und Datenintegritätstests vor dem Go-live.",f:[]}]},
+ {n:"Methodik & Adoption",cards:[
+  {id:"activate",c:[1,6],d:"SAP-Methodik: sechs Phasen, Fit-to-Standard, Quality Gates; in RISE als RISE with SAP Methodology.",f:["→ Cloud ALM: Roadmap-Import"]},
+  {id:"jira-ado",c:[3,5],d:"Agile Teams arbeiten in Jira oder Azure DevOps weiter.",f:["⇄ Cloud ALM: Aufgaben (API oder Partner-Konnektor)"]},
+  {id:"walkme-dap",c:[5,6],d:"In-App-Führung, Nutzungsanalyse und Discovery für Endanwender.",f:["⇄ Signavio","→ LeanIX: SaaS-Nutzung"]},
+  {id:"walkme-learning-arc",c:[4,6],d:"Lerninhalte und Schulungen erstellen und ausrollen; Weg für Enable-Now-Kunden.",f:[]}]},
+ {n:"Wird abgelöst",legacy:true,cards:[
+  {id:"solman",c:[1,3],legacy:true,d:"SAP Solution Manager 7.2: Mainstream-Wartung endet 31.12.2027, ausgewählte Funktionen wie Test Suite in Extended Maintenance bis 2030.",to:"cloud-alm",how:"Selective Data Transfer (ab SP50, einmalig) überträgt Prozesshierarchie, Dokumente, Testfälle und Testschritte; CBTA ohne Nachfolger"},
+  {id:"tdms",c:[4,5],legacy:true,d:"SAP Test Data Migration Server: für S/4HANA nicht unterstützt.",toText:"kein SAP-Nachfolger",to:"tdms",how:"Systemkopie mit Bereinigung, DMLT Shell Creation oder Partnertools für Testdaten"},
+  {id:"walkme-enable-now",c:[6,6],legacy:true,d:"Schulungs- und Simulationsinhalte erstellen; Support endet am 30.11.2030.",to:"walkme-learning-arc",how:"Nachfolger für Lerninhalte ist WalkMe Learning Arc"}]}
+];
+function renderToolchain(){
+  const nm = id => esc((byId[id]||{}).name||id);
+  let h = `<div class="tcg"><div></div>${PHASES.map(p=>`<div class="ph"><b>${p[0]}</b><span>${p[1]}</span></div>`).join("")}`;
+  TC_LANES.forEach(l=>{
+    const cls = l.spine?" spine":l.legacy?" legacy":"";
+    h += `<div class="ln${cls}">${esc(l.n)}</div><div class="lb${cls}">`;
+    l.cards.forEach(c=>{
+      if(!byId[c.id]) return;
+      const fl = (c.f||[]).map(x=>{ const m=x.match(/^(\S+)\s(.*)$/); return `<li><i>${esc(m?m[1]:"")}</i>${esc(m?m[2]:x)}</li>`; }).join("");
+      const succ = c.to ? `<div class="succ"><span class="pill auslaufend">läuft aus</span><span>→</span><span class="to${c.to===c.id?" none":""}">${c.toText?esc(c.toText):nm(c.to)}</span></div><span class="td">${esc(c.how||"")}</span>` : "";
+      h += `<div class="tcard${c.legacy?" leg":""}" role="button" tabindex="0" data-id="${esc(c.id)}" style="grid-column:${c.c[0]} / ${c.c[1]+1}"><b>${c.title?esc(c.title):nm(c.id)}</b><span class="td">${esc(c.d)}</span>${succ}${fl?`<ul>${fl}</ul>`:""}</div>`;
+    });
+    h += `</div>`;
+  });
+  h += `</div>`;
+  document.getElementById("tc").innerHTML = h;
+  const flows = FLOWS.filter(f=>byId[f.von]&&byId[f.nach]);
+  document.getElementById("tc-flows").innerHTML = `<div class="d-sec"><h4>Alle Flüsse zwischen den Werkzeugen</h4><div class="tabwrap"><table class="ftab"><thead><tr><th>Von</th><th>Nach</th><th>Was fließt</th></tr></thead><tbody>${flows.map(f=>`<tr><td><button class="link" data-id="${f.von}">${nm(f.von)}</button></td><td><button class="link" data-id="${f.nach}">${nm(f.nach)}</button></td><td>${esc(f.was)}${f.richtung==="beidseitig"?" <span class=\"pill aktiv\">beidseitig</span>":""}</td></tr>`).join("")}</tbody></table></div></div>`;
+}
+
+/* ---------- Clean Core ---------- */
+function renderCleanCore(){
+  const L = id => byId[id] ? `<button class="link" data-id="${id}">${esc(byId[id].name)}</button>` : "";
+  document.getElementById("cc").innerHTML = `
+  <h2>Clean Core: Stufen und Erweiterungswege</h2>
+  <p class="lead">Seit August 2025 bewertet SAP jede Erweiterung in vier Stufen. Eine Erweiterung bekommt die Stufe ihrer schwächsten Technik. Das alte Drei-Tier-Modell ist damit abgelöst; bestehender Tier-2-Code muss aber nicht zwingend umgebaut werden. ${L("clean-core")}</p>
+  <div class="ladder">
+    <div class="rung l-a"><div class="lv">A</div><div><h4>Nur freigegebene Schnittstellen</h4><p>Released APIs, ABAP Cloud, Erweiterungen auf der BTP. Upgradestabil.</p></div><div><p>${L("abap-cloud")} · ${L("key-user-ext")} · ${L("cap")} · ${L("build-code")}</p></div></div>
+    <div class="rung l-b"><div class="lv">B</div><div><h4>Klassische APIs</h4><p>BAPIs, klassische BAdIs und ähnliche stabile, aber nicht als Cloud-API freigegebene Schnittstellen.</p></div><div><p>Typisch für gewachsenen Kundencode, der nach der Konvertierung weiterläuft.</p></div></div>
+    <div class="rung l-c"><div class="lv">C</div><div><h4>Zugriff auf interne Objekte</h4><p>Lesen interner SAP-Tabellen oder Aufruf nicht freigegebener Funktionsbausteine.</p></div><div><p>Bricht potenziell bei jedem Feature Pack; muss bewusst verwaltet werden.</p></div></div>
+    <div class="rung l-d"><div class="lv">D</div><div><h4>Modifikationen</h4><p>Modifikationen, Schreibzugriffe auf SAP-Tabellen, implizite Erweiterungen.</p></div><div><p>Erste Priorität bei der Bereinigung.</p></div></div>
+  </div>
+  <h2 style="font-size:18px">Drei Wege, S/4HANA zu erweitern</h2>
+  <p class="lead">Alle drei können Stufe A erreichen. Die Wahl hängt davon ab, wie eng die Erweiterung an Transaktionsdaten hängt.</p>
+  <div class="models">
+    <div class="model"><div class="where">im System, ohne Code</div><h4>Key-User</h4><p>Zusatzfelder, Logik, Formulare und Apps über Fiori-Werkzeuge, von Fachanwendern oder Beratern.</p><p>${L("key-user-ext")}</p></div>
+    <div class="model"><div class="where">im System, mit Code</div><h4>On-Stack Developer</h4><p>ABAP Cloud mit RAP direkt im S/4HANA-Stack, nur gegen freigegebene APIs. Prüfung per ABAP Test Cockpit.</p><p>${L("abap-cloud")} · ${L("atc")}</p></div>
+    <div class="model"><div class="where">neben dem System</div><h4>Side-by-Side</h4><p>Eigene Anwendungen und Prozesse auf der BTP, angebunden über APIs und Events. Lose Kopplung, eigener Lebenszyklus.</p><p>${L("btp")} · ${L("cap")} · ${L("build-pa")} · ${L("abap-env")}</p></div>
+  </div>
+  <div class="d-sec test" style="margin-top:16px"><h4>Testperspektive</h4><p>${esc(byId["clean-core"]?byId["clean-core"].test:"")}</p></div>
+  <div class="d-sec"><h4>Wie gemessen wird</h4><p>${esc(byId["clean-core"]?byId["clean-core"].wie:"")} ${L("cloud-alm")}</p></div>
+`;
+}
+
+/* ---------- Zeitleiste ---------- */
+let TL_F = "eol";
+function isEol(t){ return /wartung|support-ende|supportende|nutzungsrecht|abgek(ü|ue)ndigt|eingestellt|auslauf|end of life|lebensende|stillleg|deprecat|endet|end-of|retire/i.test(t); }
+function renderTimeline(){
+  const rows=[]; const seen=new Set();
+  DATA.forEach(d=>(d.daten||[]).forEach(x=>{
+    const m=String(x.datum||"").match(/^(\d{4})/); if(!m||!x.text) return;
+    const y=+m[1]; if(y<2023||y>2042) return;
+    const key=x.datum+"|"+d.id+"|"+x.text; if(seen.has(key)) return; seen.add(key);
+    rows.push({d:String(x.datum),y,text:x.text,id:d.id,eol:isEol(x.text)});
+  }));
+  rows.sort((a,b)=>a.d.localeCompare(b.d)||order[a.id]-order[b.id]);
+  const shown = rows.filter(r=>TL_F==="all"||r.eol);
+  const years=[...new Set(shown.map(r=>r.y))];
+  const c27 = rows.filter(r=>r.y===2027&&r.eol).length;
+  document.getElementById("tlp").innerHTML = `
+    <h2>Zeitleiste</h2>
+    <p class="lead">Alle datierten Ereignisse aus den Steckbriefen: Wartungsenden, Umbenennungen, Verfügbarkeiten. Für die Projektplanung zählen vor allem die Wartungsenden.</p>
+    <div class="note-box"><b>2027 ist das Klippenjahr.</b> ${c27} Wartungsenden fallen in dieses Jahr, viele davon am 31.12.2027 mit optionaler Verlängerung bis 2030. Wer heute einführt, testet gegen eine Landschaft, in der diese Komponenten ersetzt werden.</div>
+    <div class="tlf" role="group" aria-label="Zeitleiste filtern">
+      <button class="fbtn" data-tl="eol" aria-pressed="${TL_F==="eol"}">Nur Wartungsenden</button>
+      <button class="fbtn" data-tl="all" aria-pressed="${TL_F==="all"}">Alle Ereignisse</button>
+    </div>
+    <div class="tl">${years.map(y=>`<div class="yr${y===2027?" cliff":""}"><h3>${y}</h3><ul>${shown.filter(r=>r.y===y).map(r=>`<li class="${r.eol?"eol":""}"><time>${esc(fmtDate(r.d))}</time><span class="what"><button class="link" data-id="${esc(r.id)}">${esc(byId[r.id].name)}</button>: ${esc(r.text)}</span></li>`).join("")}</ul></div>`).join("")}</div>`;
+  document.querySelectorAll("[data-tl]").forEach(b=>b.addEventListener("click",()=>{ TL_F=b.dataset.tl; renderTimeline(); }));
+}
+
+/* ---------- Testperspektive ---------- */
+(function(){
+  const b=document.getElementById("testview");
+  let on=false; try{ on = localStorage.getItem("s4map.test")==="1"; }catch(e){}
+  const apply=()=>{ document.body.classList.toggle("show-test",on); b.setAttribute("aria-pressed",String(on)); };
+  b.addEventListener("click",()=>{ on=!on; try{ localStorage.setItem("s4map.test",on?"1":"0"); }catch(e){} apply(); });
+  apply();
+})();
+
+/* ---------- Start ---------- */
+renderMap(); renderStack(); renderIntegration(); renderToolchain(); renderCleanCore(); renderTimeline();
+SHOW_INTRO();
+(function(){
+  const h = (location.hash||"").slice(1);
+  if(VIEWS.includes(h)) show(h);
+  else if(byId[h]) select(h,{noHash:true});
+})();
+</script>

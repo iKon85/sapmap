@@ -1,0 +1,205 @@
+[
+  {
+    "von": "signavio",
+    "nach": "cloud-alm",
+    "was": "Prozesshierarchie und Prozessdiagramme (Solution Process, Process Flow, Activity), auch Entwürfe; Signavio publiziert, Standardintegration seit Dez 2024",
+    "richtung": "einseitig",
+    "quelle": "https://learning.sap.com/courses/sap-activate-project-manager/synchronizing-sap-signavio-with-sap-cloud-alm"
+  },
+  {
+    "von": "cloud-alm",
+    "nach": "signavio",
+    "was": "ALM-Daten (Requirements, Testbezüge u. a.) nahezu in Echtzeit in die Prozesse gemappt, GA Q4 2025",
+    "richtung": "einseitig",
+    "quelle": "https://www.sap.com/events/sapphire/innovation-guide/business-transformation-management.html"
+  },
+  {
+    "von": "signavio",
+    "nach": "leanix",
+    "was": "Prozessinhalte, Prozesshierarchie und Varianten (GA Q2 2025); Signavio führt bei Prozessen",
+    "richtung": "einseitig",
+    "quelle": "https://learning.sap.com/courses/sap-activate-project-manager/synchronizing-data-models-across-sap-leanix-sap-signavio-and-sap-cloud-alm"
+  },
+  {
+    "von": "leanix",
+    "nach": "signavio",
+    "was": "Anwendungen, Capabilities und Anwendung-Prozess-Beziehungen (meist L4); LeanIX führt bei allen Nicht-Prozess-Objekten",
+    "richtung": "einseitig",
+    "quelle": "https://learning.sap.com/courses/discovering-sap-activate-implementation-tools-and-methodology/understanding-the-sap-integrated-toolchain_ce528715-8830-4aff-94b1-f31ab143421c"
+  },
+  {
+    "von": "leanix",
+    "nach": "cloud-alm",
+    "was": "Initiative-Fact-Sheet ↔ Cloud-ALM-Projekt: Projekt kann aus der Initiative angelegt werden, Verknüpfung in beide Richtungen möglich",
+    "richtung": "beidseitig",
+    "quelle": "https://learning.sap.com/courses/exploring-business-transformation-tools-and-methodology/describing-solution-integration-within-business-transformation"
+  },
+  {
+    "von": "cloud-alm",
+    "nach": "leanix",
+    "was": "Projektstatus: Lifecycle, Meilensteine, Ausführungsstatus (On Track / Needs Attention / Critical) und Fortschritt in %, zyklisch oder manuell",
+    "richtung": "einseitig",
+    "quelle": "https://learning.sap.com/courses/exploring-business-transformation-tools-and-methodology/describing-solution-integration-within-business-transformation"
+  },
+  {
+    "von": "cloud-alm",
+    "nach": "leanix",
+    "was": "Landschafts- und Schnittstellen-Discovery (SAP-Anwendungen, IT Components, Interfaces), GA Q3 2025",
+    "richtung": "einseitig",
+    "quelle": "https://www.sap.com/events/sapphire/innovation-guide/business-transformation-management.html"
+  },
+  {
+    "von": "cloud-alm",
+    "nach": "tricentis-ect",
+    "was": "Testplanung und Testfälle zu Solution Processes werden in ECT bereitgestellt; eingebettete Tricentis-Edition wird aus der Cloud-ALM-Administration mit SSO provisioniert",
+    "richtung": "einseitig",
+    "quelle": "https://www.tricentis.com/blog/sap-agent-led-toolchain-explained"
+  },
+  {
+    "von": "tricentis-ect",
+    "nach": "cloud-alm",
+    "was": "Testvarianten und Ausführungsergebnisse zurück für Ausführungsverfolgung, Traceability und Release-Readiness",
+    "richtung": "einseitig",
+    "quelle": "https://www.tricentis.com/blog/sap-agent-led-toolchain-explained"
+  },
+  {
+    "von": "tricentis-cia",
+    "nach": "tricentis-ect",
+    "was": "Risikobasierte Testauswahl und automatisch erzeugte Testausführungslisten",
+    "richtung": "einseitig",
+    "quelle": "https://www.sap.com/swiss/products/technology-platform/change-impact-analysis.html"
+  },
+  {
+    "von": "tricentis-cia",
+    "nach": "jira-ado",
+    "was": "Integration von LiveCompare mit Jira und Azure DevOps (Richtung und Objekte in den Notizen nicht spezifiziert)",
+    "richtung": "einseitig",
+    "quelle": "https://www.tricentis.com/products/impact-analysis-livecompare"
+  },
+  {
+    "von": "process-navigator",
+    "nach": "cloud-alm",
+    "was": "Best-Practice-Prozessbibliothek (High-Level-Diagramme) als Scope-Grundlage sowie Best-Practice-Testfälle zum Upload",
+    "richtung": "einseitig",
+    "quelle": "https://learning.sap.com/courses/transition-from-sap-solution-manager-to-sap-cloud-alm/leveraging-best-practices-for-sap-cloud-alm"
+  },
+  {
+    "von": "process-navigator",
+    "nach": "signavio",
+    "was": "Best-Practice-Prozessinhalte zum Import in Signavio Process Manager (in den Notizen als Ableitung)",
+    "richtung": "einseitig",
+    "quelle": ""
+  },
+  {
+    "von": "process-navigator",
+    "nach": "tricentis-ect",
+    "was": "Prozessdesigns als Basis für Testgenerierung durch Tricentis Test Automation for SAP in Explore",
+    "richtung": "einseitig",
+    "quelle": "https://shiftsync.tricentis.com/testing-development-methodologies-69/integrated-toolchain-in-rise-with-sap-a-deep-dive-into-tricentis-role-2139"
+  },
+  {
+    "von": "activate",
+    "nach": "cloud-alm",
+    "was": "Activate-Roadmap-Import („Choose your Roadmap“): Tasks, Deliverables, Rollen, Quality Gates, Accelerators",
+    "richtung": "einseitig",
+    "quelle": "https://learning.sap.com/courses/implementing-with-sap-cloud-alm/managing-projects-with-distributed-teams"
+  },
+  {
+    "von": "walkme",
+    "nach": "leanix",
+    "was": "SaaS-Discovery und Nutzungsdaten, GA Q3 2025",
+    "richtung": "einseitig",
+    "quelle": "https://www.sap.com/events/sapphire/innovation-guide/business-transformation-management.html"
+  },
+  {
+    "von": "walkme",
+    "nach": "signavio",
+    "was": "Integrationsleitfaden WalkMe–Signavio in der Toolchain-Doku (Richtung und Inhalt nicht spezifiziert; frühere SAP-Learning-Aussage: keine technische Integration)",
+    "richtung": "beidseitig",
+    "quelle": "https://saptix.com/2026/08/27/integrated-toolchain-blogs-and-learning-paths/"
+  },
+  {
+    "von": "readiness-check",
+    "nach": "cloud-alm",
+    "was": "Readiness-Check-Befunde in Projekt- und Aufgabenmanagement verknüpfbar; Readiness Check speist neben EWA und SCMON das Clean-Core-Dashboard",
+    "richtung": "einseitig",
+    "quelle": "https://www.asug.com/insights/your-sap-investment-unleashed-preparing-for-the-future-how-sap-readiness-check-simplifies-s-4hana-transition"
+  },
+  {
+    "von": "readiness-check",
+    "nach": "btc",
+    "was": "Usage Data Profiling als Voraussetzung für den Digital Blueprint; seit W28/30 2026 Upload von Maintenance-Readiness-Check-Dateien (ZIP) ins BTC-Scoping",
+    "richtung": "einseitig",
+    "quelle": "https://support.sap.com/ja/alm/sap-cloud-alm/transformation/btc.html"
+  },
+  {
+    "von": "readiness-check",
+    "nach": "leanix",
+    "was": "Import von Readiness-Check-Ergebnissen („Custom Code Intelligence“) laut Partnerblog, von SAP unbestätigt",
+    "richtung": "einseitig",
+    "quelle": "https://www.savictech.com/insights/sap-leanix-enterprise-architecture-ai-autonomous-enterprise-2026/"
+  },
+  {
+    "von": "atc",
+    "nach": "cloud-alm",
+    "was": "ATC-Ergebnisse konsolidiert in der Sicht „Customer Objects – Unique Findings“ des Clean-Core-Dashboards",
+    "richtung": "einseitig",
+    "quelle": "https://www.blue.works/en/sap-cloud-alm-whats-new-in-week-28-and-30/"
+  },
+  {
+    "von": "cloud-alm",
+    "nach": "jira-ado",
+    "was": "Aufgaben: Cloud ALM → Jira geplanter Import offener Tasks; Jira → Cloud ALM Statusupdates per Webhook (Muster über Open Connectors und Tasks-API)",
+    "richtung": "beidseitig",
+    "quelle": "https://groups.community.sap.com/t5/technology-blogs-by-sap/integrate-sap-cloud-alm-with-jira/bc-p/13653653"
+  },
+  {
+    "von": "solman",
+    "nach": "cloud-alm",
+    "was": "Selektiver Transfer von Teststep-Daten (Jul 2025); Readiness Check for SAP Cloud ALM analysiert die SolMan-Nutzung",
+    "richtung": "einseitig",
+    "quelle": "https://support.sap.com/en/alm/sap-cloud-alm/implementation/sap-cloud-alm-implementation-expert-portal.html"
+  },
+  {
+    "von": "signavio",
+    "nach": "solman",
+    "was": "Synchronisation Signavio–Solution Manager, Verbesserungen GA Q4 2025 (Richtung nicht spezifiziert)",
+    "richtung": "beidseitig",
+    "quelle": "https://www.sap.com/events/sapphire/innovation-guide/business-transformation-management.html"
+  },
+  {
+    "von": "s4-private",
+    "nach": "signavio",
+    "was": "Leistungsdaten aus ST-PI/ST-A/PI-Plug-ins per OData an Signavio Process Insights, Verbindung im Cloud-ALM-Framework eingerichtet, ohne Cloud Connector",
+    "richtung": "einseitig",
+    "quelle": "https://blog.sap-press.com/what-are-the-benefits-of-sap-signavio-process-insights"
+  },
+  {
+    "von": "cloud-alm",
+    "nach": "s4-private",
+    "was": "Transportsteuerung aus Features: CTS-Transporte anlegen, freigeben, Transport of Copies, Deployment QAS/PRD, Retrofit",
+    "richtung": "einseitig",
+    "quelle": "https://learning.sap.com/courses/implementing-with-sap-cloud-alm/managing-the-hybrid-deployment-1"
+  },
+  {
+    "von": "cloud-alm",
+    "nach": "ctms",
+    "was": "Deployment von cTMS-Transporten (BTP, Cloud Integration, API Management) aus Cloud-ALM-Features",
+    "richtung": "einseitig",
+    "quelle": "https://support.sap.com/ja/alm/sap-cloud-alm/implementation/sap-cloud-alm-implementation-expert-portal/change-deployment-mangement.html"
+  },
+  {
+    "von": "signavio",
+    "nach": "joule-studio",
+    "was": "Geschäftsprozesskontext über den Signavio Process Consultant Agent für Spezifikation, Code und Testartefakte",
+    "richtung": "einseitig",
+    "quelle": "https://news.sap.com/2026/05/new-joule-studio-enterprise-scale-agentic-development/"
+  },
+  {
+    "von": "leanix",
+    "nach": "joule-studio",
+    "was": "Landschaftskontext für agentische Entwicklung in Joule Studio",
+    "richtung": "einseitig",
+    "quelle": "https://news.sap.com/2026/05/new-joule-studio-enterprise-scale-agentic-development/"
+  }
+]
