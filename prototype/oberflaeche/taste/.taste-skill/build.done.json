@@ -1,0 +1,11 @@
+{
+ "page": "index.html",
+ "url": null,
+ "root": "../../..",
+ "kind": "software",
+ "category": "Landkarte der SAP-Bausteine rund um S/4HANA",
+ "primary": "Baustein suchen",
+ "rounds": 3,
+ "start": "2026-11-18T20:31:18.142Z",
+ "by": "gate.mjs --start"
+}

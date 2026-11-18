@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S/4HANA-Landkarte</title>
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles.css">
+<script>
+  // Theme vor dem ersten Paint setzen, damit nichts aufblitzt.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem("lk-theme"); } catch (e) {}
+    if (t !== "hell" && t !== "dunkel") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dunkel" : "hell";
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-suche" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.75"/><path d="M10.5 10.5 14 14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></symbol>
+  <symbol id="i-zurueck" viewBox="0 0 16 16"><path d="M9.5 3.5 5 8l4.5 4.5"/></symbol>
+  <symbol id="i-weiter" viewBox="0 0 16 16"><path d="M6.5 3.5 11 8l-4.5 4.5"/></symbol>
+  <symbol id="i-extern" viewBox="0 0 16 16"><path d="M9 3h4v4M13 3 7.5 8.5M11.5 9.5V13h-8.5V4.5H6.5"/></symbol>
+  <symbol id="i-sonne" viewBox="0 0 16 16"><circle cx="8" cy="8" r="2.75"/><path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1.06 1.06M11.54 11.54l1.06 1.06M3.4 12.6l1.06-1.06M11.54 4.46l1.06-1.06"/></symbol>
+  <symbol id="i-mond" viewBox="0 0 16 16"><path d="M13 9.6A5.5 5.5 0 1 1 6.4 3a4.4 4.4 0 0 0 6.6 6.6Z"/></symbol>
+  <symbol id="i-neu" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11"/></symbol>
+  <symbol id="i-umbenannt" viewBox="0 0 16 16"><path d="M2.5 6h9l-2.5-2.5M13.5 10h-9l2.5 2.5"/></symbol>
+  <symbol id="i-auslaufend" viewBox="0 0 16 16"><path d="M4.5 2.5h7M4.5 13.5h7M5 2.5c0 3 6 3.5 6 5.5s-6 2.5-6 5.5M11 2.5c0 1.6-1.7 2.5-3 3.2"/></symbol>
+  <symbol id="i-abgekuendigt" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M4.1 11.9l7.8-7.8"/></symbol>
+</svg>
+
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<div class="shell">
+  <aside class="rail" aria-label="Landkarte">
+    <div class="brand">
+      <h1><a href="./" data-nav="karte">S/4HANA-Landkarte</a></h1>
+      <p class="stand" id="stand">Stand Oktober 2026</p>
+    </div>
+    <nav class="register" id="register" aria-label="Bereiche"></nav>
+    <p class="rail-note">Prototyp. Gebaut sind Landkarte und Steckbrief.</p>
+  </aside>
+
+  <div class="main">
+    <header class="bar">
+      <div class="bar-row">
+        <div class="search">
+          <label for="q" class="visually-hidden">Bausteine durchsuchen</label>
+          <svg class="ico" aria-hidden="true"><use href="#i-suche"/></svg>
+          <input id="q" type="search" autocomplete="off" spellcheck="false"
+                 placeholder="Suchen: PI/PO, Datasphere, Tosca …" aria-describedby="treffer">
+          <kbd class="hint" aria-hidden="true">/</kbd>
+        </div>
+        <p class="treffer" id="treffer" aria-live="polite"></p>
+        <div class="toggles">
+          <button type="button" class="switch" id="testperspektive" role="switch" aria-checked="false">
+            <span class="track" aria-hidden="true"><span class="thumb"></span></span>
+            <span>Testperspektive</span>
+          </button>
+          <button type="button" class="iconbtn" id="theme" aria-label="Dunkles Design">
+            <svg class="ico" aria-hidden="true"><use href="#i-mond"/></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="Ansichten" id="tabs">
+        <a href="?ansicht=karte" data-ansicht="karte">Landkarte</a>
+        <a href="?ansicht=schichten" data-ansicht="schichten">Schichtenmodell</a>
+        <a href="?ansicht=integration" data-ansicht="integration">Integrationswege</a>
+        <a href="?ansicht=toolchain" data-ansicht="toolchain">Toolchain</a>
+        <a href="?ansicht=zeitleiste" data-ansicht="zeitleiste">Zeitleiste</a>
+      </nav>
+    </header>
+
+    <main id="inhalt" tabindex="-1">
+      <section id="view-karte" class="view" aria-labelledby="karte-titel">
+        <h2 id="karte-titel" class="visually-hidden">Landkarte</h2>
+
+        <details class="einstieg" id="einstieg">
+          <summary><span>Einstieg: Was sich seit ECC-Zeiten verschoben hat</span><span class="sum-hint">8 Punkte für den ersten Workshop</span></summary>
+          <div class="einstieg-body" id="einstieg-body"></div>
+        </details>
+
+        <div class="legende" aria-label="Legende">
+          <div class="leg-gruppe">
+            <span class="leg-titel">Status</span>
+            <span class="leg-item">ohne Marke: aktiv</span>
+            <span class="badge st-neu"><svg aria-hidden="true"><use href="#i-neu"/></svg>neu</span>
+            <span class="badge st-umbenannt"><svg aria-hidden="true"><use href="#i-umbenannt"/></svg>umbenannt</span>
+            <span class="badge st-auslaufend"><svg aria-hidden="true"><use href="#i-auslaufend"/></svg>läuft aus</span>
+            <span class="badge st-abgekuendigt"><svg aria-hidden="true"><use href="#i-abgekuendigt"/></svg>abgekündigt</span>
+          </div>
+          <div class="leg-gruppe">
+            <span class="leg-titel">Rahmen</span>
+            <span class="leg-item"><span class="probe b-ja" aria-hidden="true"></span>belegt</span>
+            <span class="leg-item"><span class="probe b-teilweise" aria-hidden="true"></span>teilweise belegt</span>
+            <span class="leg-item"><span class="probe b-nein" aria-hidden="true"></span>unbelegt</span>
+          </div>
+        </div>
+
+        <div class="spur" id="spur" hidden></div>
+
+        <nav class="sprung" id="sprung" aria-label="Zu Bereich springen"></nav>
+
+        <div class="leer" id="leer" hidden>
+          <p><strong>Keine Treffer</strong> für <span id="leer-q"></span>.</p>
+          <p>Gesucht wird in Name, früheren Namen, Kurzbeschreibung und allen Textfeldern der Steckbriefe.</p>
+          <button type="button" class="btn" id="leer-reset">Suche leeren</button>
+        </div>
+
+        <div class="karte" id="karte" aria-busy="true">
+          <p class="laden">Steckbriefe werden geladen …</p>
+        </div>
+      </section>
+
+      <article id="view-steckbrief" class="view steckbrief" hidden aria-labelledby="sb-name"></article>
+
+      <section id="view-platzhalter" class="view platzhalter" hidden aria-labelledby="ph-titel">
+        <h2 id="ph-titel"></h2>
+        <p>Diese Ansicht ist im Prototyp nicht gebaut. Gebaut sind die Landkarte und der Steckbrief.</p>
+        <p><a href="?ansicht=karte" data-nav="karte" class="btn">Zur Landkarte</a></p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<noscript><p class="noscript">Die Landkarte braucht JavaScript.</p></noscript>
+<script src="app.js"></script>
+</body>
+</html>

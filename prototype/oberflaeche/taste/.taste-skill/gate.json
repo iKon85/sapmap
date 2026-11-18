@@ -1,0 +1,2075 @@
+{
+ "start": "2026-11-18T20:31:18.142Z",
+ "round": 3,
+ "idle": 0,
+ "errors": 0,
+ "status": "open",
+ "history": [
+  {
+   "at": "2026-11-18T20:43:29.931Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 42,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-18T20:46:22.213Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 45,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-18T20:54:26.243Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 52,
+   "round": 3,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": "index.html",
+  "url": null,
+  "root": "../../..",
+  "kind": "software",
+  "category": "Landkarte der SAP-Bausteine rund um S/4HANA",
+  "primary": "Baustein suchen",
+  "rounds": 3,
+  "start": "2026-11-18T20:31:18.142Z",
+  "by": "gate.mjs --start"
+ },
+ "manual": true,
+ "roundKey": "b487641ddcd52234:4fec58c7",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "b487641ddcd52234",
+ "page": "index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "hero-fill",
+    "where": "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\"",
+    "msg": "the next section shows on the first screen: it starts at 568px on a 900px screen (the hero ends at 535px)",
+    "fix": "let the hero fill the first screen alone (min-height: 100svh, less above it): nothing of the next section on load",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "hero-fill"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\""
+    ]
+   },
+   {
+    "check": "overlap-text",
+    "where": "footer.fuss > div.wrap > span:nth-of-type(2) \"Inhalte aus data/steckbriefe.json, Quell\"",
+    "msg": "lies over the text \"SAP Landscape Management 3.0\" (a.kachel > span.kachel__name)",
+    "fix": "move the box off the text (or the text off the box)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "overlap-text"
+    ],
+    "wheres": [
+     "footer.fuss > div.wrap > span:nth-of-type(2) \"Inhalte aus data/steckbriefe.json, Quell\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\""
+    ]
+   },
+   {
+    "check": "button-styles",
+    "where": "section.bereich:nth-of-type(5) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"Graph in SAP Integration Suite umbenannt\"",
+    "msg": "one button style (soft, outline #8a8699) in 3 heights: 36, 57, 77px (\"Graph in SAP Integration Suite umbenannt\" 77px, \"SAP S/4HANA , teilweise belegt\" 36px)",
+    "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "button-styles"
+    ],
+    "wheres": [
+     "section.bereich:nth-of-type(5) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"Graph in SAP Integration Suite umbenannt\""
+    ]
+   },
+   {
+    "check": "button-styles",
+    "where": "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"SAP HANA , teilweise belegt\"",
+    "msg": "a button pair at two heights: \"SAP HANA , teilweise belegt\" 36px beside \"Graph in SAP Integration Suite umbenannt\" 77px",
+    "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "button-styles"
+    ],
+    "wheres": [
+     "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"SAP HANA , teilweise belegt\""
+    ]
+   },
+   {
+    "check": "button-styles",
+    "where": "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(7) > a.kachel \"SAP Fiori , teilweise belegt\"",
+    "msg": "a button pair at two heights: \"SAP Fiori , teilweise belegt\" 36px beside \"Graph in SAP Integration Suite umbenannt\" 77px",
+    "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "button-styles"
+    ],
+    "wheres": [
+     "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(7) > a.kachel \"SAP Fiori , teilweise belegt\""
+    ]
+   },
+   {
+    "check": "cta",
+    "where": "div#v-karte > section.hero.einstieg",
+    "msg": "the hero has no button (the nav's does not count)",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "cta"
+    ],
+    "wheres": [
+     "div#v-karte > section.hero.einstieg"
+    ]
+   },
+   {
+    "check": "copy-headings",
+    "where": "h2#b-ext \"Clean Core & Erweiterbarkeit\"",
+    "msg": "\"Clean Core & Erweiterbarkeit\" names no product, part, place or section (4 headings like it; at most one brand line per page) (and 3 more like it: \"Plattform & Entwicklung\", \"Einführungsprojekt steue\", \"Betrieb & Infrastruktur\")",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "copy-headings"
+    ],
+    "wheres": [
+     "h2#b-ext \"Clean Core & Erweiterbarkeit\""
+    ]
+   },
+   {
+    "check": "top-stagger",
+    "where": "div#karte \"S/4HANA-Kern & Deployment 22 SAP Cloud E\"",
+    "msg": "3 boxes side by side start at different heights (+0, +344, +335px)",
+    "fix": "align the tops of the boxes in the row (one floor, one ceiling)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "top-stagger"
+    ],
+    "wheres": [
+     "div#karte \"S/4HANA-Kern & Deployment 22 SAP Cloud E\""
+    ]
+   },
+   {
+    "check": "off-grid",
+    "where": "section.hero.einstieg > dl.fakten > div:nth-of-type(2) > dt \"Bereiche\"",
+    "msg": "left edge at 177px, 17px off a common edge of its section at 160px (3 elements, like span.status); 1 more in this section off the grid too (dd#f-bereiche at 177px)",
+    "fix": "move it onto the page margin, or the column edge its section uses",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "off-grid"
+    ],
+    "wheres": [
+     "section.hero.einstieg > dl.fakten > div:nth-of-type(2) > dt \"Bereiche\""
+    ]
+   },
+   {
+    "check": "section-gaps",
+    "where": "div#v-karte > section.hero.einstieg / div#karte > section.bereich:nth-of-type(1)",
+    "msg": "68px between these sections, +84% against the median 37px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-gaps"
+    ],
+    "wheres": [
+     "div#v-karte > section.hero.einstieg / div#karte > section.bereich:nth-of-type(1)"
+    ]
+   },
+   {
+    "check": "section-gaps",
+    "where": "div#karte > section.bereich:nth-of-type(12) / footer.fuss",
+    "msg": "123px between these sections, +232% against the median 37px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-gaps"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(12) / footer.fuss"
+    ]
+   },
+   {
+    "check": "moment-none",
+    "where": "(the page)",
+    "msg": "a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)",
+    "fix": "deal one (moments.mjs pick --page software) and mount it in its own section",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "moment-none"
+    ],
+    "wheres": [
+     "(the page)"
+    ]
+   },
+   {
+    "check": "hero-screen",
+    "where": "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\"",
+    "msg": "the hero ends at 4456px on a 900px screen, 3556px below the fold: it ends at the fold, 1px either way (SR-1)",
+    "fix": "make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "hero-screen"
+    ],
+    "wheres": [
+     "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\""
+    ]
+   },
+   {
+    "check": "section-height",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "the section is 79px tall (0.1 screens), 821px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)",
+    "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "section-height",
+    "where": "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\"",
+    "msg": "the section starts at 161px, 161px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+    "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height"
+    ],
+    "wheres": [
+     "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\""
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "the screen at scroll 3732px (the top of section 2) shows 79px of section 2 beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)",
+    "fix": "make each section exactly one screen or two, so a screen shows one section and no neighbour peeks",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\"",
+    "msg": "a <div> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+    "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\""
+    ]
+   },
+   {
+    "check": "one-heading",
+    "where": "h2#b-core \"S/4HANA-Kern & Deployment\"",
+    "msg": "the hero holds an h2 (12): its heading is the h1, and an h2 opens the next section (SR-5)",
+    "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-heading"
+    ],
+    "wheres": [
+     "h2#b-core \"S/4HANA-Kern & Deployment\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "header.kopf \"Zum Inhalt S/4HANA-LandkarteRecherche-St\"",
+    "msg": "a <header> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "header.kopf \"Zum Inhalt S/4HANA-LandkarteRecherche-St\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div.wrap.flaeche \"Landkarte der SAP-Bausteine rund um S/4H\"",
+    "msg": "a <div> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div.wrap.flaeche \"Landkarte der SAP-Bausteine rund um S/4H\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "a <footer> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (and 2 more like it: p#ansage, \"Landkarte der SAP-Bauste\") (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#karte > section.bereich:nth-of-type(11) > ul.liste > li.eintrag:nth-of-type(5) \"SAP Enterprise Threat Detection\"",
+    "msg": "7 text blocks start on a left line at x 648, 568px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (also \"UI Data Protection (Masking und \", \"SAP Information Lifecycle Manage\", \"RISE-Betrieb durch SAP Enterpris\") (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(11) > ul.liste > li.eintrag:nth-of-type(5) \"SAP Enterprise Threat Detection\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "h2#b-tool \"Toolchain, ALM & Test\"",
+    "msg": "the h2 starts 568px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "h2#b-tool \"Toolchain, ALM & Test\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "h2#b-mig \"Migration & Transformation\"",
+    "msg": "the h2 starts 568px right of the container's left: every h1 and h2 starts on it, 2px either way (and 7 more like it: \"Einführungsprojekt steue\", \"Security, Identity & GRC\", \"Betrieb & Infrastruktur\") (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "h2#b-mig \"Migration & Transformation\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\"",
+    "msg": "a box over half the container wide runs 80-900px, not on the container's lines at 80-1360px (SR-6)",
+    "fix": "run the picture or box from the container's left line to its right line, or put it in a row or a split",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\""
+    ]
+   },
+   {
+    "check": "nav",
+    "where": "header.kopf > div.wrap > div.kopf__bar > a.marke \"S/4HANA-Landkarte Recherche-Stand Oktobe\"",
+    "msg": "nav link wraps to a second line",
+    "fix": "make the nav one bar from the content's left edge to its right edge, with every link and action inside it",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "nav"
+    ],
+    "wheres": [
+     "header.kopf > div.wrap > div.kopf__bar > a.marke \"S/4HANA-Landkarte Recherche-Stand Oktobe\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(3) \"Plattform & Entwicklung\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(3) \"Plattform & Entwicklung\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(4) \"Business AI & Joule\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(4) \"Business AI & Joule\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(5) \"Integration\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(5) \"Integration\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(6) \"Daten & Analytics\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(6) \"Daten & Analytics\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(7) \"LoB-Cloud-Apps & Branchen\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(7) \"LoB-Cloud-Apps & Branchen\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(8) \"Toolchain, ALM & Test\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(8) \"Toolchain, ALM & Test\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(9) \"Migration & Transformation\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(9) \"Migration & Transformation\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#karte > section.bereich:nth-of-type(11) \"Security, Identity & GRC\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(11) \"Security, Identity & GRC\""
+    ]
+   },
+   {
+    "check": "text-only",
+    "where": "div#karte > section.bereich:nth-of-type(12) \"Betrieb & Infrastruktur\"",
+    "msg": "the closing section is only text: no picture, icon, mock or effect in it",
+    "fix": "give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "text-only"
+    ],
+    "wheres": [
+     "div#karte > section.bereich:nth-of-type(12) \"Betrieb & Infrastruktur\""
+    ]
+   },
+   {
+    "check": "off-grid",
+    "where": "dl.legende > dd:nth-of-type(1) > span.legende__eintrag:nth-of-type(3) > span.status \"läuft aus\"",
+    "msg": "left edge at 212.5px, 9.5px off a common edge of its section at 203px (4 elements, like dd#f-unbelegt)",
+    "fix": "move it onto the page margin, or the column edge its section uses",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "off-grid"
+    ],
+    "wheres": [
+     "dl.legende > dd:nth-of-type(1) > span.legende__eintrag:nth-of-type(3) > span.status \"läuft aus\""
+    ]
+   },
+   {
+    "check": "menu-toggle",
+    "where": "button#test-kopf \"Testperspektive\"",
+    "msg": "the menu button (\"Testperspektive\") has no aria-expanded: a screen reader cannot tell the menu is open or shut",
+    "fix": "use the starter's button: <button class=\"nav__toggle\" type=\"button\" aria-expanded=\"false\" aria-label=\"Menu\">; system.js flips it",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "menu-toggle"
+    ],
+    "wheres": [
+     "button#test-kopf \"Testperspektive\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"Integration\"",
+    "msg": "starts at x 364; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"Integration\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"SAP Integration SuiteCloud Integ\"",
+    "msg": "starts at x 364; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"SAP Integration SuiteCloud Integ\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"Daten & Analytics\"",
+    "msg": "starts at x 364; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"Daten & Analytics\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"SAP Business Data CloudneuSAP Da\"",
+    "msg": "starts at x 364; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"SAP Business Data CloudneuSAP Da\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"LoB-Cloud-Apps & Branchen\"",
+    "msg": "starts at x 364; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"LoB-Cloud-Apps & Branchen\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"SAP SuccessFactors, teilweise be\"",
+    "msg": "starts at x 364; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"SAP SuccessFactors, teilweise be\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"Toolchain, ALM & Test\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"Toolchain, ALM & Test\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"Agent-led toolchain (RISE with S\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"Agent-led toolchain (RISE with S\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"Migration & Transformation\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"Migration & Transformation\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"SAP Readiness CheckSAP S/4HANA M\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"SAP Readiness CheckSAP S/4HANA M\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"Einführungsprojekt steuern\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"Einführungsprojekt steuern\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"SAP Activate & RISE with SAP Met\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"SAP Activate & RISE with SAP Met\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"Security, Identity & GRC\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"Security, Identity & GRC\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"SAP Cloud Identity ServicesSAP C\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"SAP Cloud Identity ServicesSAP C\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte h2 \"Betrieb & Infrastruktur\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte h2 \"Betrieb & Infrastruktur\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-karte ul.liste \"RISE-Betrieb durch SAP Enterpris\"",
+    "msg": "starts at x 648; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-karte ul.liste \"RISE-Betrieb durch SAP Enterpris\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "footer.fuss span \"Inhalte aus data/steckbriefe.jso\"",
+    "msg": "starts at x 678; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "footer.fuss span \"Inhalte aus data/steckbriefe.jso\""
+    ]
+   },
+   {
+    "check": "lines",
+    "where": "page",
+    "msg": "headings and leads start on 3 lines (x 80, 364, 648); the page has 80 and one split line",
+    "fix": "put the block on the .wrap lines or the grid columns",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "lines"
+    ],
+    "wheres": [
+     "page"
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "pinned",
+    "where": "aside#seite \"Kein Baustein gewählt Ein Klick auf eine\"",
+    "msg": "held on screen for 4.1 screens of scroll (position: sticky) while the page moves on (a narrow sticky column)",
+    "fix": "let the section scroll with the page",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-buttons",
+    "where": "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(1) > a.kachel \"SAP Cloud ERP , teilweise belegt umbenan\"",
+    "msg": "\"SAP Cloud ERP , teilweise belegt umbenannt\" is 6 words (1 to 5) (and 15 more like it: \"PP/DS & Advanced ATP , t\", \"SAP S/4HANA Finance for \", \"SAP HCM for SAP S/4HANA\", \"SAP BTP, Kyma Runtime , \", ...)",
+    "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-buttons",
+    "where": "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(11) > a.kachel \"PP/DS & Advanced ATP , teilweise belegt\"",
+    "msg": "\"PP/DS & Advanced ATP , teilweise belegt\" does not start with a verb (book, buy, try, start, get, see...) (and 11 more like it: \"Clean Core neu\", \"ABAP Cloud\", \"Joule\", \"Joule Work , teilweise b\", ...)",
+    "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-actions",
+    "where": "(the page)",
+    "msg": "79 different button labels on the page (at most 10)",
+    "fix": "few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "heading-scale",
+    "where": "aside#seite > div.sb-leer > h2 \"Kein Baustein gewählt\"",
+    "msg": "h2 headings in 2 sizes, 17px (\"S/4HANA-Kern & Deploymen\") to 22px (x1.29)",
+    "fix": "size headings by level: the h1 largest, one size per level, each level below the one above",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "div#karte > section.bereich:nth-of-type(4) / div#karte > section.bereich:nth-of-type(5)",
+    "msg": "the sections overlap by 2957px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "div#karte > section.bereich:nth-of-type(7) / div#karte > section.bereich:nth-of-type(8)",
+    "msg": "the sections overlap by 3344px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-family",
+    "where": "header.kopf",
+    "msg": "the nav's links come in 3 sizes (16, 14, 15px)",
+    "fix": "keep one nav on every screen: the same bar, fill, links and type",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "label-centre",
+    "where": "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(3) > a.kachel \"SAP S/4HANA , teilweise belegt\"",
+    "msg": "its label sits 127px off-centre (12px of room at the left, 139px at the right) (and 52 more like it: \"SAP Integration Suite\", \"SAP Signavio Process Tra\", \"SAP Signavio Process Man\", \"SAP Signavio Process Int\", ...)",
+    "fix": "centre the label in its button, or fill the empty side with an icon",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "orphan",
+    "where": "div#karte > section.bereich:nth-of-type(5) > ul.liste > li.eintrag:nth-of-type(12) \"SAP Cloud Application Event Hub\"",
+    "msg": "its last line holds only \"Hub\" (and 3 more like it: \"SAP Enterprise Portfolio\", \"Test-Automation-Schnitts\", \"SAP AI Core & Generative\")",
+    "fix": "rebalance the text (text-wrap: pretty, or a shorter line) so the last line holds more than one short word",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-length",
+    "where": "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\"",
+    "msg": "4 sections over 90 words a screen outside the UI mocks (\"S/4HANA-Kern & Deploymen\" 96, \"Integration\" 96, \"Plattform & Entwicklung\" 93); 66 words a screen across the page (1025 words in 15.6 screens): a tech page says it in about 80 or fewer",
+    "fix": "cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "one-screen",
+    "where": "div#karte > section.bereich:nth-of-type(4) \"Business AI & Joule\"",
+    "msg": "3 sections are shorter than the screen, so the next one's heading or picture shows with them: \"Business AI & Joule\" is 453px of the 779px under the nav, and \"Integration\" shows below it (\"Daten & Analytics\", \"Security, Identity &\")",
+    "fix": "give each section the screen (min-height: 100svh less the nav, its content centred), or join two short ones into one",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "font-load",
+    "where": "h1#einstieg-h \"Aptos\"",
+    "msg": "\"Aptos\" is asked for by --font-display, --font-text, the h1, the h2s and the body text but never loaded (no font link or @font-face loads it): it shows in its fallback",
+    "fix": "load every family the type asks for: name it in the font link as start.mjs prints it, spelt as Google Fonts spells it, or ask for a family the page loads",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "tap-size",
+    "where": "input#q",
+    "msg": "a 160x42px tap target: under the 44px a phone needs",
+    "fix": "make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box",
+    "widths": [
+     390,
+     320
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "orphan",
+    "where": "div#karte > section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(19) \"Intercompany Data Exchange / Application\"",
+    "msg": "its last line holds only \"APE)\" (and 1 more like it: \"SAP Signavio Process Col\")",
+    "fix": "rebalance the text (text-wrap: pretty, or a shorter line) so the last line holds more than one short word",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-stat-strip",
+    "msg": "stat strip x1",
+    "fix": "a strip only of figures the brief gives (a price, hours, a count); otherwise put each number in the sentence it proves, or leave it out (references/copy-tells.md)",
+    "widths": [],
+    "from": "copy",
+    "where": "copy x1: \"154 / 12 / 12 / 60 / ...\"",
+    "exact": false
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 101,
+   "layout": 2
+  }
+ },
+ "open": [
+  {
+   "check": "hero-fill",
+   "where": "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\"",
+   "msg": "the next section shows on the first screen: it starts at 568px on a 900px screen (the hero ends at 535px)",
+   "fix": "let the hero fill the first screen alone (min-height: 100svh, less above it): nothing of the next section on load",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "hero-fill"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\""
+   ]
+  },
+  {
+   "check": "overlap-text",
+   "where": "footer.fuss > div.wrap > span:nth-of-type(2) \"Inhalte aus data/steckbriefe.json, Quell\"",
+   "msg": "lies over the text \"SAP Landscape Management 3.0\" (a.kachel > span.kachel__name)",
+   "fix": "move the box off the text (or the text off the box)",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "overlap-text"
+   ],
+   "wheres": [
+    "footer.fuss > div.wrap > span:nth-of-type(2) \"Inhalte aus data/steckbriefe.json, Quell\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\""
+   ]
+  },
+  {
+   "check": "button-styles",
+   "where": "section.bereich:nth-of-type(5) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"Graph in SAP Integration Suite umbenannt\"",
+   "msg": "one button style (soft, outline #8a8699) in 3 heights: 36, 57, 77px (\"Graph in SAP Integration Suite umbenannt\" 77px, \"SAP S/4HANA , teilweise belegt\" 36px)",
+   "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "button-styles"
+   ],
+   "wheres": [
+    "section.bereich:nth-of-type(5) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"Graph in SAP Integration Suite umbenannt\""
+   ]
+  },
+  {
+   "check": "button-styles",
+   "where": "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"SAP HANA , teilweise belegt\"",
+   "msg": "a button pair at two heights: \"SAP HANA , teilweise belegt\" 36px beside \"Graph in SAP Integration Suite umbenannt\" 77px",
+   "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "button-styles"
+   ],
+   "wheres": [
+    "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(6) > a.kachel \"SAP HANA , teilweise belegt\""
+   ]
+  },
+  {
+   "check": "button-styles",
+   "where": "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(7) > a.kachel \"SAP Fiori , teilweise belegt\"",
+   "msg": "a button pair at two heights: \"SAP Fiori , teilweise belegt\" 36px beside \"Graph in SAP Integration Suite umbenannt\" 77px",
+   "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "button-styles"
+   ],
+   "wheres": [
+    "section.bereich:nth-of-type(1) > ul.liste > li.eintrag:nth-of-type(7) > a.kachel \"SAP Fiori , teilweise belegt\""
+   ]
+  },
+  {
+   "check": "cta",
+   "where": "div#v-karte > section.hero.einstieg",
+   "msg": "the hero has no button (the nav's does not count)",
+   "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "cta"
+   ],
+   "wheres": [
+    "div#v-karte > section.hero.einstieg"
+   ]
+  },
+  {
+   "check": "copy-headings",
+   "where": "h2#b-ext \"Clean Core & Erweiterbarkeit\"",
+   "msg": "\"Clean Core & Erweiterbarkeit\" names no product, part, place or section (4 headings like it; at most one brand line per page) (and 3 more like it: \"Plattform & Entwicklung\", \"Einführungsprojekt steue\", \"Betrieb & Infrastruktur\")",
+   "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "copy-headings"
+   ],
+   "wheres": [
+    "h2#b-ext \"Clean Core & Erweiterbarkeit\""
+   ]
+  },
+  {
+   "check": "top-stagger",
+   "where": "div#karte \"S/4HANA-Kern & Deployment 22 SAP Cloud E\"",
+   "msg": "3 boxes side by side start at different heights (+0, +344, +335px)",
+   "fix": "align the tops of the boxes in the row (one floor, one ceiling)",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "top-stagger"
+   ],
+   "wheres": [
+    "div#karte \"S/4HANA-Kern & Deployment 22 SAP Cloud E\""
+   ]
+  },
+  {
+   "check": "off-grid",
+   "where": "section.hero.einstieg > dl.fakten > div:nth-of-type(2) > dt \"Bereiche\"",
+   "msg": "left edge at 177px, 17px off a common edge of its section at 160px (3 elements, like span.status); 1 more in this section off the grid too (dd#f-bereiche at 177px)",
+   "fix": "move it onto the page margin, or the column edge its section uses",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "off-grid"
+   ],
+   "wheres": [
+    "section.hero.einstieg > dl.fakten > div:nth-of-type(2) > dt \"Bereiche\""
+   ]
+  },
+  {
+   "check": "section-gaps",
+   "where": "div#v-karte > section.hero.einstieg / div#karte > section.bereich:nth-of-type(1)",
+   "msg": "68px between these sections, +84% against the median 37px",
+   "fix": "use one gap between sections (all within 25% of each other)",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-gaps"
+   ],
+   "wheres": [
+    "div#v-karte > section.hero.einstieg / div#karte > section.bereich:nth-of-type(1)"
+   ]
+  },
+  {
+   "check": "section-gaps",
+   "where": "div#karte > section.bereich:nth-of-type(12) / footer.fuss",
+   "msg": "123px between these sections, +232% against the median 37px",
+   "fix": "use one gap between sections (all within 25% of each other)",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-gaps"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(12) / footer.fuss"
+   ]
+  },
+  {
+   "check": "section-height",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "the section is 79px tall (0.1 screens), 821px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)",
+   "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "one-section",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "the screen at scroll 3732px (the top of section 2) shows 79px of section 2 beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)",
+   "fix": "make each section exactly one screen or two, so a screen shows one section and no neighbour peeks",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "one-heading",
+   "where": "h2#b-core \"S/4HANA-Kern & Deployment\"",
+   "msg": "the hero holds an h2 (12): its heading is the h1, and an h2 opens the next section (SR-5)",
+   "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-heading"
+   ],
+   "wheres": [
+    "h2#b-core \"S/4HANA-Kern & Deployment\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "header.kopf \"Zum Inhalt S/4HANA-LandkarteRecherche-St\"",
+   "msg": "a <header> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "header.kopf \"Zum Inhalt S/4HANA-LandkarteRecherche-St\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div.wrap.flaeche \"Landkarte der SAP-Bausteine rund um S/4H\"",
+   "msg": "a <div> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div.wrap.flaeche \"Landkarte der SAP-Bausteine rund um S/4H\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "a <footer> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (and 2 more like it: p#ansage, \"Landkarte der SAP-Bauste\") (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#karte > section.bereich:nth-of-type(11) > ul.liste > li.eintrag:nth-of-type(5) \"SAP Enterprise Threat Detection\"",
+   "msg": "7 text blocks start on a left line at x 648, 568px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (also \"UI Data Protection (Masking und \", \"SAP Information Lifecycle Manage\", \"RISE-Betrieb durch SAP Enterpris\") (SR-6)",
+   "fix": "start the text on the container's left, or on the one split line every split shares",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(11) > ul.liste > li.eintrag:nth-of-type(5) \"SAP Enterprise Threat Detection\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "h2#b-tool \"Toolchain, ALM & Test\"",
+   "msg": "the h2 starts 568px right of the container's left: every h1 and h2 starts on it, 2px either way (SR-6)",
+   "fix": "start the text on the container's left, or on the one split line every split shares",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "h2#b-tool \"Toolchain, ALM & Test\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "h2#b-mig \"Migration & Transformation\"",
+   "msg": "the h2 starts 568px right of the container's left: every h1 and h2 starts on it, 2px either way (and 7 more like it: \"Einführungsprojekt steue\", \"Security, Identity & GRC\", \"Betrieb & Infrastruktur\") (SR-6)",
+   "fix": "start the text on the container's left, or on the one split line every split shares",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "h2#b-mig \"Migration & Transformation\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\"",
+   "msg": "a box over half the container wide runs 80-900px, not on the container's lines at 80-1360px (SR-6)",
+   "fix": "run the picture or box from the container's left line to its right line, or put it in a row or a split",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#v-karte > section.hero.einstieg \"Landkarte der SAP-Bausteine rund um S/4H\""
+   ]
+  },
+  {
+   "check": "nav",
+   "where": "header.kopf > div.wrap > div.kopf__bar > a.marke \"S/4HANA-Landkarte Recherche-Stand Oktobe\"",
+   "msg": "nav link wraps to a second line",
+   "fix": "make the nav one bar from the content's left edge to its right edge, with every link and action inside it",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "nav"
+   ],
+   "wheres": [
+    "header.kopf > div.wrap > div.kopf__bar > a.marke \"S/4HANA-Landkarte Recherche-Stand Oktobe\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(1) \"S/4HANA-Kern & Deployment\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(3) \"Plattform & Entwicklung\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(3) \"Plattform & Entwicklung\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(4) \"Business AI & Joule\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(4) \"Business AI & Joule\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(5) \"Integration\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(5) \"Integration\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(6) \"Daten & Analytics\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(6) \"Daten & Analytics\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(7) \"LoB-Cloud-Apps & Branchen\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(7) \"LoB-Cloud-Apps & Branchen\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(8) \"Toolchain, ALM & Test\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(8) \"Toolchain, ALM & Test\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(9) \"Migration & Transformation\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(9) \"Migration & Transformation\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#karte > section.bereich:nth-of-type(11) \"Security, Identity & GRC\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(11) \"Security, Identity & GRC\""
+   ]
+  },
+  {
+   "check": "text-only",
+   "where": "div#karte > section.bereich:nth-of-type(12) \"Betrieb & Infrastruktur\"",
+   "msg": "the closing section is only text: no picture, icon, mock or effect in it",
+   "fix": "give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "text-only"
+   ],
+   "wheres": [
+    "div#karte > section.bereich:nth-of-type(12) \"Betrieb & Infrastruktur\""
+   ]
+  },
+  {
+   "check": "off-grid",
+   "where": "dl.legende > dd:nth-of-type(1) > span.legende__eintrag:nth-of-type(3) > span.status \"läuft aus\"",
+   "msg": "left edge at 212.5px, 9.5px off a common edge of its section at 203px (4 elements, like dd#f-unbelegt)",
+   "fix": "move it onto the page margin, or the column edge its section uses",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "off-grid"
+   ],
+   "wheres": [
+    "dl.legende > dd:nth-of-type(1) > span.legende__eintrag:nth-of-type(3) > span.status \"läuft aus\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"Integration\"",
+   "msg": "starts at x 364; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"Integration\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"SAP Integration SuiteCloud Integ\"",
+   "msg": "starts at x 364; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"SAP Integration SuiteCloud Integ\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"Daten & Analytics\"",
+   "msg": "starts at x 364; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"Daten & Analytics\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"SAP Business Data CloudneuSAP Da\"",
+   "msg": "starts at x 364; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"SAP Business Data CloudneuSAP Da\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"LoB-Cloud-Apps & Branchen\"",
+   "msg": "starts at x 364; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"LoB-Cloud-Apps & Branchen\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"SAP SuccessFactors, teilweise be\"",
+   "msg": "starts at x 364; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"SAP SuccessFactors, teilweise be\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"Toolchain, ALM & Test\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"Toolchain, ALM & Test\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"Agent-led toolchain (RISE with S\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"Agent-led toolchain (RISE with S\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"Migration & Transformation\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"Migration & Transformation\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"SAP Readiness CheckSAP S/4HANA M\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"SAP Readiness CheckSAP S/4HANA M\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"Einführungsprojekt steuern\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"Einführungsprojekt steuern\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"SAP Activate & RISE with SAP Met\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"SAP Activate & RISE with SAP Met\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"Security, Identity & GRC\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"Security, Identity & GRC\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"SAP Cloud Identity ServicesSAP C\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"SAP Cloud Identity ServicesSAP C\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte h2 \"Betrieb & Infrastruktur\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte h2 \"Betrieb & Infrastruktur\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-karte ul.liste \"RISE-Betrieb durch SAP Enterpris\"",
+   "msg": "starts at x 648; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-karte ul.liste \"RISE-Betrieb durch SAP Enterpris\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "footer.fuss span \"Inhalte aus data/steckbriefe.jso\"",
+   "msg": "starts at x 678; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "footer.fuss span \"Inhalte aus data/steckbriefe.jso\""
+   ]
+  },
+  {
+   "check": "lines",
+   "where": "page",
+   "msg": "headings and leads start on 3 lines (x 80, 364, 648); the page has 80 and one split line",
+   "fix": "put the block on the .wrap lines or the grid columns",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "lines"
+   ],
+   "wheres": [
+    "page"
+   ]
+  }
+ ],
+ "waived": [
+  {
+   "check": "moment-none",
+   "where": "(the page)",
+   "msg": "a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)",
+   "fix": "deal one (moments.mjs pick --page software) and mount it in its own section",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "moment-none"
+   ],
+   "wheres": [
+    "(the page)"
+   ],
+   "reason": "Nachschlage-Werkzeug: der gedealte Moment iris-opens versteckt Inhalte bis zum Scrollen; in einem Katalog, den Berater gezielt durchsuchen, kostet das Lesezeit (Auftrag: Hausregeln nur, wo sie dem Werkzeug dienen)"
+  },
+  {
+   "check": "hero-screen",
+   "where": "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\"",
+   "msg": "the hero ends at 4456px on a 900px screen, 3556px below the fold: it ends at the fold, 1px either way (SR-1)",
+   "fix": "make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "hero-screen"
+   ],
+   "wheres": [
+    "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\""
+   ],
+   "reason": "Werkzeug statt Marketingseite: der Einstieg ist bewusst kompakt, damit die Landkarte schon im ersten Bildschirm beginnt; ein bildschirmfüllender Hero würde die Bausteine unter die Falz schieben"
+  },
+  {
+   "check": "section-height",
+   "where": "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\"",
+   "msg": "the section starts at 161px, 161px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+   "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height"
+   ],
+   "wheres": [
+    "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\""
+   ],
+   "reason": "Die Landkarte ist eine durchgehende Liste von 154 Bausteinen in zwölf Bereichen; sie in Bildschirmhöhen zu zerteilen widerspricht dem Werkzeug (Auftrag: eine Sektion pro Bildschirm nur, wo sie dient)"
+  },
+  {
+   "check": "one-section",
+   "where": "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\"",
+   "msg": "a <div> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+   "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "div#v-karte \"Landkarte der SAP-Bausteine rund um S/4H\""
+   ],
+   "reason": "Arbeitsfläche aus Landkarte und Steckbrief-Spalte nebeneinander, keine Folge von Marketing-Sektionen; Bereiche sind Listengruppen, keine Bildschirm-Sektionen"
+  },
+  {
+   "check": "menu-toggle",
+   "where": "button#test-kopf \"Testperspektive\"",
+   "msg": "the menu button (\"Testperspektive\") has no aria-expanded: a screen reader cannot tell the menu is open or shut",
+   "fix": "use the starter's button: <button class=\"nav__toggle\" type=\"button\" aria-expanded=\"false\" aria-label=\"Menu\">; system.js flips it",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "menu-toggle"
+   ],
+   "wheres": [
+    "button#test-kopf \"Testperspektive\""
+   ],
+   "reason": "Das ist kein Menüknopf, sondern der Schalter der Testperspektive (role=switch mit aria-checked); das Ansichtsmenü trägt aria-expanded"
+  }
+ ],
+ "warnCount": 16,
+ "at": "2026-11-18T20:54:26.244Z",
+ "openTold": true
+}

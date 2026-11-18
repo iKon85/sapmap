@@ -1,0 +1,7 @@
+[
+  { "check": "moment-none", "target": "(the page)", "reason": "Nachschlage-Werkzeug: der gedealte Moment iris-opens versteckt Inhalte bis zum Scrollen; in einem Katalog, den Berater gezielt durchsuchen, kostet das Lesezeit (Auftrag: Hausregeln nur, wo sie dem Werkzeug dienen)" },
+  { "check": "hero-screen", "target": "div#v-karte", "reason": "Werkzeug statt Marketingseite: der Einstieg ist bewusst kompakt, damit die Landkarte schon im ersten Bildschirm beginnt; ein bildschirmfüllender Hero würde die Bausteine unter die Falz schieben" },
+  { "check": "section-height", "target": "div#v-karte", "reason": "Die Landkarte ist eine durchgehende Liste von 154 Bausteinen in zwölf Bereichen; sie in Bildschirmhöhen zu zerteilen widerspricht dem Werkzeug (Auftrag: eine Sektion pro Bildschirm nur, wo sie dient)" },
+  { "check": "one-section", "target": "div#v-karte", "reason": "Arbeitsfläche aus Landkarte und Steckbrief-Spalte nebeneinander, keine Folge von Marketing-Sektionen; Bereiche sind Listengruppen, keine Bildschirm-Sektionen" },
+  { "check": "menu-toggle", "target": "button#test-kopf", "reason": "Das ist kein Menüknopf, sondern der Schalter der Testperspektive (role=switch mit aria-checked); das Ansichtsmenü trägt aria-expanded" }
+]

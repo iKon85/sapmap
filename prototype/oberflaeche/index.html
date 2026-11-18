@@ -1,0 +1,21 @@
+<!doctype html>
+<!-- PROTOTYP, wegwerfen: zwei Varianten der neuen Oberfläche im Wavestone-CI, umschaltbar über ?variant=impeccable|taste -->
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prototyp: Oberfläche im Wavestone-CI</title>
+<style>
+html,body{margin:0;height:100%}iframe{border:0;width:100%;height:100%;display:block}
+#bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:#111;color:#fff;font:600 13px/1 system-ui,sans-serif;padding:6px;border-radius:999px;box-shadow:0 6px 24px rgba(0,0,0,.35);z-index:9}
+#bar button{all:unset;cursor:pointer;padding:8px 12px;border-radius:999px;background:#333}#bar button:hover{background:#555}#lbl{padding:0 6px;white-space:nowrap}
+</style></head><body>
+<iframe id="f" title="Variante"></iframe>
+<div id="bar" role="toolbar" aria-label="Prototyp-Umschalter"><button id="p" aria-label="Vorige Variante">←</button><span id="lbl"></span><button id="n" aria-label="Nächste Variante">→</button></div>
+<script>
+const V=[['impeccable','A · impeccable'],['taste','B · design-taste-frontend']];
+const f=document.getElementById('f'),lbl=document.getElementById('lbl');
+function cur(){const v=new URLSearchParams(location.search).get('variant');const i=V.findIndex(x=>x[0]===v);return i<0?0:i}
+function show(i,push){const [k,l]=V[i];lbl.textContent=l;if(!f.src.includes('/'+k+'/'))f.src=k+'/';if(push){const u=new URL(location);u.searchParams.set('variant',k);history.replaceState(null,'',u)}}
+function step(d){show((cur()+d+V.length)%V.length,true)}
+document.getElementById('p').onclick=()=>step(-1);document.getElementById('n').onclick=()=>step(1);
+addEventListener('keydown',e=>{if(e.target.closest('input,textarea,[contenteditable]'))return;if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+show(cur(),false);
+</script></body></html>

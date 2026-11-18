@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="de" data-type="software" data-radius="sharp" data-buttons="tonal" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>S/4HANA-Landkarte: SAP-Bausteine rund um S/4HANA</title>
+<meta name="description" content="Nachschlagewerk für SAP-Berater: 154 Steckbriefe zu Produkten in und um S/4HANA, nach zwölf Bereichen geordnet, mit Status, Daten und Quellen.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="S/4HANA-Landkarte: SAP-Bausteine rund um S/4HANA">
+<meta property="og:description" content="154 Steckbriefe zu SAP-Produkten in und um S/4HANA, mit Status, Daten und Quellen.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FFFFFF">
+<!-- <link rel="canonical" href="https://[Domain der Landkarte]/"> -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<!-- Kit: system.css (Tokens, Knöpfe, Fokus, Sprunglink) und der Motion-Layer. Keine Google Fonts:
+     die Wavestone-CI verlangt Aptos als lokalen Font-Stack, ohne Webfont-Download. -->
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<!-- Palette aus: start.mjs brand --page software --bg #FFFFFF --ink #000000 --accent #451DC7 --surface #F4F2FC --muted #4A4A57 --type geist --radius sharp;
+     die Schriftzeilen auf den Aptos-Stack der Charta umgestellt (Kunden-CI). -->
+<style>
+:root {
+  --p-bg: #ffffff; --p-surface: #f4f2fc; --p-ink: #000000; --p-muted: #4a4a57;
+  --p-accent: #451dc7; --p-accent-ink: #ffffff; --p-action: #451dc7; --p-action-ink: #ffffff;
+  --p-inv-bg: #000000; --p-inv-surface: #010101; --p-inv-ink: #ffffff; --p-inv-muted: #868686;
+  --p-inv-accent: #ffffff; --p-inv-accent-ink: #000000; --p-inv-action: #ffffff; --p-inv-action-ink: #000000;
+}
+</style>
+<link rel="stylesheet" href="app.css">
+<!-- Theme vor dem ersten Bild: gespeicherte Wahl, sonst Systemeinstellung -->
+<script>(function(){var t;try{t=localStorage.getItem('sapmap-theme')}catch(e){}if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t})()</script>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<!-- type: software (Nachschlage-Werkzeug, kein Marketing)
+     deal: hero collage, nav nav-centre, close close-type, footer footer-statement, rhythm space, buttons tonal, mark ring
+     genutzt: buttons tonal (Form), mark ring (Logo), Hover- und Einstiegs-Motion. Nicht genutzt (Begründung in
+     .taste-skill/waivers.json und im Bericht): Collage-Hero, Mega-Navigation, Schlussband, dealt moment iris-opens.
+     Raum: Landkarte als neutrales Raster nach Bereich (Bestandsaufnahme W2), Steckbrief rechts, mobil als Vollbild-Dialog. -->
+<body>
+<header class="kopf">
+  <div class="wrap">
+    <div class="kopf__bar">
+      <a class="skip-link" href="#top">Zum Inhalt</a>
+      <a class="marke" href="./" data-ansicht-link="karte" aria-label="S/4HANA-Landkarte, zur Landkarte">
+        <span class="mark" data-mark="ring" aria-hidden="true"></span>
+        <span class="marke__text"><span class="marke__titel">S/4HANA-Landkarte</span><span class="marke__stand" id="stand">Recherche-Stand Oktober 2026</span></span>
+      </a>
+      <div class="schalter">
+        <button class="toggle" type="button" role="switch" aria-checked="false" data-test-schalter id="test-kopf" aria-label="Testperspektive">
+          <span class="knopf" aria-hidden="true"></span><span>Test<span class="toggle__lang">perspektive</span></span>
+        </button>
+        <button class="toggle" type="button" id="theme" role="switch" aria-checked="false">
+          <span class="knopf" aria-hidden="true"></span><svg class="toggle__mond" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.3A7 7 0 0 1 7.7 3.5a7 7 0 1 0 8.8 8.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="toggle__text">Dunkel</span>
+        </button>
+      </div>
+    </div>
+    <div class="kopf__nav">
+      <button class="toggle ansichten-knopf" type="button" id="ansichten-knopf" aria-expanded="false" aria-controls="ansichten">
+        <span class="vh">Ansicht: </span><span id="ansicht-name">Landkarte</span>
+        <svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <nav class="ansichten" id="ansichten" aria-label="Ansichten">
+        <a href="./" data-ansicht-link="karte" aria-current="page">Landkarte</a>
+        <a href="?ansicht=schichten" data-ansicht-link="schichten">Schichtenmodell</a>
+        <a href="?ansicht=integration" data-ansicht-link="integration">Integrationswege</a>
+        <a href="?ansicht=toolchain" data-ansicht-link="toolchain">Toolchain</a>
+        <a href="?ansicht=zeitleiste" data-ansicht-link="zeitleiste">Zeitleiste</a>
+      </nav>
+      <div class="suche" role="search">
+        <div class="suche__feld">
+          <label for="q"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="suche__wort">Suche</span></label>
+          <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="z. B. PI/PO, Datasphere, Tosca" aria-describedby="trefferzahl">
+          <button class="suche__leeren" type="button" id="suche-leeren" data-suche-leeren aria-label="Suche leeren" hidden><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        </div>
+        <span class="suche__zahl" id="trefferzahl" role="status">154 Bausteine</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap flaeche">
+  <main class="haupt" id="top" tabindex="-1">
+    <div id="v-karte">
+      <section class="hero einstieg" data-enter aria-labelledby="einstieg-h">
+        <h1 id="einstieg-h">Landkarte der SAP-Bausteine rund um S/4HANA</h1>
+        <p class="einstieg__lead"><span id="lead-zahl">154</span> Steckbriefe in zwölf Bereichen: was ein Baustein leistet, wie er an S/4HANA hängt und wann er ausläuft. Geschrieben für Architektur, Integration, Test, Basis und Projektleitung.</p>
+        <dl class="fakten">
+          <div><dt>Bausteine</dt><dd id="f-bausteine">154</dd></div>
+          <div><dt>Bereiche</dt><dd id="f-bereiche">12</dd></div>
+          <div><dt>laufen aus oder abgekündigt</dt><dd id="f-aus">12</dd></div>
+          <div><dt>teilweise oder nicht belegt</dt><dd id="f-unbelegt">60</dd></div>
+        </dl>
+        <dl class="legende" aria-label="Legende">
+          <dt>Status</dt>
+          <dd>
+            <span class="legende__eintrag"><span class="status" data-status="neu">neu</span></span>
+            <span class="legende__eintrag"><span class="status" data-status="umbenannt">umbenannt</span></span>
+            <span class="legende__eintrag"><span class="status" data-status="auslaufend">läuft aus</span></span>
+            <span class="legende__eintrag"><span class="status" data-status="abgekuendigt">abgekündigt</span></span>
+            <span class="legende__eintrag muted">ohne Kennzeichen: aktiv</span>
+          </dd>
+          <dt>Rahmen</dt>
+          <dd>
+            <span class="legende__eintrag"><span class="legende__rahmen" data-belegt="ja" aria-hidden="true"></span>belegt <span class="legende__zahl" id="l-ja">94</span></span>
+            <span class="legende__eintrag"><span class="legende__rahmen" data-belegt="teilweise" aria-hidden="true"></span>teilweise belegt <span class="legende__zahl" id="l-teilweise">58</span></span>
+            <span class="legende__eintrag"><span class="legende__rahmen" data-belegt="nein" aria-hidden="true"></span>nicht belegt <span class="legende__zahl" id="l-nein">2</span></span>
+          </dd>
+        </dl>
+      </section>
+      <p class="trefferzeile" id="trefferzeile" aria-hidden="true"></p>
+      <div class="leer" id="keine-treffer" hidden>
+        <h2>Keine Treffer für „<span id="keine-treffer-q"></span>“</h2>
+        <p>Gesucht wird in Name, früheren Namen und allen Textfeldern der Steckbriefe. Ein kürzeres Wort findet oft mehr.</p>
+        <button class="knopf-text" type="button" data-suche-leeren>Suche leeren</button>
+      </div>
+      <div class="karte" id="karte" aria-label="Bausteine nach Bereich">
+        <noscript><p>Die Landkarte braucht JavaScript, weil sie die Steckbriefe aus data/steckbriefe.json lädt.</p></noscript>
+      </div>
+    </div>
+    <div id="v-fehlt" class="ansicht-fehlt" hidden>
+      <span class="ansicht-fehlt__marke">Im Prototyp nicht gebaut</span>
+      <h1 id="fehlt-titel">Schichtenmodell</h1>
+      <p id="fehlt-was"></p>
+      <p>Auswahl, Suche und Testperspektive bleiben beim Wechsel erhalten.</p>
+      <a class="knopf-text" href="./" data-ansicht-link="karte">Zur Landkarte wechseln</a>
+    </div>
+  </main>
+  <aside class="seite" id="seite" aria-label="Steckbrief"></aside>
+</div>
+
+<footer class="fuss">
+  <div class="wrap">
+    <span>S/4HANA-Landkarte · Recherche-Stand Oktober 2026</span>
+    <span>Inhalte aus data/steckbriefe.json, Quellen je Steckbrief. Produktnamen sind Marken ihrer Inhaber.</span>
+  </div>
+</footer>
+
+<dialog class="blatt" id="blatt" aria-labelledby="sb-name-blatt">
+  <div class="blatt__leiste">
+    <button class="blatt__zurueck" type="button" id="blatt-zu"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3 5 9l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Zur Landkarte</button>
+  </div>
+  <div class="blatt__inhalt" id="blatt-inhalt"></div>
+</dialog>
+
+<p class="vh" id="ansage" aria-live="polite"></p>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
