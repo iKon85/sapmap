@@ -1,0 +1,685 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/archivo";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+
+/* PROTOTYP. Token-Struktur aus dem shadcn-Preset b3QxdAzBg (Nova, Radius Small, Menu Solid, Accent Bold).
+   Farben und Schrift überschreibt die Wavestone-CI. */
+
+/* Aptos: installierte Schrift zuerst, sonst lokale Datei (public/fonts-local, nicht im Repo), sonst Fallback. */
+@font-face {
+  font-family: "Aptos";
+  font-weight: 400;
+  font-display: swap;
+  src: local("Aptos"), url("/fonts-local/Aptos.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Aptos";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: local("Aptos Italic"), url("/fonts-local/Aptos-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Aptos";
+  font-weight: 600;
+  font-display: swap;
+  src: local("Aptos SemiBold"), url("/fonts-local/Aptos-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Aptos";
+  font-weight: 700;
+  font-display: swap;
+  src: local("Aptos Bold"), url("/fonts-local/Aptos-Bold.ttf") format("truetype");
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: "Aptos", "Archivo Variable", "IBM Plex Sans", system-ui, sans-serif;
+  --font-sans: "Aptos", "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-link: var(--link);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ---------- Wavestone-CI in den shadcn-Tokens ---------- */
+:root {
+  --ws-violett: #451dc7;
+  --ws-tief: #250f6b;
+  --ws-gruen: #04f06a;
+  --ws-hellgruen: #cafee0;
+  --ws-gelb: #ffca4a;
+  --ws-rot: #ff2a49;
+
+  --background: #f5f4fa; /* Leinwand: Weiß mit einem Hauch Violett, damit die weißen Bereichskarten stehen */
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: var(--ws-violett);
+  --primary-foreground: #ffffff;
+  --secondary: #ece8fa;
+  --secondary-foreground: var(--ws-tief);
+  --muted: #efeef6;
+  --muted-foreground: #55516b;
+  --accent: var(--ws-violett); /* Menu Accent Bold: Akzent = Primärfarbe */
+  --accent-foreground: #ffffff;
+  --destructive: var(--ws-rot);
+  --border: #dddaec;
+  --input: #c9c5de;
+  --ring: var(--ws-violett);
+  --link: var(--ws-violett);
+  --chart-1: var(--ws-violett);
+  --chart-2: var(--ws-gruen);
+  --chart-3: var(--ws-tief);
+  --chart-4: #4682b4;
+  --chart-5: #8f00ff;
+  --radius: 0.45rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: var(--ws-violett);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #efeef6;
+  --sidebar-accent-foreground: var(--ws-tief);
+  --sidebar-border: #dddaec;
+  --sidebar-ring: var(--ws-violett);
+
+  /* Status: Füllfarbe mit schwarzem Zeichen darauf (Charta: kein heller Text auf Grün, Gelb und Rot nur für Status) */
+  --st-neu: var(--ws-gruen);
+  --st-aus: var(--ws-gelb);
+  --st-abg: var(--ws-rot);
+  --st-umb: var(--ws-violett);
+  --cc-line: var(--ws-tief);
+}
+
+.dark {
+  /* Die Charta kennt nur Hell. Dunkel sind abgeleitete Töne: tiefes Violett als Grund, Violett aufgehellt, Grün leuchtet. */
+  --background: #0d0920;
+  --foreground: #ffffff;
+  --card: #161131;
+  --card-foreground: #ffffff;
+  --popover: #1b1540;
+  --popover-foreground: #ffffff;
+  --primary: #6c4df2;
+  --primary-foreground: #ffffff;
+  --secondary: #241b55;
+  --secondary-foreground: #e9e5ff;
+  --muted: #1e1842;
+  --muted-foreground: #b4afcb;
+  --accent: #6c4df2;
+  --accent-foreground: #ffffff;
+  --destructive: var(--ws-rot);
+  --border: #2e2755;
+  --input: #3a3268;
+  --ring: var(--ws-gruen);
+  --link: #b9a8ff;
+  --sidebar: #161131;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #6c4df2;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1e1842;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #2e2755;
+  --sidebar-ring: var(--ws-gruen);
+  --st-umb: #b9a8ff;
+  --cc-line: var(--ws-gruen);
+  color-scheme: dark;
+}
+
+/* ---------- Bereichsfarben: drei Schemata (?farben=tonstufen|infografik|ruhig) ----------
+   --zc-* ist die Tinte je Bereich (Überschrift, Punkt, Rand; mindestens 4,5:1 auf der Karte).
+   Die Tönung (--zt) wird daraus gemischt. */
+
+/* 1 · Tonstufen: Violett für SAP-Technik (Kern, Clean Core, BTP), Grün für das Umfeld (LoB, Projekt), Grau für Querschnitt */
+:root {
+  --zc-core: #451dc7;
+  --zc-ext: #250f6b;
+  --zc-plat: #6a4be0;
+  --zc-int: #6a4be0;
+  --zc-data: #6a4be0;
+  --zc-ai: #6a4be0;
+  --zc-lob: #0a7a3c;
+  --zc-proj: #0b5c2e;
+  --zc-quer: #4a4760;
+}
+.dark {
+  --zc-core: #b9a8ff;
+  --zc-ext: #e0d9ff;
+  --zc-plat: #9482f0;
+  --zc-int: #9482f0;
+  --zc-data: #9482f0;
+  --zc-ai: #9482f0;
+  --zc-lob: #04f06a;
+  --zc-proj: #8fd9ae;
+  --zc-quer: #b4afcb;
+}
+
+/* 2 · Infografik: zusätzlich die zwei Funktionsfarben der Charta für komplexe Infografiken (#4682B4, #8F00FF) */
+:root[data-farben="infografik"] {
+  --zc-core: #451dc7;
+  --zc-ext: #250f6b;
+  --zc-plat: #2f6490;
+  --zc-int: #0b5c2e;
+  --zc-data: #8f00ff;
+  --zc-ai: #6a4be0;
+  --zc-lob: #0a7a3c;
+  --zc-proj: #17132b;
+  --zc-quer: #5f5b75;
+}
+.dark[data-farben="infografik"] {
+  --zc-core: #b9a8ff;
+  --zc-ext: #e0d9ff;
+  --zc-plat: #8fb8dc;
+  --zc-int: #04f06a;
+  --zc-data: #c98bff;
+  --zc-ai: #9482f0;
+  --zc-lob: #8fd9ae;
+  --zc-proj: #ffffff;
+  --zc-quer: #b4afcb;
+}
+
+/* 3 · Ruhig: alles in tiefem Violett, nur der Kern in Markenviolett und die Clean-Core-Naht in Grün */
+:root[data-farben="ruhig"] {
+  --zc-core: #451dc7;
+  --zc-ext: #0b5c2e;
+  --zc-plat: #250f6b;
+  --zc-int: #250f6b;
+  --zc-data: #250f6b;
+  --zc-ai: #250f6b;
+  --zc-lob: #250f6b;
+  --zc-proj: #250f6b;
+  --zc-quer: #5f5b75;
+}
+.dark[data-farben="ruhig"] {
+  --zc-core: #b9a8ff;
+  --zc-ext: #04f06a;
+  --zc-plat: #d2caf5;
+  --zc-int: #d2caf5;
+  --zc-data: #d2caf5;
+  --zc-ai: #d2caf5;
+  --zc-lob: #d2caf5;
+  --zc-proj: #d2caf5;
+  --zc-quer: #b4afcb;
+}
+
+[data-zone="core"] { --zc: var(--zc-core); }
+[data-zone="ext"] { --zc: var(--zc-ext); }
+[data-zone="plat"] { --zc: var(--zc-plat); }
+[data-zone="int"] { --zc: var(--zc-int); }
+[data-zone="data"] { --zc: var(--zc-data); }
+[data-zone="ai"] { --zc: var(--zc-ai); }
+[data-zone="lob"] { --zc: var(--zc-lob); }
+[data-zone="proj"] { --zc: var(--zc-proj); }
+[data-zone="quer"] { --zc: var(--zc-quer); }
+[data-zone="neutral"] { --zc: var(--muted-foreground); }
+[data-zone] {
+  --zt: color-mix(in oklab, var(--zc) 9%, var(--card));
+  --zb: var(--zc);
+}
+/* Clean Core trägt den grünen Akzent als Linie, wo das Schema ihn vorsieht */
+:root[data-farben="ruhig"] [data-zone="ext"] { --zb: var(--ws-gruen); --zt: var(--ws-hellgruen); }
+.dark[data-farben="ruhig"] [data-zone="ext"] { --zt: color-mix(in oklab, var(--ws-gruen) 12%, var(--card)); }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  html {
+    @apply font-sans;
+    scrollbar-gutter: stable;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ---------- Bausteine: Chip und Statuszeichen ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: 4px 8px;
+  font-size: 12.5px;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    opacity 0.15s,
+    border-color 0.15s,
+    background 0.15s;
+}
+.chip:hover {
+  border-color: var(--zc);
+  background: var(--zt);
+}
+.chip .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--zc);
+}
+.chip.unv {
+  border-style: dashed;
+}
+.chip.child {
+  font-size: 12px;
+  padding: 3px 7px;
+  background: var(--muted);
+}
+.chip.small {
+  font-size: 12px;
+  padding: 3px 7px;
+}
+.chip[data-status="auslaufend"],
+.chip[data-status="abgekuendigt"] {
+  color: var(--muted-foreground);
+}
+.chip[data-status="abgekuendigt"] .nm {
+  text-decoration: line-through;
+  text-decoration-color: var(--st-abg);
+}
+.chip.rel {
+  border-color: var(--zc);
+  box-shadow: inset 0 0 0 0.5px var(--zc);
+  background: var(--zt);
+}
+.chip.sel {
+  border-color: var(--zc);
+  background: var(--zc);
+  color: var(--card);
+}
+.chip.sel .dot {
+  background: var(--card);
+}
+.has-sel .chip:not(.sel):not(.rel) {
+  opacity: 0.38;
+}
+.chip.miss {
+  opacity: 0.18;
+}
+.has-sel .chip.miss {
+  opacity: 0.12;
+}
+
+.stmark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  flex: none;
+  color: #000;
+}
+.stmark svg {
+  width: 11px;
+  height: 11px;
+}
+.stmark.neu { background: var(--st-neu); }
+.stmark.auslaufend { background: var(--st-aus); }
+.stmark.abgekuendigt { background: var(--st-abg); }
+.stmark.umbenannt {
+  background: transparent;
+  color: var(--st-umb);
+  box-shadow: inset 0 0 0 1.5px var(--st-umb);
+}
+.chip.sel .stmark.umbenannt {
+  color: var(--card);
+  box-shadow: inset 0 0 0 1.5px var(--card);
+}
+
+/* ---------- Landkarte ---------- */
+.karte-wrap {
+  container: karte / inline-size;
+}
+.karte {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr);
+  /* Mobil: Kern, Clean Core, BTP, dann der Rest */
+  grid-template-areas: "core" "ext" "plat" "lob" "sec" "proj" "ops";
+}
+.a-proj { grid-area: proj; }
+.a-lob { grid-area: lob; }
+.a-core { grid-area: core; }
+.a-ext { grid-area: ext; }
+.a-plat { grid-area: plat; }
+.a-sec { grid-area: sec; }
+.a-ops { grid-area: ops; }
+
+/* Mittlere Breite: zwei Spalten, Kern und BTP nebeneinander */
+@container karte (min-width: 640px) {
+  .karte {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    grid-template-areas: "proj proj" "core plat" "ext plat" "lob plat" "sec plat" "ops ops";
+    grid-template-rows: auto auto auto auto 1fr auto;
+  }
+}
+/* B und C brauchen vier Spalten, A fünf */
+@container karte (min-width: 960px) {
+  .karte[data-layout="b"] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 0.75fr) minmax(0, 2.4fr);
+    grid-template-areas: "proj proj proj proj" "lob core ext plat" "lob sec sec sec" "ops ops ops ops";
+    grid-template-rows: auto;
+  }
+  .karte[data-layout="c"] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 2.4fr) minmax(0, 0.75fr);
+    grid-template-areas: "proj proj proj proj" "lob ext ext sec" "lob core plat sec" "ops ops ops ops";
+    grid-template-rows: auto auto 1fr auto;
+  }
+}
+@container karte (min-width: 1180px) {
+  .karte[data-layout="a"] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 0.75fr) minmax(0, 2.4fr) minmax(0, 0.75fr);
+    grid-template-areas: "proj proj proj proj proj" "lob core ext plat sec" "ops ops ops ops ops";
+    grid-template-rows: auto;
+  }
+}
+
+.zone {
+  container: zone / inline-size;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--zb);
+  border-radius: var(--radius-lg);
+  padding: 10px 12px 12px;
+  min-width: 0;
+}
+.zone h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--zc);
+}
+.gruppe {
+  container: gruppe / inline-size;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--zb);
+  border-radius: var(--radius-lg);
+  padding: 10px;
+  min-width: 0;
+}
+.gruppe h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--zc);
+}
+.gruppe .zone {
+  background: var(--muted);
+}
+.subgrid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr);
+}
+@container gruppe (min-width: 380px) {
+  .subgrid.plat { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .subgrid.plat > .z-int { grid-column: 1 / -1; }
+  /* Plattform links über zwei Zeilen, Daten und KI rechts übereinander: beide Spalten werden etwa gleich hoch */
+  .subgrid.plat > .z-btp { grid-row: span 2; }
+}
+.subgrid.plat > .z-int { background: var(--zt); }
+@container gruppe (min-width: 560px) {
+  .subgrid.proj { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .subgrid.proj > :first-child { grid-row: span 2; }
+}
+@container gruppe (min-width: 900px) {
+  .subgrid.proj { grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.8fr) minmax(0, 0.9fr); }
+  .subgrid.proj > :first-child { grid-row: auto; }
+}
+.tiles {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: 8px;
+}
+@container zone (min-width: 420px) {
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.tile {
+  position: relative;
+  display: block;
+  border: 1px solid var(--border);
+  background: var(--zt);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  text-align: left;
+  min-width: 0;
+  transition: opacity 0.15s, border-color 0.15s;
+}
+.tile b {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.tile span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-top: 2px;
+}
+.tile:hover { border-color: var(--zc); }
+.tile.rel { border-color: var(--zc); box-shadow: inset 0 0 0 0.5px var(--zc); }
+.tile.sel { background: var(--zc); color: var(--card); border-color: var(--zc); }
+.tile.sel span { color: inherit; opacity: 0.85; }
+.has-sel .tile:not(.sel):not(.rel) { opacity: 0.38; }
+.tile.miss { opacity: 0.18; }
+
+/* Clean Core als Naht: in der schmalen Spalte läuft die Grenze als Linie nach unten weiter */
+.naht {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.naht-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.naht-label::after {
+  content: "";
+  flex: 1;
+  border-top: 1.5px dashed var(--cc-line);
+}
+.naht-linie {
+  display: none;
+}
+@container karte (min-width: 960px) {
+  .karte:is([data-layout="b"]) .naht-linie { display: block; }
+  .karte:is([data-layout="b"]) .naht-label { display: none; }
+}
+@container karte (min-width: 1180px) {
+  .karte:is([data-layout="a"]) .naht-linie { display: block; }
+  .karte:is([data-layout="a"]) .naht-label { display: none; }
+}
+.naht-linie {
+  flex: 1;
+  min-height: 40px;
+  position: relative;
+}
+.naht-linie::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 1.5px dashed var(--cc-line);
+}
+.naht-linie span {
+  position: sticky;
+  top: 120px;
+  display: block;
+  width: max-content;
+  margin: 12px auto;
+  padding: 8px 3px;
+  writing-mode: vertical-rl;
+  background: var(--background);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* ---------- Schichtenmodell: CSS-Grid aus HTML-Kästen, ohne Pfeile ---------- */
+.sm-wrap {
+  container: sm / inline-size;
+}
+.sm {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "mid" "sec" "lc";
+}
+/* Querschnitt und Projekt laufen über die ganze Höhe mit: sie gelten für alle Schichten */
+.sm-sec, .sm-lc { display: flex; flex-direction: column; }
+.sm-sec > .sm-box, .sm-lc > .sm-box { flex: 1; }
+.sm-sec { grid-area: sec; }
+.sm-mid { grid-area: mid; min-width: 0; display: grid; gap: 6px; align-content: start; }
+.sm-lc { grid-area: lc; }
+.sm-cols {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr);
+}
+@container sm (min-width: 560px) {
+  .sm-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm-lc .sm-sub { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container sm (min-width: 1000px) {
+  .sm {
+    grid-template-columns: 168px minmax(0, 1fr) 214px;
+    grid-template-areas: "sec mid lc";
+  }
+  .sm-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1.05fr) minmax(0, 1fr); }
+  .sm-lc .sm-sub { grid-template-columns: minmax(0, 1fr); }
+}
+.sm-rowlab {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-top: 8px;
+}
+.sm-box {
+  border: 1px solid color-mix(in oklab, var(--zc) 45%, var(--border));
+  background: var(--zt);
+  border-radius: var(--radius-lg);
+  padding: 8px 10px 10px;
+  min-width: 0;
+}
+.sm-box.c-ui, .sm-box.c-in { background: var(--card); border-color: var(--border); }
+.sm-box.c-non { background: var(--muted); border-color: var(--border); }
+.sm-box.c-cc { background: var(--card); border: 1.5px solid var(--zc); }
+.sm-box.c-bus { background: color-mix(in oklab, var(--zc) 14%, var(--card)); }
+.sm-box > .sm-t {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.sm-sub {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr);
+}
+.sm-plain {
+  display: inline-flex;
+  border: 1px dashed var(--input);
+  border-radius: var(--radius-md);
+  padding: 3px 7px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--muted-foreground);
+}
+.sm-verb {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--muted-foreground);
+}
+.sm-verb svg { flex: none; color: var(--foreground); }
+.sm-grenze {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 10px 0 4px;
+}
+.sm-grenze::before, .sm-grenze::after {
+  content: "";
+  flex: 1 1 24px;
+  border-top: 2px dashed var(--cc-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

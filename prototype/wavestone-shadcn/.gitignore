@@ -1,0 +1,19 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+.env*
+.nitro
+.tanstack
+.wrangler
+.output
+.vinxi
+__unconfig*
+todos.json
+
+# Aptos-Dateien nur lokal für die Sichtprüfung, nicht weitergeben
+public/fonts-local/
+
+# typescript
+*.tsbuildinfo
