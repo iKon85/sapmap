@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="de" data-type="software" data-radius="sharp" data-buttons="solid" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>S/4HANA-Landkarte als Kalender: Termine und Fristen der SAP-Bausteine</title>
+<meta name="description" content="Nachschlagewerk für SAP-Berater: die Termine aus 154 Steckbriefen rund um S/4HANA nach Bereich und Jahr, mit Wartungsenden und Fristen. Jeder Termin führt zum Steckbrief.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="S/4HANA-Landkarte als Kalender: Termine und Fristen der SAP-Bausteine">
+<meta property="og:description" content="Termine, Wartungsenden und Fristen der SAP-Produkte in und um S/4HANA, nach Bereich und Jahr.">
+<meta property="og:image" content="shot-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
+<!-- <link rel="canonical" href="https://[Domain der Landkarte]/"> -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<!-- Kit: system.css (Tokens, Knöpfe, Fokus, Navigation) und der Motion-Layer. Keine Google Fonts:
+     die Wavestone-CI verlangt Aptos als lokalen Font-Stack, ohne Webfont-Download.
+     Look: shadcn/ui-Preset b3QxdAzBg (Nova, Radius Small, Phosphor Icons, Menu Solid, Accent Bold); Farben und Schrift aus der CI. -->
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<!-- Palette aus: start.mjs brand --page software --bg #FFFFFF --ink #000000 --accent #451DC7 --surface #F4F2FC --muted #4A4A57 --type geist --radius sharp;
+     die Schriftzeilen auf den Aptos-Stack der Charta umgestellt (Kunden-CI, in kern.css).
+     kern.css hängt diese --p-* an die shadcn-Tokens (--background, --primary ...), damit .dark sie mitnimmt. -->
+<style>
+:root {
+  --p-bg: #ffffff; --p-surface: #f4f2fc; --p-ink: #000000; --p-muted: #4a4a57;
+  --p-accent: #451dc7; --p-accent-ink: #ffffff; --p-action: #451dc7; --p-action-ink: #ffffff;
+  --p-inv-bg: #000000; --p-inv-surface: #010101; --p-inv-ink: #ffffff; --p-inv-muted: #868686;
+  --p-inv-accent: #ffffff; --p-inv-accent-ink: #000000; --p-inv-action: #ffffff; --p-inv-action-ink: #000000;
+}
+</style>
+<link rel="stylesheet" href="kern.css">
+<link rel="stylesheet" href="seite.css">
+<script>try{var t=localStorage.getItem('landkarte-thema');if(t==='dunkel'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<!-- type: software (Nachschlage-Werkzeug, kein Marketing)
+     deal: hero split, nav nav-cards, close close-word, footer footer-columns, rhythm space, buttons solid, mark arc; moment line-carries-colour
+     genutzt: hero split (links Titel und Matrix, rechts die Terminliste), rhythm space, buttons solid, mark arc, Einstiegs- und Hover-Motion.
+     nicht genutzt (Begründung in .taste-skill/waivers.json und im Bericht): Karten-Navigation, Schlusswort, Spalten-Fuß, Moment line-carries-colour.
+     Idee: die Landschaft entlang der Zeit. Eine Matrix zählt die Termine je Bereich und Jahr; ein Feld filtert die Terminliste daneben,
+     und ein Termin klappt den Steckbrief seines Bausteins an Ort und Stelle auf.
+     Bewegung: Einstieg (Titel, dann Matrix); Felder und Zeilen antworten auf Zeiger und Fokus. -->
+<body>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Zum Inhalt</a>
+    <a class="nav__logo" href="./"><span class="mark" data-mark="arc" aria-hidden="true"></span>S/4HANA-Landkarte</a>
+    <nav class="nav__links" aria-label="Seite">
+      <div class="nav__item"><a class="nav__link" href="#uebersicht">Matrix</a></div>
+      <div class="nav__item"><a class="nav__link" href="#termine">Terminliste</a></div>
+      <div class="nav__item"><a class="nav__link" href="#ohne">Ohne Termin</a></div>
+    </nav>
+    <div class="nav__actions">
+      <button class="thema" type="button" data-thema aria-pressed="false" aria-label="Dunkles Design"><span class="ic ic--mond" aria-hidden="true"></span><span class="ic ic--sonne" aria-hidden="true"></span></button>
+      <a class="btn btn--primary" href="#q" data-zur-suche>Baustein suchen</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menü">
+      <span class="ic ic--menue" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="top" tabindex="-1">
+  <div id="v-zeit">
+    <section class="hero einstieg" data-enter aria-labelledby="einstieg-h">
+      <div class="wrap zeit">
+        <!-- links: Titel und die Matrix Bereich × Jahr; bleibt auf breiten Bildschirmen stehen -->
+        <div class="uebersicht" id="uebersicht">
+          <h1 id="einstieg-h">Termine und Fristen der SAP-Bausteine rund um S/4HANA</h1>
+          <p class="einstieg__lead"><span id="lead-termine">…</span> Termine aus <span id="lead-bausteine">…</span> von <span id="lead-alle">154</span> Steckbriefen, <span id="lead-kommend">…</span> davon liegen noch vor uns. Ein Feld der Matrix wählt Bereich und Jahr für die Terminliste. Recherche-Stand Oktober 2026.</p>
+          <a class="btn btn--primary einstieg__sprung" href="#q" data-zur-suche>Baustein suchen</a>
+          <div class="matrix-rahmen" id="matrix-rahmen" role="group" aria-labelledby="matrix-h">
+            <p class="matrix__titel" id="matrix-h">Termine je Bereich und Jahr</p>
+            <div class="matrix-rollen" tabindex="-1">
+              <table class="matrix" id="matrix"><tbody><tr><td><noscript>Die Matrix braucht JavaScript, weil sie die Termine aus data/steckbriefe.json lädt.</noscript></td></tr></tbody></table>
+            </div>
+            <p class="skala" aria-hidden="true">
+              <span class="skala__wort">Termine je Feld</span>
+              <span class="skala__stufe"><i data-stufe="1"></i>1</span>
+              <span class="skala__stufe"><i data-stufe="2"></i>2–3</span>
+              <span class="skala__stufe"><i data-stufe="3"></i>4–7</span>
+              <span class="skala__stufe"><i data-stufe="4"></i>8–15</span>
+              <span class="skala__stufe"><i data-stufe="5"></i>ab 16</span>
+              <span class="skala__stufe skala__frist"><i class="eck"></i>mit Wartungsende oder Frist</span>
+              <span class="skala__stufe"><i class="strich"></i>laufendes Jahr</span>
+            </p>
+            <p class="lesezeile" id="lesezeile" aria-hidden="true"></p>
+          </div>
+        </div>
+
+        <!-- rechts: Filter und Terminliste; ein Termin klappt den Steckbrief auf -->
+        <div class="liste" id="termine">
+          <div class="filter" id="filter" role="search">
+            <div class="filter__kopf"><h2 id="termine-h">Terminliste</h2> <span class="filter__zahl" id="trefferzahl" role="status"></span></div>
+            <div class="suche__feld">
+              <label for="q"><span class="ic ic--suche" aria-hidden="true"></span><span class="suche__wort">Suche</span></label>
+              <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="z. B. Cloud ALM, Neo, Wartung" aria-describedby="trefferzahl">
+              <button class="suche__leeren" type="button" data-suche-leeren aria-label="Suche leeren" hidden><span class="ic ic--zu" aria-hidden="true"></span></button>
+            </div>
+            <div class="filter__schalter">
+              <button class="schalter" type="button" role="switch" aria-checked="false" data-schalter="f"><span class="schalter__spur" aria-hidden="true"></span>Nur Wartungsenden und Fristen</button>
+              <button class="schalter" type="button" role="switch" aria-checked="false" data-schalter="v"><span class="schalter__spur" aria-hidden="true"></span>Auch vergangene Termine</button>
+            </div>
+            <div class="filter__auswahl" id="auswahl" hidden></div>
+          </div>
+          <div id="oben"></div>
+          <div id="agenda" aria-labelledby="termine-h"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ohne" id="ohne" aria-labelledby="ohne-h">
+      <div class="wrap">
+        <div class="filter__kopf"><h2 id="ohne-h">Bausteine ohne Termin</h2> <span class="filter__zahl" id="ohne-zahl"></span></div>
+        <p class="sektion__lead">Diese Steckbriefe nennen kein Datum. Ein Klick öffnet den Steckbrief an dieser Stelle.</p>
+        <div id="ohne-blatt"></div>
+        <div class="chips" id="ohne-liste"></div>
+        <a class="btn btn--primary" href="#q" data-zur-suche>Baustein suchen</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="fuss">
+  <div class="wrap">
+    <span>S/4HANA-Landkarte · Recherche-Stand Oktober 2026</span>
+    <span>Inhalte aus data/steckbriefe.json und data/toolchain-flows.json, Quellen je Steckbrief. Produktnamen sind Marken ihrer Inhaber.</span>
+    <p class="vh" id="ansage" aria-live="polite"></p>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="seite.js"></script>
+</body>
+</html>

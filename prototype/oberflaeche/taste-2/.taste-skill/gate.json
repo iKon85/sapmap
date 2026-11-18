@@ -1,0 +1,1566 @@
+{
+ "start": "2026-11-18T21:12:00.593Z",
+ "round": 2,
+ "idle": 0,
+ "errors": 0,
+ "status": "open",
+ "history": [
+  {
+   "at": "2026-11-18T21:41:32.092Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 53,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-18T21:43:29.267Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 39,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 2,
+ "marker": {
+  "page": "index.html",
+  "url": null,
+  "root": "../../..",
+  "kind": "software",
+  "category": "Landkarte der SAP-Bausteine rund um S/4HANA",
+  "primary": "Baustein suchen",
+  "rounds": 2,
+  "start": "2026-11-18T21:12:00.593Z",
+  "by": "gate.mjs --start"
+ },
+ "manual": true,
+ "roundKey": "6362b10bf7681286:a5e2b1f5",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "6362b10bf7681286",
+ "page": "index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "hero-fill",
+    "where": "section#knoten \"Knotenpunkte der Landschaft\"",
+    "msg": "the next section shows on the first screen: it starts at 400px on a 900px screen (the hero ends at 367px)",
+    "fix": "let the hero fill the first screen alone (min-height: 100svh, less above it): nothing of the next section on load",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "hero-fill"
+    ],
+    "wheres": [
+     "section#knoten \"Knotenpunkte der Landschaft\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "section#knoten \"Knotenpunkte der Landschaft\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#knoten \"Knotenpunkte der Landschaft\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "section#verzeichnis \"Verzeichnis nach Bereich\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#verzeichnis \"Verzeichnis nach Bereich\""
+    ]
+   },
+   {
+    "check": "cta",
+    "where": "div#v-start > section.hero.einstieg",
+    "msg": "the hero has no button (the nav's does not count)",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "cta"
+    ],
+    "wheres": [
+     "div#v-start > section.hero.einstieg"
+    ]
+   },
+   {
+    "check": "stagger",
+    "where": "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul \"SAP SuccessFactors 11 SAP SuccessFactors\"",
+    "msg": "22 rows start at 2 different left offsets (+328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +0, +0px)",
+    "fix": "start every row of the list on one left edge",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "stagger"
+    ],
+    "wheres": [
+     "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul \"SAP SuccessFactors 11 SAP SuccessFactors\""
+    ]
+   },
+   {
+    "check": "stagger",
+    "where": "div#verzeichnis-feld > section.vz:nth-of-type(8) > ul \"Agent-led toolchain (RISE with SAP Metho\"",
+    "msg": "29 rows start at 2 different left offsets (+328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0px)",
+    "fix": "start every row of the list on one left edge",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "stagger"
+    ],
+    "wheres": [
+     "div#verzeichnis-feld > section.vz:nth-of-type(8) > ul \"Agent-led toolchain (RISE with SAP Metho\""
+    ]
+   },
+   {
+    "check": "top-stagger",
+    "where": "div#verzeichnis-feld \"S/4HANA-Kern & Deployment 22 SAP Cloud E\"",
+    "msg": "3 boxes side by side start at different heights (+543, +0, +627px)",
+    "fix": "align the tops of the boxes in the row (one floor, one ceiling)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "top-stagger"
+    ],
+    "wheres": [
+     "div#verzeichnis-feld \"S/4HANA-Kern & Deployment 22 SAP Cloud E\""
+    ]
+   },
+   {
+    "check": "off-grid",
+    "where": "h3#vz-mig > span.vz__zahl \"12\"",
+    "msg": "left edge at 1306px, 9px off a common edge of its section at 1315px (10 elements, like span.marke); 2 more in this section off the grid too (span.vz__zahl at 1305.5px, span.vz__zahl at 653px)",
+    "fix": "move it onto the page margin, or the column edge its section uses",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "off-grid"
+    ],
+    "wheres": [
+     "h3#vz-mig > span.vz__zahl \"12\""
+    ]
+   },
+   {
+    "check": "run-on",
+    "where": "h3#vz-core \"S/4HANA-Kern & Deployment 22\"",
+    "msg": "\"/4HANA-Kern & Deployment | 22\": the heading runs its first sentence into the grey second one with no stop",
+    "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "run-on"
+    ],
+    "wheres": [
+     "h3#vz-core \"S/4HANA-Kern & Deployment 22\""
+    ]
+   },
+   {
+    "check": "run-on",
+    "where": "h3#vz-ext \"Clean Core & Erweiterbarkeit 4\"",
+    "msg": "\"n Core & Erweiterbarkeit | 4\": the heading runs its first sentence into the grey second one with no stop",
+    "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "run-on"
+    ],
+    "wheres": [
+     "h3#vz-ext \"Clean Core & Erweiterbarkeit 4\""
+    ]
+   },
+   {
+    "check": "run-on",
+    "where": "h3#vz-btp \"Plattform & Entwicklung 14\"",
+    "msg": "\"Plattform & Entwicklung | 14\": the heading runs its first sentence into the grey second one with no stop",
+    "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "run-on"
+    ],
+    "wheres": [
+     "h3#vz-btp \"Plattform & Entwicklung 14\""
+    ]
+   },
+   {
+    "check": "run-on",
+    "where": "h3#vz-ai \"Business AI & Joule 8\"",
+    "msg": "\"Business AI & Joule | 8\": the heading runs its first sentence into the grey second one with no stop",
+    "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "run-on"
+    ],
+    "wheres": [
+     "h3#vz-ai \"Business AI & Joule 8\""
+    ]
+   },
+   {
+    "check": "moment-none",
+    "where": "(the page)",
+    "msg": "a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)",
+    "fix": "deal one (moments.mjs pick --page software) and mount it in its own section",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "moment-none"
+    ],
+    "wheres": [
+     "(the page)"
+    ]
+   },
+   {
+    "check": "hero-screen",
+    "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+    "msg": "the hero ends at 3113px on a 900px screen, 2213px below the fold: it ends at the fold, 1px either way (SR-1)",
+    "fix": "make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "hero-screen"
+    ],
+    "wheres": [
+     "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+    ]
+   },
+   {
+    "check": "section-height",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "the section is 104px tall (0.1 screens), 796px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)",
+    "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "section-height",
+    "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+    "msg": "the section starts at 60px, 60px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+    "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height"
+    ],
+    "wheres": [
+     "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "the screen at scroll 2317px (the top of section 2) shows 104px of section 2 and the content of 2 sections, over 24px each beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)",
+    "fix": "make each section exactly one screen or two, so a screen shows one section and no neighbour peeks",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+    "msg": "a <div> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+    "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+    ]
+   },
+   {
+    "check": "one-heading",
+    "where": "h2#knoten-h \"Knotenpunkte der Landschaft\"",
+    "msg": "the hero holds an h2 (2): its heading is the h1, and an h2 opens the next section (SR-5)",
+    "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-heading"
+    ],
+    "wheres": [
+     "h2#knoten-h \"Knotenpunkte der Landschaft\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "a <footer> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+    "msg": "the section needs exactly one in-flow child .wrap (it has 3 in-flow children, 0 .wrap) (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#v-start > section.hero.einstieg > div.wrap \"Beziehungsnetz der SAP-Bausteine rund um\"",
+    "msg": "the .wrap has z-index auto beside a layer: 1 or more (and 1 more like it: \"Beziehungsnetz der SAP-B\") (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#v-start > section.hero.einstieg > div.wrap \"Beziehungsnetz der SAP-Bausteine rund um\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul > li:nth-of-type(2) \"SAP SuccessFactors Employee Central Payr\"",
+    "msg": "1 text block starts on a left line at x 408, 328px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul > li:nth-of-type(2) \"SAP SuccessFactors Employee Central Payr\""
+    ]
+   },
+   {
+    "check": "row-lines",
+    "where": "ol#knoten-liste > li:nth-of-type(1) > a.knoten \"SAP Cloud ALM Toolchain, ALM & Test 26 V\"",
+    "msg": "a row of 3 items: its items are 21/22/23px tall, not one height (2px either way) (SR-7)",
+    "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "row-lines"
+    ],
+    "wheres": [
+     "ol#knoten-liste > li:nth-of-type(1) > a.knoten \"SAP Cloud ALM Toolchain, ALM & Test 26 V\""
+    ]
+   },
+   {
+    "check": "row-lines",
+    "where": "ol#knoten-liste > li:nth-of-type(2) > a.knoten \"SAP Integration Suite Integration 23 Ver\"",
+    "msg": "a row of 3 items: its items are 21/22/23px tall, not one height (2px either way) (SR-7)",
+    "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "row-lines"
+    ],
+    "wheres": [
+     "ol#knoten-liste > li:nth-of-type(2) > a.knoten \"SAP Integration Suite Integration 23 Ver\""
+    ]
+   },
+   {
+    "check": "row-lines",
+    "where": "ol#knoten-liste > li:nth-of-type(3) > a.knoten \"SAP Cloud ERP Private S/4HANA-Kern & Dep\"",
+    "msg": "a row of 3 items: its items are 21/22/23px tall, not one height (2px either way) (and 5 more like it: \"SAP Business Data Cloud \", \"Joule Studio Business AI\", \"RISE with SAP & SAP GROW\") (SR-7)",
+    "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "row-lines"
+    ],
+    "wheres": [
+     "ol#knoten-liste > li:nth-of-type(3) > a.knoten \"SAP Cloud ERP Private S/4HANA-Kern & Dep\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#v-start > section.hero.einstieg \"Beziehungsnetz der SAP-Bausteine rund um\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#v-start > section.hero.einstieg \"Beziehungsnetz der SAP-Bausteine rund um\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Business AI & Joule 8\"",
+    "msg": "starts at x 408; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Business AI & Joule 8\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"Joule 8SAP Autonomous Suite (Jou\"",
+    "msg": "starts at x 408; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"Joule 8SAP Autonomous Suite (Jou\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Integration 20\"",
+    "msg": "starts at x 408; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Integration 20\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"SAP Integration Suite 23Cloud In\"",
+    "msg": "starts at x 408; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"SAP Integration Suite 23Cloud In\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Daten & Analytics 8\"",
+    "msg": "starts at x 408; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Daten & Analytics 8\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"SAP Business Data Cloud 15SAP Da\"",
+    "msg": "starts at x 408; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"SAP Business Data Cloud 15SAP Da\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"LoB-Cloud-Apps & Branchen 22\"",
+    "msg": "starts at x 408; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"LoB-Cloud-Apps & Branchen 22\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Toolchain, ALM & Test 29\"",
+    "msg": "starts at x 736; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Toolchain, ALM & Test 29\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"Agent-led toolchain (RISE with S\"",
+    "msg": "starts at x 736; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"Agent-led toolchain (RISE with S\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Migration & Transformation 12\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Migration & Transformation 12\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"SAP Readiness Check 9SAP S/4HANA\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"SAP Readiness Check 9SAP S/4HANA\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Einführungsprojekt steuern 4\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Einführungsprojekt steuern 4\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"SAP Activate & RISE with SAP Met\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"SAP Activate & RISE with SAP Met\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Security, Identity & GRC 7\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Security, Identity & GRC 7\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"SAP Cloud Identity Services 7SAP\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"SAP Cloud Identity Services 7SAP\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start h3 \"Betrieb & Infrastruktur 4\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start h3 \"Betrieb & Infrastruktur 4\""
+    ]
+   },
+   {
+    "check": "edge-left",
+    "where": "#v-start ul \"RISE-Betrieb durch SAP Enterpris\"",
+    "msg": "starts at x 1064; the lines are 80 and the column starts",
+    "fix": "start it on the .wrap left line",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "edge-left"
+    ],
+    "wheres": [
+     "#v-start ul \"RISE-Betrieb durch SAP Enterpris\""
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "copy-headings",
+    "where": "h2#verzeichnis-h \"Verzeichnis nach Bereich\"",
+    "msg": "\"Verzeichnis nach Bereich\" names no product, part, place or section (the one brand line a page may have)",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "off-grid",
+    "where": "h3#vz-core > span.vz__zahl \"22\"",
+    "msg": "left edge at 334.5px, 3.5px off a common edge of its section at 331px (7 elements, like span.marke); 1 more in this section off the grid too (span.vz__zahl at 334.5px)",
+    "fix": "move it onto the page margin, or the column edge its section uses",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-family",
+    "where": "header.nav",
+    "msg": "the nav's links come in 2 sizes (15, 18px)",
+    "fix": "keep one nav on every screen: the same bar, fill, links and type",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-length",
+    "where": "section#verzeichnis \"Verzeichnis nach Bereich\"",
+    "msg": "2 sections over 90 words a screen outside the UI mocks (\"Verzeichnis nach Bereich\" 436, \"Knotenpunkte der Landsch\" 212); 286 words a screen across the page (1202 words in 4.2 screens): a tech page says it in about 80 or fewer",
+    "fix": "cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "one-screen",
+    "where": "section#knoten \"Knotenpunkte der Landschaft\"",
+    "msg": "1 section is shorter than the screen, so the next one's heading or picture shows with it: \"Knotenpunkte der Landschaft\" is 781px of the 840px under the nav, and \"Verzeichnis nach Bereich\" shows below it",
+    "fix": "give each section the screen (min-height: 100svh less the nav, its content centred), or join two short ones into one",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "font-load",
+    "where": "h1#einstieg-h \"Aptos\"",
+    "msg": "\"Aptos\" is asked for by --font-display, --font-text, the h1, the h2s and the body text but never loaded (no font link or @font-face loads it): it shows in its fallback",
+    "fix": "load every family the type asks for: name it in the font link as start.mjs prints it, spelt as Google Fonts spells it, or ask for a family the page loads",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "tap-size",
+    "where": "input#q",
+    "msg": "a 307x42px tap target: under the 44px a phone needs",
+    "fix": "make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box",
+    "widths": [
+     390,
+     320
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#knoten / section#verzeichnis",
+    "msg": "74px between these sections, +25% against the median 59px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 83,
+   "layout": 2
+  }
+ },
+ "open": [
+  {
+   "check": "hero-fill",
+   "where": "section#knoten \"Knotenpunkte der Landschaft\"",
+   "msg": "the next section shows on the first screen: it starts at 400px on a 900px screen (the hero ends at 367px)",
+   "fix": "let the hero fill the first screen alone (min-height: 100svh, less above it): nothing of the next section on load",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "hero-fill"
+   ],
+   "wheres": [
+    "section#knoten \"Knotenpunkte der Landschaft\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "section#knoten \"Knotenpunkte der Landschaft\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#knoten \"Knotenpunkte der Landschaft\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "section#verzeichnis \"Verzeichnis nach Bereich\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#verzeichnis \"Verzeichnis nach Bereich\""
+   ]
+  },
+  {
+   "check": "stagger",
+   "where": "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul \"SAP SuccessFactors 11 SAP SuccessFactors\"",
+   "msg": "22 rows start at 2 different left offsets (+328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +0, +0px)",
+   "fix": "start every row of the list on one left edge",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "stagger"
+   ],
+   "wheres": [
+    "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul \"SAP SuccessFactors 11 SAP SuccessFactors\""
+   ]
+  },
+  {
+   "check": "stagger",
+   "where": "div#verzeichnis-feld > section.vz:nth-of-type(8) > ul \"Agent-led toolchain (RISE with SAP Metho\"",
+   "msg": "29 rows start at 2 different left offsets (+328, +328, +328, +328, +328, +328, +328, +328, +328, +328, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0, +0px)",
+   "fix": "start every row of the list on one left edge",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "stagger"
+   ],
+   "wheres": [
+    "div#verzeichnis-feld > section.vz:nth-of-type(8) > ul \"Agent-led toolchain (RISE with SAP Metho\""
+   ]
+  },
+  {
+   "check": "top-stagger",
+   "where": "div#verzeichnis-feld \"S/4HANA-Kern & Deployment 22 SAP Cloud E\"",
+   "msg": "3 boxes side by side start at different heights (+543, +0, +627px)",
+   "fix": "align the tops of the boxes in the row (one floor, one ceiling)",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "top-stagger"
+   ],
+   "wheres": [
+    "div#verzeichnis-feld \"S/4HANA-Kern & Deployment 22 SAP Cloud E\""
+   ]
+  },
+  {
+   "check": "off-grid",
+   "where": "h3#vz-mig > span.vz__zahl \"12\"",
+   "msg": "left edge at 1306px, 9px off a common edge of its section at 1315px (10 elements, like span.marke); 2 more in this section off the grid too (span.vz__zahl at 1305.5px, span.vz__zahl at 653px)",
+   "fix": "move it onto the page margin, or the column edge its section uses",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "off-grid"
+   ],
+   "wheres": [
+    "h3#vz-mig > span.vz__zahl \"12\""
+   ]
+  },
+  {
+   "check": "run-on",
+   "where": "h3#vz-core \"S/4HANA-Kern & Deployment 22\"",
+   "msg": "\"/4HANA-Kern & Deployment | 22\": the heading runs its first sentence into the grey second one with no stop",
+   "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "run-on"
+   ],
+   "wheres": [
+    "h3#vz-core \"S/4HANA-Kern & Deployment 22\""
+   ]
+  },
+  {
+   "check": "run-on",
+   "where": "h3#vz-ext \"Clean Core & Erweiterbarkeit 4\"",
+   "msg": "\"n Core & Erweiterbarkeit | 4\": the heading runs its first sentence into the grey second one with no stop",
+   "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "run-on"
+   ],
+   "wheres": [
+    "h3#vz-ext \"Clean Core & Erweiterbarkeit 4\""
+   ]
+  },
+  {
+   "check": "run-on",
+   "where": "h3#vz-btp \"Plattform & Entwicklung 14\"",
+   "msg": "\"Plattform & Entwicklung | 14\": the heading runs its first sentence into the grey second one with no stop",
+   "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "run-on"
+   ],
+   "wheres": [
+    "h3#vz-btp \"Plattform & Entwicklung 14\""
+   ]
+  },
+  {
+   "check": "run-on",
+   "where": "h3#vz-ai \"Business AI & Joule 8\"",
+   "msg": "\"Business AI & Joule | 8\": the heading runs its first sentence into the grey second one with no stop",
+   "fix": "end the heading's first sentence with a full stop before its grey second one (\"Rooms and prices. Breakfast included.\")",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "run-on"
+   ],
+   "wheres": [
+    "h3#vz-ai \"Business AI & Joule 8\""
+   ]
+  },
+  {
+   "check": "section-height",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "the section is 104px tall (0.1 screens), 796px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)",
+   "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "one-section",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "the screen at scroll 2317px (the top of section 2) shows 104px of section 2 and the content of 2 sections, over 24px each beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)",
+   "fix": "make each section exactly one screen or two, so a screen shows one section and no neighbour peeks",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "one-heading",
+   "where": "h2#knoten-h \"Knotenpunkte der Landschaft\"",
+   "msg": "the hero holds an h2 (2): its heading is the h1, and an h2 opens the next section (SR-5)",
+   "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-heading"
+   ],
+   "wheres": [
+    "h2#knoten-h \"Knotenpunkte der Landschaft\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "a <footer> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+   "msg": "the section needs exactly one in-flow child .wrap (it has 3 in-flow children, 0 .wrap) (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#v-start > section.hero.einstieg > div.wrap \"Beziehungsnetz der SAP-Bausteine rund um\"",
+   "msg": "the .wrap has z-index auto beside a layer: 1 or more (and 1 more like it: \"Beziehungsnetz der SAP-B\") (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#v-start > section.hero.einstieg > div.wrap \"Beziehungsnetz der SAP-Bausteine rund um\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul > li:nth-of-type(2) \"SAP SuccessFactors Employee Central Payr\"",
+   "msg": "1 text block starts on a left line at x 408, 328px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (SR-6)",
+   "fix": "start the text on the container's left, or on the one split line every split shares",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#verzeichnis-feld > section.vz:nth-of-type(7) > ul > li:nth-of-type(2) \"SAP SuccessFactors Employee Central Payr\""
+   ]
+  },
+  {
+   "check": "row-lines",
+   "where": "ol#knoten-liste > li:nth-of-type(1) > a.knoten \"SAP Cloud ALM Toolchain, ALM & Test 26 V\"",
+   "msg": "a row of 3 items: its items are 21/22/23px tall, not one height (2px either way) (SR-7)",
+   "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "row-lines"
+   ],
+   "wheres": [
+    "ol#knoten-liste > li:nth-of-type(1) > a.knoten \"SAP Cloud ALM Toolchain, ALM & Test 26 V\""
+   ]
+  },
+  {
+   "check": "row-lines",
+   "where": "ol#knoten-liste > li:nth-of-type(2) > a.knoten \"SAP Integration Suite Integration 23 Ver\"",
+   "msg": "a row of 3 items: its items are 21/22/23px tall, not one height (2px either way) (SR-7)",
+   "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "row-lines"
+   ],
+   "wheres": [
+    "ol#knoten-liste > li:nth-of-type(2) > a.knoten \"SAP Integration Suite Integration 23 Ver\""
+   ]
+  },
+  {
+   "check": "row-lines",
+   "where": "ol#knoten-liste > li:nth-of-type(3) > a.knoten \"SAP Cloud ERP Private S/4HANA-Kern & Dep\"",
+   "msg": "a row of 3 items: its items are 21/22/23px tall, not one height (2px either way) (and 5 more like it: \"SAP Business Data Cloud \", \"Joule Studio Business AI\", \"RISE with SAP & SAP GROW\") (SR-7)",
+   "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "row-lines"
+   ],
+   "wheres": [
+    "ol#knoten-liste > li:nth-of-type(3) > a.knoten \"SAP Cloud ERP Private S/4HANA-Kern & Dep\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#v-start > section.hero.einstieg \"Beziehungsnetz der SAP-Bausteine rund um\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#v-start > section.hero.einstieg \"Beziehungsnetz der SAP-Bausteine rund um\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Business AI & Joule 8\"",
+   "msg": "starts at x 408; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Business AI & Joule 8\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"Joule 8SAP Autonomous Suite (Jou\"",
+   "msg": "starts at x 408; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"Joule 8SAP Autonomous Suite (Jou\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Integration 20\"",
+   "msg": "starts at x 408; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Integration 20\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"SAP Integration Suite 23Cloud In\"",
+   "msg": "starts at x 408; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"SAP Integration Suite 23Cloud In\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Daten & Analytics 8\"",
+   "msg": "starts at x 408; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Daten & Analytics 8\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"SAP Business Data Cloud 15SAP Da\"",
+   "msg": "starts at x 408; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"SAP Business Data Cloud 15SAP Da\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"LoB-Cloud-Apps & Branchen 22\"",
+   "msg": "starts at x 408; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"LoB-Cloud-Apps & Branchen 22\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Toolchain, ALM & Test 29\"",
+   "msg": "starts at x 736; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Toolchain, ALM & Test 29\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"Agent-led toolchain (RISE with S\"",
+   "msg": "starts at x 736; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"Agent-led toolchain (RISE with S\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Migration & Transformation 12\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Migration & Transformation 12\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"SAP Readiness Check 9SAP S/4HANA\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"SAP Readiness Check 9SAP S/4HANA\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Einführungsprojekt steuern 4\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Einführungsprojekt steuern 4\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"SAP Activate & RISE with SAP Met\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"SAP Activate & RISE with SAP Met\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Security, Identity & GRC 7\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Security, Identity & GRC 7\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"SAP Cloud Identity Services 7SAP\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"SAP Cloud Identity Services 7SAP\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start h3 \"Betrieb & Infrastruktur 4\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start h3 \"Betrieb & Infrastruktur 4\""
+   ]
+  },
+  {
+   "check": "edge-left",
+   "where": "#v-start ul \"RISE-Betrieb durch SAP Enterpris\"",
+   "msg": "starts at x 1064; the lines are 80 and the column starts",
+   "fix": "start it on the .wrap left line",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "edge-left"
+   ],
+   "wheres": [
+    "#v-start ul \"RISE-Betrieb durch SAP Enterpris\""
+   ]
+  }
+ ],
+ "waived": [
+  {
+   "check": "cta",
+   "where": "div#v-start > section.hero.einstieg",
+   "msg": "the hero has no button (the nav's does not count)",
+   "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "cta"
+   ],
+   "wheres": [
+    "div#v-start > section.hero.einstieg"
+   ],
+   "reason": "Die Hauptaktion im Einstieg ist das Suchfeld selbst, es schlägt beim Tippen Bausteine vor; ein zusätzlicher Knopf daneben wäre ohne Funktion."
+  },
+  {
+   "check": "moment-none",
+   "where": "(the page)",
+   "msg": "a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)",
+   "fix": "deal one (moments.mjs pick --page software) and mount it in its own section",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "moment-none"
+   ],
+   "wheres": [
+    "(the page)"
+   ],
+   "reason": "Nachschlage-Werkzeug: ein inszenierter Moment (counter-rolls) hielte den Weg zum Baustein auf; die Bewegung liegt in den Verbindungslinien, die dem Knoten folgen und unter Zeiger und Fokus hervortreten."
+  },
+  {
+   "check": "hero-screen",
+   "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+   "msg": "the hero ends at 3113px on a 900px screen, 2213px below the fold: it ends at the fold, 1px either way (SR-1)",
+   "fix": "make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "hero-screen"
+   ],
+   "wheres": [
+    "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+   ],
+   "reason": "Der Einstieg ist bewusst kurz: Titel und Suche, darunter sofort die Knotenpunkte; ein bildschirmhoher Hero schöbe das Werkzeug unter die Falz."
+  },
+  {
+   "check": "section-height",
+   "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+   "msg": "the section starts at 60px, 60px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+   "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height"
+   ],
+   "wheres": [
+    "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+   ],
+   "reason": "Knotenpunkte und Verzeichnis sind so hoch wie ihre Daten (12 Balken, 154 Einträge); ein Raster aus ganzen Bildschirmen würde die Listen zerschneiden oder strecken."
+  },
+  {
+   "check": "one-section",
+   "where": "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\"",
+   "msg": "a <div> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+   "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "div#v-start \"Beziehungsnetz der SAP-Bausteine rund um\""
+   ],
+   "reason": "Zwei Ansichten (Einstieg, Netz mit Steckbrief) liegen als Behälter in main und wechseln per URL; als Sektionen direkt in main zwänge das Kit jede auf Bildschirmhöhe."
+  }
+ ],
+ "warnCount": 8,
+ "at": "2026-11-18T21:43:29.267Z",
+ "openTold": true
+}

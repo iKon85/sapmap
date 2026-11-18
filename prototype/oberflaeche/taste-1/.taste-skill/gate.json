@@ -1,0 +1,1208 @@
+{
+ "start": "2026-11-18T21:11:55.109Z",
+ "round": 2,
+ "idle": 0,
+ "errors": 0,
+ "status": "open",
+ "history": [
+  {
+   "at": "2026-11-18T21:32:20.199Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 33,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-18T21:34:25.857Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 24,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 2,
+ "marker": {
+  "page": "index.html",
+  "url": null,
+  "root": "../../..",
+  "kind": "software",
+  "category": "Landkarte der SAP-Bausteine rund um S/4HANA",
+  "primary": "Baustein suchen",
+  "rounds": 2,
+  "start": "2026-11-18T21:11:55.109Z",
+  "by": "gate.mjs --start"
+ },
+ "manual": true,
+ "roundKey": "de3f035d453c20b0:43bbb18b",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "de3f035d453c20b0",
+ "page": "index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "hero-fill",
+    "where": "section#schnitt \"Schnitt durch die Landschaft\"",
+    "msg": "the next section shows on the first screen: it starts at 370px on a 900px screen (the hero ends at 370px)",
+    "fix": "let the hero fill the first screen alone (min-height: 100svh, less above it): nothing of the next section on load",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "hero-fill"
+    ],
+    "wheres": [
+     "section#schnitt \"Schnitt durch die Landschaft\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "section#schnitt \"Schnitt durch die Landschaft\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#schnitt \"Schnitt durch die Landschaft\""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "section#legende \"Legende des Schnitts\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#legende \"Legende des Schnitts\""
+    ]
+   },
+   {
+    "check": "button-styles",
+    "where": "(one screen)",
+    "msg": "3 button styles on one screen: soft, fill #ffffff, outline #8a8699 (\"Cloud Identity Services\"); soft, fill #ffffff, outline #250f6b (\"SAP BTP · Business AI Platform\"); soft, fill #451dc7 (\"Baustein suchen\"); the odd one out: \"Baustein suchen\"",
+    "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "button-styles"
+    ],
+    "wheres": [
+     "(one screen)"
+    ]
+   },
+   {
+    "check": "button-styles",
+    "where": "(the page)",
+    "msg": "5 button styles on the page: soft, fill #451dc7 x2 (\"Baustein suchen\"); soft, fill #ffffff, outline #8a8699 x120 (\"Cloud Identity Services\"); soft, fill #ffffff, outline #250f6b x7 (\"SAP BTP · Business AI Platform\"); soft, outline #000000 x2 (\"Clean Core\"); soft, fill #ffffff, outline #ffffff x25 (\"Cloud ERP (Public)\")",
+    "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "button-styles"
+    ],
+    "wheres": [
+     "(the page)"
+    ]
+   },
+   {
+    "check": "button-styles",
+    "where": "section#band-sec > div.zellen > a.zelle:nth-of-type(1) \"Cloud Identity Services\"",
+    "msg": "one button style (soft, fill #ffffff, outline #8a8699) in 2 heights: 30, 45px (\"Cloud Identity Services\" 45px, \"Identity Access Gov.\" 30px)",
+    "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "button-styles"
+    ],
+    "wheres": [
+     "section#band-sec > div.zellen > a.zelle:nth-of-type(1) \"Cloud Identity Services\""
+    ]
+   },
+   {
+    "check": "cta",
+    "where": "div#v-schnitt > section.hero.einstieg",
+    "msg": "the hero has no button (the nav's does not count)",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "cta"
+    ],
+    "wheres": [
+     "div#v-schnitt > section.hero.einstieg"
+    ]
+   },
+   {
+    "check": "stagger",
+    "where": "section#band-sec > div.zellen \"Cloud Identity Services Identity Access \"",
+    "msg": "7 rows start at 2 different left offsets (+0, +0, +22, +22, +0, +0, +0px)",
+    "fix": "start every row of the list on one left edge",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "stagger"
+    ],
+    "wheres": [
+     "section#band-sec > div.zellen \"Cloud Identity Services Identity Access \""
+    ]
+   },
+   {
+    "check": "stagger",
+    "where": "section#band-data > div.zellen \"SAP Business Data Cloud Datasphere BW PC\"",
+    "msg": "6 rows start at 2 different left offsets (+22, +0, +0, +22, +22, +22px)",
+    "fix": "start every row of the list on one left edge",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "stagger"
+    ],
+    "wheres": [
+     "section#band-data > div.zellen \"SAP Business Data Cloud Datasphere BW PC\""
+    ]
+   },
+   {
+    "check": "section-gaps",
+    "where": "div#v-schnitt > section.hero.einstieg / section#schnitt",
+    "msg": "24px between these sections, -63% against the median 65px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-gaps"
+    ],
+    "wheres": [
+     "div#v-schnitt > section.hero.einstieg / section#schnitt"
+    ]
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#schnitt / section#legende",
+    "msg": "114px between these sections, +77% against the median 65px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-gaps"
+    ],
+    "wheres": [
+     "section#schnitt / section#legende"
+    ]
+   },
+   {
+    "check": "moment-none",
+    "where": "(the page)",
+    "msg": "a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)",
+    "fix": "deal one (moments.mjs pick --page software) and mount it in its own section",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "moment-none"
+    ],
+    "wheres": [
+     "(the page)"
+    ]
+   },
+   {
+    "check": "hero-screen",
+    "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+    "msg": "the hero ends at 2770px on a 900px screen, 1870px below the fold: it ends at the fold, 1px either way (SR-1)",
+    "fix": "make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "hero-screen"
+    ],
+    "wheres": [
+     "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+    ]
+   },
+   {
+    "check": "section-height",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "the section is 104px tall (0.1 screens), 796px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)",
+    "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "section-height",
+    "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+    "msg": "the section starts at 60px, 60px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+    "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "section-height"
+    ],
+    "wheres": [
+     "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "the screen at scroll 1974px (the top of section 2) shows 104px of section 2 and the content of 2 sections, over 24px each beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)",
+    "fix": "make each section exactly one screen or two, so a screen shows one section and no neighbour peeks",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+    "msg": "a <div> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+    "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "p#ansage",
+    "msg": "a <p> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+    "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "p#ansage"
+    ]
+   },
+   {
+    "check": "one-section",
+    "where": "div#lesezeile \"Auf einen Baustein zeigen: Kurzbeschreib\"",
+    "msg": "a band: a box 89% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+    "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-section"
+    ],
+    "wheres": [
+     "div#lesezeile \"Auf einen Baustein zeigen: Kurzbeschreib\""
+    ]
+   },
+   {
+    "check": "one-heading",
+    "where": "h2#legende-h \"Legende des Schnitts\"",
+    "msg": "the hero holds an h2 (2): its heading is the h1, and an h2 opens the next section (SR-5)",
+    "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "one-heading"
+    ],
+    "wheres": [
+     "h2#legende-h \"Legende des Schnitts\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+    "msg": "a <footer> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+    "msg": "the section needs exactly one in-flow child .wrap (it has 4 in-flow children, 0 .wrap) (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "div#v-schnitt > section.hero.einstieg > div.wrap \"Architekturschnitt der SAP-Landschaft ru\"",
+    "msg": "the .wrap has z-index auto beside a layer: 1 or more (and 1 more like it: \"Architekturschnitt der S\") (SR-6)",
+    "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "div#v-schnitt > section.hero.einstieg > div.wrap \"Architekturschnitt der SAP-Landschaft ru\""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "section#legende \"Legende des Schnitts Status hervorheben \"",
+    "msg": "a box runs 0-1440px, outside the container lines of section 1 at 80-1360px: full width is for background layers and grounds only (SR-6)",
+    "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "section#legende \"Legende des Schnitts Status hervorheben \""
+    ]
+   },
+   {
+    "check": "container-edges",
+    "where": "section#herkunft \"Herkunft der Steckbriefe Jeder Steckbrie\"",
+    "msg": "a box runs 0-1440px, outside the container lines of section 1 at 80-1360px: full width is for background layers and grounds only (SR-6)",
+    "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "container-edges"
+    ],
+    "wheres": [
+     "section#herkunft \"Herkunft der Steckbriefe Jeder Steckbrie\""
+    ]
+   },
+   {
+    "check": "row-lines",
+    "where": "div#schnitt-feld > div.schnitt__mitte \"Anwender & Kanäle7 Fiori LaunchpadBuild \"",
+    "msg": "a row of 2 items: its first item starts at 280px, the container's left line at 80px; its last item ends at 1004px, the container's right line at 1360px (2px either way) (SR-7)",
+    "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "row-lines"
+    ],
+    "wheres": [
+     "div#schnitt-feld > div.schnitt__mitte \"Anwender & Kanäle7 Fiori LaunchpadBuild \""
+    ]
+   },
+   {
+    "check": "no-visual",
+    "where": "div#v-schnitt > section.hero.einstieg \"Architekturschnitt der SAP-Landschaft ru\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "div#v-schnitt > section.hero.einstieg \"Architekturschnitt der SAP-Landschaft ru\""
+    ]
+   },
+   {
+    "check": "text-only",
+    "where": "section#herkunft \"Herkunft der Steckbriefe\"",
+    "msg": "the closing section is only text: no picture, icon, mock or effect in it",
+    "fix": "give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "text-only"
+    ],
+    "wheres": [
+     "section#herkunft \"Herkunft der Steckbriefe\""
+    ]
+   },
+   {
+    "check": "button-styles",
+    "where": "section#band-s4 > div.gruppe:nth-of-type(3) > div.zellen > a.zelle:nth-of-type(1) \"Released APIs (OData, SOAP, IDoc, RFC)\"",
+    "msg": "one button style (soft, fill #ffffff, outline #ffffff) in 2 heights: 44, 56px (\"Released APIs (OData, SOAP, IDoc, RFC)\" 56px, \"Cloud ERP (Public)\" 44px)",
+    "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "button-styles"
+    ],
+    "wheres": [
+     "section#band-s4 > div.gruppe:nth-of-type(3) > div.zellen > a.zelle:nth-of-type(1) \"Released APIs (OData, SOAP, IDoc, RFC)\""
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "flush",
+    "where": "div.wrap > div.werkzeug > div.suche > div.suche__feld \"Suche\"",
+    "msg": "its last line sits 24px above the lower edge of section.hero.einstieg, where the ground changes to section#schnitt",
+    "fix": "give the section its padding at the edge where the ground changes (the closing call keeps a clear gap above the footer)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headings",
+    "where": "div.wrap > div.legende > div.legende__gruppe:nth-of-type(1) > h3 \"Status hervorheben\"",
+    "msg": "\"Status hervorheben\" names no product, part, place or section (the one brand line a page may have)",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-buttons",
+    "where": "section#band-sec > div.zellen > a.zelle:nth-of-type(1) \"Cloud Identity Services\"",
+    "msg": "\"Cloud Identity Services\" does not start with a verb (book, buy, try, start, get, see...) (and 135 more like it: \"Identity Access Gov.\", \"Identity Mgmt (IdM)\", \"Threat Detection\", \"UI Data Protection\", ...)",
+    "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-buttons",
+    "where": "section#band-s4 > div.gruppe:nth-of-type(3) > div.zellen > a.zelle:nth-of-type(1) \"Released APIs (OData, SOAP, IDoc, RFC)\"",
+    "msg": "\"Released APIs (OData, SOAP, IDoc, RFC)\" is 6 words (1 to 5)",
+    "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-actions",
+    "where": "(the page)",
+    "msg": "155 different button labels on the page (at most 10)",
+    "fix": "few actions, one wording: at most 2 in the hero, the main action word for word in nav, hero and close",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "stagger",
+    "where": "div.wrap > div.legende > div.legende__gruppe:nth-of-type(2) > ul.legende__liste \"Baustein verbunden mit dem Baustein unte\"",
+    "msg": "3 rows start at 2 different left offsets (+0, +0, +86px)",
+    "fix": "start every row of the list on one left edge",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-family",
+    "where": "header.nav",
+    "msg": "the nav's links come in 2 sizes (15, 18px)",
+    "fix": "keep one nav on every screen: the same bar, fill, links and type",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "label-centre",
+    "where": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Baustein suchen\"",
+    "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right) (and 39 more like it: \"Cloud Identity Services\", \"SAP GRC\", \"Threat Detection\", \"UI Data Protection\", ...)",
+    "fix": "centre the label in its button, or fill the empty side with an icon",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "stranded-action",
+    "where": "section#band-sec > div.zellen > a.zelle:nth-of-type(7) \"ILM, Data Privacy\"",
+    "msg": "stands 256px down from the nearest text of its block (\"Security & Identity\") (and 13 more like it: \"Process Governance\", \"Transformation Manager\", \"Process Navigator\", \"SAP LeanIX\", ...)",
+    "fix": "put the button under or beside the text it belongs to",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "stranded-action",
+    "where": "section#band-int > div.zellen > a.zelle:nth-of-type(4) \"Integration Advisor, TPM\"",
+    "msg": "stands 314px across from the nearest text of its block (\"Integration & Events\") (and 1 more like it: \"Advanced Event Mesh\")",
+    "fix": "put the button under or beside the text it belongs to",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-length",
+    "where": "section#schnitt \"Schnitt durch die Landschaft\"",
+    "msg": "1 section over 90 words a screen outside the UI mocks (\"Schnitt durch die Landsc\" 213); 106 words a screen across the page (531 words in 5 screens): a tech page says it in about 80 or fewer",
+    "fix": "cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-current",
+    "where": "header.nav",
+    "msg": "the nav stays on screen with 3 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+    "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "font-load",
+    "where": "h1#einstieg-h \"Aptos\"",
+    "msg": "\"Aptos\" is asked for by --font-display, --font-text, the h1, the h2s and the body text but never loaded (no font link or @font-face loads it): it shows in its fallback",
+    "fix": "load every family the type asks for: name it in the font link as start.mjs prints it, spelt as Google Fonts spells it, or ask for a family the page loads",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "container-edges",
+    "where": "div#lesezeile > span.lesezeile__ruhe \"Auf einen Baustein zeigen: Kurzbeschreib\"",
+    "msg": "1 text block starts on a left line at x 97, 17px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (it sits in a part held on screen as the page scrolls: told as a WARN) (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "tap-size",
+    "where": "input#q",
+    "msg": "a 307x42px tap target: under the 44px a phone needs",
+    "fix": "make every link and control outside running text 44px tall on a phone: display: inline-flex; align-items: center; min-height: 44px (a footer list then needs no gap), a 44px small button, or a transparent ::before laid past the box",
+    "widths": [
+     390,
+     320
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "div#v-schnitt > section.hero.einstieg / section#schnitt",
+    "msg": "28px between these sections, -49% against the median 55px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#legende / section#herkunft",
+    "msg": "70px between these sections, +28% against the median 55px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "label-centre",
+    "where": "section#band-kanal > div.zellen > a.zelle:nth-of-type(5) \"Joule Work\"",
+    "msg": "its label sits 22px off-centre (35px of room at the left, 13px at the right) (and 35 more like it: \"BusinessObjects\", \"BN for Logistics\", \"Distributed Energy Res.\", \"Project & Resource Mgmt\", ...)",
+    "fix": "centre the label in its button, or fill the empty side with an icon",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "stranded-action",
+    "where": "section#band-lob > div.zellen > a.zelle:nth-of-type(9) \"Field Service Mgmt\"",
+    "msg": "stands 275px down from the nearest text of its block (\"Fachanwendungen in der Cloud\") (and 56 more like it: \"IBP\", \"Digital Manufacturing\", \"Asset Performance Mgmt\", \"BN for Logistics\", ...)",
+    "fix": "put the button under or beside the text it belongs to",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-stat-strip",
+    "msg": "stat strip x1",
+    "fix": "a strip only of figures the brief gives (a price, hours, a count); otherwise put each number in the sentence it proves, or leave it out (references/copy-tells.md)",
+    "widths": [],
+    "from": "copy",
+    "where": "copy x1: \"94 / 58 / 2\"",
+    "exact": false
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 80,
+   "layout": 3
+  }
+ },
+ "open": [
+  {
+   "check": "hero-fill",
+   "where": "section#schnitt \"Schnitt durch die Landschaft\"",
+   "msg": "the next section shows on the first screen: it starts at 370px on a 900px screen (the hero ends at 370px)",
+   "fix": "let the hero fill the first screen alone (min-height: 100svh, less above it): nothing of the next section on load",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "hero-fill"
+   ],
+   "wheres": [
+    "section#schnitt \"Schnitt durch die Landschaft\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "section#schnitt \"Schnitt durch die Landschaft\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#schnitt \"Schnitt durch die Landschaft\""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "section#legende \"Legende des Schnitts\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#legende \"Legende des Schnitts\""
+   ]
+  },
+  {
+   "check": "button-styles",
+   "where": "(one screen)",
+   "msg": "3 button styles on one screen: soft, fill #ffffff, outline #8a8699 (\"Cloud Identity Services\"); soft, fill #ffffff, outline #250f6b (\"SAP BTP · Business AI Platform\"); soft, fill #451dc7 (\"Baustein suchen\"); the odd one out: \"Baustein suchen\"",
+   "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "button-styles"
+   ],
+   "wheres": [
+    "(one screen)"
+   ]
+  },
+  {
+   "check": "button-styles",
+   "where": "(the page)",
+   "msg": "5 button styles on the page: soft, fill #451dc7 x2 (\"Baustein suchen\"); soft, fill #ffffff, outline #8a8699 x120 (\"Cloud Identity Services\"); soft, fill #ffffff, outline #250f6b x7 (\"SAP BTP · Business AI Platform\"); soft, outline #000000 x2 (\"Clean Core\"); soft, fill #ffffff, outline #ffffff x25 (\"Cloud ERP (Public)\")",
+   "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "button-styles"
+   ],
+   "wheres": [
+    "(the page)"
+   ]
+  },
+  {
+   "check": "button-styles",
+   "where": "section#band-sec > div.zellen > a.zelle:nth-of-type(1) \"Cloud Identity Services\"",
+   "msg": "one button style (soft, fill #ffffff, outline #8a8699) in 2 heights: 30, 45px (\"Cloud Identity Services\" 45px, \"Identity Access Gov.\" 30px)",
+   "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "button-styles"
+   ],
+   "wheres": [
+    "section#band-sec > div.zellen > a.zelle:nth-of-type(1) \"Cloud Identity Services\""
+   ]
+  },
+  {
+   "check": "stagger",
+   "where": "section#band-sec > div.zellen \"Cloud Identity Services Identity Access \"",
+   "msg": "7 rows start at 2 different left offsets (+0, +0, +22, +22, +0, +0, +0px)",
+   "fix": "start every row of the list on one left edge",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "stagger"
+   ],
+   "wheres": [
+    "section#band-sec > div.zellen \"Cloud Identity Services Identity Access \""
+   ]
+  },
+  {
+   "check": "stagger",
+   "where": "section#band-data > div.zellen \"SAP Business Data Cloud Datasphere BW PC\"",
+   "msg": "6 rows start at 2 different left offsets (+22, +0, +0, +22, +22, +22px)",
+   "fix": "start every row of the list on one left edge",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "stagger"
+   ],
+   "wheres": [
+    "section#band-data > div.zellen \"SAP Business Data Cloud Datasphere BW PC\""
+   ]
+  },
+  {
+   "check": "section-gaps",
+   "where": "div#v-schnitt > section.hero.einstieg / section#schnitt",
+   "msg": "24px between these sections, -63% against the median 65px",
+   "fix": "use one gap between sections (all within 25% of each other)",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-gaps"
+   ],
+   "wheres": [
+    "div#v-schnitt > section.hero.einstieg / section#schnitt"
+   ]
+  },
+  {
+   "check": "section-gaps",
+   "where": "section#schnitt / section#legende",
+   "msg": "114px between these sections, +77% against the median 65px",
+   "fix": "use one gap between sections (all within 25% of each other)",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-gaps"
+   ],
+   "wheres": [
+    "section#schnitt / section#legende"
+   ]
+  },
+  {
+   "check": "section-height",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "the section is 104px tall (0.1 screens), 796px short of one screen (900px): every section after the hero is one screen or two, 2px either way (SR-2)",
+   "fix": "set the section to one screen or two (height: calc(var(--h,1) * 100vh), --h 1 or 2) and cut or split its content to fit",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "one-section",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "the screen at scroll 1974px (the top of section 2) shows 104px of section 2 and the content of 2 sections, over 24px each beside section 1: a screen shows one section (another may peek 8px, 24px WARN) (SR-4)",
+   "fix": "make each section exactly one screen or two, so a screen shows one section and no neighbour peeks",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "one-section",
+   "where": "p#ansage",
+   "msg": "a <p> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+   "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "p#ansage"
+   ]
+  },
+  {
+   "check": "one-section",
+   "where": "div#lesezeile \"Auf einen Baustein zeigen: Kurzbeschreib\"",
+   "msg": "a band: a box 89% of the section wide on a ground of its own that holds only text: the section's own ground is the band (SR-4)",
+   "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "div#lesezeile \"Auf einen Baustein zeigen: Kurzbeschreib\""
+   ]
+  },
+  {
+   "check": "one-heading",
+   "where": "h2#legende-h \"Legende des Schnitts\"",
+   "msg": "the hero holds an h2 (2): its heading is the h1, and an h2 opens the next section (SR-5)",
+   "fix": "give each section one h2, first in its .wrap, and the hero only its h1",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-heading"
+   ],
+   "wheres": [
+    "h2#legende-h \"Legende des Schnitts\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\"",
+   "msg": "a <footer> at the top of the page, outside header.nav, main, footer.closing and nav.actionbar (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "footer.fuss \"S/4HANA-Landkarte · Recherche-Stand Okto\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+   "msg": "the section needs exactly one in-flow child .wrap (it has 4 in-flow children, 0 .wrap) (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "div#v-schnitt > section.hero.einstieg > div.wrap \"Architekturschnitt der SAP-Landschaft ru\"",
+   "msg": "the .wrap has z-index auto beside a layer: 1 or more (and 1 more like it: \"Architekturschnitt der S\") (SR-6)",
+   "fix": "build the page as header.nav, a main of sections (each one in-flow .wrap plus background layers) and footer.closing",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "div#v-schnitt > section.hero.einstieg > div.wrap \"Architekturschnitt der SAP-Landschaft ru\""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "section#legende \"Legende des Schnitts Status hervorheben \"",
+   "msg": "a box runs 0-1440px, outside the container lines of section 1 at 80-1360px: full width is for background layers and grounds only (SR-6)",
+   "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "section#legende \"Legende des Schnitts Status hervorheben \""
+   ]
+  },
+  {
+   "check": "container-edges",
+   "where": "section#herkunft \"Herkunft der Steckbriefe Jeder Steckbrie\"",
+   "msg": "a box runs 0-1440px, outside the container lines of section 1 at 80-1360px: full width is for background layers and grounds only (SR-6)",
+   "fix": "keep it inside the container lines (.wrap): full width is for background layers and grounds only",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "container-edges"
+   ],
+   "wheres": [
+    "section#herkunft \"Herkunft der Steckbriefe Jeder Steckbrie\""
+   ]
+  },
+  {
+   "check": "row-lines",
+   "where": "div#schnitt-feld > div.schnitt__mitte \"Anwender & Kanäle7 Fiori LaunchpadBuild \"",
+   "msg": "a row of 2 items: its first item starts at 280px, the container's left line at 80px; its last item ends at 1004px, the container's right line at 1360px (2px either way) (SR-7)",
+   "fix": "start the row's first item on the container's left line and end its last on the right line, every item one height",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "row-lines"
+   ],
+   "wheres": [
+    "div#schnitt-feld > div.schnitt__mitte \"Anwender & Kanäle7 Fiori LaunchpadBuild \""
+   ]
+  },
+  {
+   "check": "no-visual",
+   "where": "div#v-schnitt > section.hero.einstieg \"Architekturschnitt der SAP-Landschaft ru\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "div#v-schnitt > section.hero.einstieg \"Architekturschnitt der SAP-Landschaft ru\""
+   ]
+  },
+  {
+   "check": "text-only",
+   "where": "section#herkunft \"Herkunft der Steckbriefe\"",
+   "msg": "the closing section is only text: no picture, icon, mock or effect in it",
+   "fix": "give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "text-only"
+   ],
+   "wheres": [
+    "section#herkunft \"Herkunft der Steckbriefe\""
+   ]
+  },
+  {
+   "check": "button-styles",
+   "where": "section#band-s4 > div.gruppe:nth-of-type(3) > div.zellen > a.zelle:nth-of-type(1) \"Released APIs (OData, SOAP, IDoc, RFC)\"",
+   "msg": "one button style (soft, fill #ffffff, outline #ffffff) in 2 heights: 44, 56px (\"Released APIs (OData, SOAP, IDoc, RFC)\" 56px, \"Cloud ERP (Public)\" 44px)",
+   "fix": "one primary and one secondary button: one shape, one height per size, one label size",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "button-styles"
+   ],
+   "wheres": [
+    "section#band-s4 > div.gruppe:nth-of-type(3) > div.zellen > a.zelle:nth-of-type(1) \"Released APIs (OData, SOAP, IDoc, RFC)\""
+   ]
+  }
+ ],
+ "waived": [
+  {
+   "check": "cta",
+   "where": "div#v-schnitt > section.hero.einstieg",
+   "msg": "the hero has no button (the nav's does not count)",
+   "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "cta"
+   ],
+   "wheres": [
+    "div#v-schnitt > section.hero.einstieg"
+   ],
+   "reason": "Die Hauptaktion im Einstieg ist das Suchfeld selbst, es filtert beim Tippen; ein zusätzlicher Knopf daneben wäre ohne Funktion."
+  },
+  {
+   "check": "moment-none",
+   "where": "(the page)",
+   "msg": "a software page (--type) deals no moment: every kind carries one, two on a long page (moments.md)",
+   "fix": "deal one (moments.mjs pick --page software) and mount it in its own section",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "moment-none"
+   ],
+   "wheres": [
+    "(the page)"
+   ],
+   "reason": "Nachschlage-Werkzeug: ein inszenierter Moment (letters-assemble) hielte den Weg zum Baustein auf; Bewegung liegt im Einstieg und in der Antwort der Zellen auf Zeiger und Fokus."
+  },
+  {
+   "check": "hero-screen",
+   "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+   "msg": "the hero ends at 2770px on a 900px screen, 1870px below the fold: it ends at the fold, 1px either way (SR-1)",
+   "fix": "make the hero exactly one screen (height: 100svh, its content fitted inside), never taller or shorter",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "hero-screen"
+   ],
+   "wheres": [
+    "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+   ],
+   "reason": "Der Einstieg ist bewusst kurz, damit der Schnitt schon auf dem ersten Bildschirm beginnt; ein bildschirmhoher Hero schöbe das Werkzeug unter die Falz."
+  },
+  {
+   "check": "section-height",
+   "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+   "msg": "the section starts at 60px, 60px below the screen grid (0 x 900px): sections start on whole screens (SR-2)",
+   "fix": "make every section above it exactly one or two screens tall, so this one starts on a whole screen",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "section-height"
+   ],
+   "wheres": [
+    "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+   ],
+   "reason": "Der Schnitt zeigt 154 Bausteine in ihrer Lage und ist so hoch wie sein Inhalt; ein Raster aus ganzen Bildschirmen würde ihn zerschneiden."
+  },
+  {
+   "check": "one-section",
+   "where": "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\"",
+   "msg": "a <div> sits directly in <main>: every part of <main> is a <section> (SR-4)",
+   "fix": "put every block of <main> in a <section>, and give a band its own section instead of a ground inside one",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "one-section"
+   ],
+   "wheres": [
+    "div#v-schnitt \"Architekturschnitt der SAP-Landschaft ru\""
+   ],
+   "reason": "Zwei Ansichten (Schnitt, Steckbrief-Blatt) liegen als Behälter in main und wechseln per URL; als Sektionen direkt in main zwänge das Kit jede auf Bildschirmhöhe."
+  }
+ ],
+ "warnCount": 20,
+ "at": "2026-11-18T21:34:25.857Z",
+ "openTold": true
+}

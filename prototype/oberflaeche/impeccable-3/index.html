@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S/4HANA-Landkarte · Lagebild</title>
+<link rel="icon" href="data:,">
+<script>try { document.documentElement.classList.toggle("dark", (localStorage.getItem("lk-thema") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark"); } catch (e) {}</script>
+<link rel="stylesheet" href="basis.css">
+<style>
+/* Alternative 3: Lagebild. Jeder Baustein ist eine Marke in einer Matrix aus Bereich und wählbarer Spalte;
+   die Auswahl steht rechts auf Violett, der Steckbrief wird durch die Auswahl geblättert. */
+
+.seite { display: grid; grid-template-columns: minmax(0, 1fr) 392px; min-height: 100vh; }
+.links { min-width: 0; }
+.seite.im-deck { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+.seite.im-deck .kopf { border-bottom: 1px solid var(--border); }
+.seite.im-deck .kopf-in { max-width: 1228px; margin: 0 auto; padding-bottom: 12px; }
+
+/* ---------- Kopf und Steuerung ---------- */
+.kopf-in { display: flex; align-items: center; gap: 10px 20px; padding: 12px 24px 10px; }
+.titel h1 { font-size: 18px; font-weight: 700; line-height: 1.2; letter-spacing: -.01em; white-space: nowrap; }
+.titel h1 a { color: var(--primary-text); text-decoration: none; }
+.titel p { font-size: 12px; color: var(--muted-foreground); }
+.kopf .suche { flex: 1 1 260px; max-width: 420px; }
+.kopf-re { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.steuer { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; padding: 6px 24px 14px; }
+.steuer .lbl { font-size: 13px; color: var(--muted-foreground); }
+.zaehler { margin-left: auto; font-size: 13px; color: var(--muted-foreground); }
+.zaehler strong { color: var(--foreground); font-weight: 600; }
+
+/* ---------- Matrix ---------- */
+.matrix-w { padding: 0 24px 32px; }
+.matrix { display: grid; grid-template-columns: var(--b, 216px) var(--spalten); }
+.mz { display: contents; }
+.mk { display: flex; align-items: flex-end; padding: 0 0 6px 8px; border-bottom: 1px solid var(--secondary-foreground); }
+.mk.eck { padding-bottom: 10px; font-size: 13px; font-weight: 600; color: var(--muted-foreground); }
+.sk, .zk { border: 0; background: none; text-align: left; font-size: 13px; font-weight: 600; line-height: 1.3; border-radius: var(--radius-md); }
+.sk { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 1px; max-width: 100%; padding: 4px 6px; margin-left: -6px; text-align: left; }
+.sk .sk-w { display: inline-flex; align-items: center; gap: 5px; }
+.zk { display: flex; align-items: baseline; gap: 8px; width: 100%; padding: 8px; }
+.zk .n { margin-left: auto; }
+.sk .n, .zk .n { font-weight: 400; color: var(--muted-foreground); }
+.sk:hover, .zk:hover { background: var(--muted); }
+.sk[aria-pressed="true"], .zk[aria-pressed="true"] { background: var(--primary); color: var(--primary-foreground); }
+.sk[aria-pressed="true"] .n, .zk[aria-pressed="true"] .n { color: var(--primary-muted); }
+.sk[aria-pressed="true"] .probe { border-color: currentColor; }
+.mb { display: flex; align-items: flex-start; padding: 2px 6px 2px 0; border-bottom: 1px solid var(--border); }
+.zelle { display: flex; align-items: flex-start; min-width: 0; padding: 7px 6px 7px 8px; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); cursor: pointer; transition: background-color .15s ease-out; }
+.zelle.leer { cursor: default; }
+.zelle:not(.leer):hover { background: var(--muted); }
+.zelle.gew { background: var(--secondary); }
+.zelle-in { display: flex; align-items: flex-start; gap: 6px; min-width: 0; }
+.sp-m { display: none; }
+.zz { flex: none; min-width: 24px; height: 22px; padding: 0 3px; border: 0; background: none; font-size: 13px; font-weight: 600; text-align: right; border-radius: var(--radius-sm); }
+.zz.null { color: var(--muted-foreground); font-weight: 400; }
+.ms { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; padding-top: 2px; }
+.m { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 3px; color: #000; transition: opacity .15s ease-out; }
+.m.st-aktiv { background: var(--chart-1); }
+.m .ico { width: 11px; height: 11px; }
+.m:hover { outline: 2px solid var(--foreground); outline-offset: 1px; }
+.m.aus { opacity: .2; }
+.m.ende { rotate: 45deg; scale: .84; border-radius: 2px; }
+.m.ende .ico { rotate: -45deg; }
+
+.legende { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin-top: 14px; padding-left: 8px; font-size: 12px; color: var(--muted-foreground); }
+.legende span { display: inline-flex; align-items: center; gap: 6px; }
+.legende .m { width: 14px; height: 14px; }
+.legende .m .ico { width: 9px; height: 9px; }
+
+#tip { position: fixed; z-index: 50; max-width: 300px; padding: 8px 10px; pointer-events: none; font-size: 13px; line-height: 1.35; }
+#tip strong { display: block; font-weight: 600; }
+#tip span { color: var(--muted-foreground); }
+
+/* ---------- Auswahl auf Violett ---------- */
+.panel { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 18px 20px 32px; background: var(--primary); color: var(--primary-foreground); scrollbar-color: rgba(255, 255, 255, .5) transparent; scrollbar-width: thin; }
+.panel:focus { outline: none; }
+.p-oben { display: flex; align-items: flex-start; gap: 10px; }
+.panel h2 { flex: 1; min-width: 0; font-size: 18px; font-weight: 700; line-height: 1.25; text-wrap: balance; }
+.p-sub { margin-top: 2px; font-size: 13px; color: var(--primary-muted); }
+.panel h3 { margin: 22px 0 6px; font-size: 13px; font-weight: 600; color: var(--primary-muted); }
+.p-blaettern { margin-top: 14px; }
+.p-blaettern .btn { color: #250F6B; background: #fff; border-color: transparent; }
+.p-blaettern .btn:hover { background: var(--brand-mint); color: #000; }
+.p-liste { margin-top: 12px; }
+.p-liste li + li { border-top: 1px solid rgba(255, 255, 255, .22); }
+.p-bs { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 2px 8px; margin: 0 -8px; padding: 9px 8px; color: inherit; text-decoration: none; border-radius: var(--radius-md); }
+.p-n { font-size: 14px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.p-k, .p-f { grid-column: 1 / -1; font-size: 13px; line-height: 1.4; color: var(--primary-muted); }
+.p-f { font-size: 12px; }
+.p-n .p-t { font-weight: 400; }
+.p-f b { font-weight: 600; color: #fff; }
+/* Menu Accent Bold: die Zeile unter dem Zeiger kehrt sich um */
+.p-bs:hover, .p-bs:focus-visible { background: #fff; color: #000; }
+.p-bs:hover .p-k, .p-bs:hover .p-f, .p-bs:focus-visible .p-k, .p-bs:focus-visible .p-f { color: #4A4660; }
+.p-bs:hover .p-f b, .p-bs:focus-visible .p-f b { color: #000; }
+.p-kenn { display: grid; gap: 2px; margin-top: 14px; }
+.p-kenn button { display: flex; align-items: center; gap: 10px; width: 100%; margin: 0 -8px; padding: 6px 8px; box-sizing: content-box; border: 0; background: none; color: inherit; font-size: 14px; text-align: left; border-radius: var(--radius-md); }
+.p-kenn button b { min-width: 2.2em; font-size: 18px; font-weight: 700; text-align: right; }
+.p-kenn button:hover { background: #fff; color: #000; }
+.p-tipp { margin-top: 22px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .22); font-size: 13px; color: var(--primary-muted); text-wrap: pretty; }
+.p-leer { margin-top: 14px; font-size: 14px; }
+
+/* ---------- Steckbrief: durch die Auswahl blättern ---------- */
+#deck { grid-column: 1 / -1; padding: 16px 24px 80px; }
+.deck-in { max-width: 1180px; margin: 0 auto; }
+.deck-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 14px; }
+.pfad { flex: 1 1 200px; min-width: 0; font-size: 13px; color: var(--muted-foreground); }
+.blaettern { display: flex; align-items: center; gap: 8px; }
+.blaettern .pos { min-width: 5.5em; font-size: 13px; text-align: center; }
+.karte { background: var(--card); border: 1px solid var(--border); border-radius: calc(var(--radius) + 2px); overflow: clip; }
+.k-kopf { padding: 22px 28px 24px; background: #250F6B; color: #fff; }
+.k-ber { margin-top: 4px; font-size: 14px; color: var(--primary-muted); }
+.k-kopf h2 { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -.015em; text-wrap: balance; }
+.k-kopf h2:focus { outline: none; }
+.k-kopf .sb-aka { margin-top: 6px; color: var(--primary-muted); }
+.k-kopf .lead { margin-top: 12px; max-width: 66ch; font-size: 17px; line-height: 1.45; text-wrap: pretty; }
+.k-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 14px; font-size: 14px; }
+.k-status .aktiv { color: var(--primary-muted); }
+.k-zeit { border-bottom: 1px solid var(--border); background: var(--muted); }
+.k-zeit h3 { padding: 12px 28px 0; font-size: 13px; font-weight: 600; color: var(--secondary-foreground); }
+.k-zeit .leer-hinweis { padding: 4px 28px 14px; }
+.zl { display: flex; overflow-x: auto; padding: 16px 28px 16px; scrollbar-width: thin; }
+.zl li { position: relative; flex: 0 0 216px; padding: 10px 18px 0 0; border-top: 2px solid var(--border); font-size: 13px; line-height: 1.4; color: var(--muted-foreground); }
+.zl li::before { content: ""; position: absolute; top: -6px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--muted); border: 2px solid var(--input); }
+.zl time { display: block; }
+.zl li.kommt { border-top-color: var(--chart-1); color: var(--foreground); }
+.zl li.kommt::before { background: var(--chart-1); border-color: var(--chart-1); }
+.zl li.kommt time { font-weight: 600; }
+.zl li.ende::before { border-radius: 1px; rotate: 45deg; background: var(--muted); border-color: var(--muted-foreground); }
+.zl li.ende.kommt::before { background: var(--warning); border-color: var(--foreground); }
+.zl li.heute { flex: 0 0 76px; padding-right: 0; border-top: 3px solid var(--brand-green); margin-top: -.5px; }
+.zl li.heute::before { display: none; }
+.zl li.heute span { display: inline-block; padding: 0 8px; border-radius: 999px; background: var(--brand-green); color: #000; font-size: 12px; font-weight: 600; }
+.k-text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 44px; padding: 24px 28px; }
+.k-fuss { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .9fr) minmax(0, 1.1fr); gap: 20px 36px; padding: 22px 28px 26px; border-top: 1px solid var(--border); }
+.vliste { display: grid; gap: 5px; }
+
+/* ---------- Schmaler ---------- */
+@media (max-width: 1180px) {
+  .seite { grid-template-columns: minmax(0, 1fr) 340px; }
+  .matrix { --b: 190px; }
+  .k-fuss { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 899px) {
+  .seite { grid-template-columns: minmax(0, 1fr); }
+  .kopf-in { flex-wrap: wrap; padding: 12px 16px 10px; }
+  .titel { flex: 1 1 100%; }
+  .kopf .suche { flex: 1 1 100%; max-width: none; order: 2; }
+  .kopf-re { margin-left: 0; order: 3; flex: 1 1 100%; justify-content: space-between; }
+  .steuer { padding: 4px 16px 12px; }
+  .zaehler { margin-left: 0; flex: 1 1 100%; }
+  .matrix-w { padding: 0 0 24px; }
+  .matrix, .mz { display: block; }
+  .mz.kopfz { display: none; }
+  .mz { padding: 6px 8px 8px; border-top: 1px solid var(--border); }
+  .mb { padding: 0; border: 0; }
+  .zk { font-size: 14px; }
+  .zelle { padding: 5px 8px; border: 0; border-radius: var(--radius-md); }
+  .zelle.leer { display: none; }
+  .sp-m { display: block; flex: 0 0 104px; padding-top: 2px; font-size: 12px; line-height: 1.3; color: var(--muted-foreground); }
+  .m { width: 20px; height: 20px; }
+  .legende { padding: 0 16px; }
+  .panel { position: static; height: auto; padding: 20px 16px 40px; scroll-margin-top: 0; }
+  #deck { padding: 12px 12px 64px; }
+  .k-kopf { padding: 18px 16px 20px; }
+  .k-kopf h2 { font-size: 23px; }
+  .k-zeit h3 { padding: 12px 16px 0; }
+  .zl { padding: 16px 16px 14px; }
+  .zl li { flex-basis: 190px; }
+  .k-text, .k-fuss { grid-template-columns: minmax(0, 1fr); padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<div class="seite">
+  <div class="links" id="bild">
+    <header class="kopf">
+      <div class="kopf-in">
+        <div class="titel">
+          <h1><a href="./">S/4HANA-Landkarte</a></h1>
+          <p id="stand">Lagebild · Stand Oktober 2026</p>
+        </div>
+        <div class="suche">
+          <label for="q" class="visually-hidden">Bausteine durchsuchen</label>
+          <svg class="ico" aria-hidden="true"><use href="#i-suche"/></svg>
+          <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Suchen: PI/PO, Datasphere, Tosca …">
+          <kbd aria-hidden="true">/</kbd>
+        </div>
+        <div class="kopf-re">
+          <button type="button" class="switch" id="testperspektive" role="switch" aria-checked="false">
+            <span class="track" aria-hidden="true"><span class="thumb"></span></span><span>Testperspektive</span>
+          </button>
+          <button type="button" class="btn nur-ico" id="thema" aria-pressed="false"></button>
+        </div>
+      </div>
+      <div class="steuer" id="steuer">
+        <span class="lbl" id="sp-lbl">Spalten</span>
+        <div class="seg" role="group" aria-labelledby="sp-lbl" id="pivot">
+          <button type="button" data-sp="status" aria-pressed="true">Status</button>
+          <button type="button" data-sp="beleg" aria-pressed="false">Belegstatus</button>
+          <button type="button" data-sp="termin" aria-pressed="false">Nächster Termin</button>
+        </div>
+        <p class="zaehler" id="zaehler" role="status"></p>
+      </div>
+    </header>
+    <main id="inhalt" class="matrix-w" tabindex="-1">
+      <div id="matrix" aria-busy="true"><p class="laden">Steckbriefe werden geladen …</p></div>
+    </main>
+  </div>
+  <aside class="panel auf-violett" id="panel" aria-label="Auswahl" tabindex="-1"></aside>
+  <div id="deck" hidden></div>
+</div>
+<div id="tip" class="menu" role="tooltip" hidden></div>
+
+<noscript><p class="meldung">Die Landkarte braucht JavaScript.</p></noscript>
+<script src="kern.js"></script>
+<script>
+"use strict";
+const JAHR = +HEUTE.slice(0, 4);
+const probe = (b) => `<span class="probe b-${b}" aria-hidden="true"></span>`;
+// Drei Lesarten derselben 154 Marken. von(d) liefert den Spaltenschlüssel eines Bausteins.
+const LESART = {
+  status: { name: "Status", spalten: STATUS_FOLGE.map((k) => ({ k, label: STATUS[k], kopf: k === "aktiv" ? `<span class="m st-aktiv" aria-hidden="true"></span>` : marke(k) })), von: (d) => d.status },
+  beleg: { name: "Belegstatus", spalten: BELEG_FOLGE.map((k) => ({ k, label: BELEG[k], kopf: probe(k) })), von: (d) => d.belegt },
+  termin: {
+    name: "Nächster Termin",
+    spalten: [{ k: "t0", label: `noch ${JAHR}` }, { k: "t1", label: String(JAHR + 1) }, { k: "t2", label: `${JAHR + 2}–${JAHR + 3}` }, { k: "t4", label: `ab ${JAHR + 4}` }, { k: "verg", label: "nur vergangene Termine" }, { k: "ohne", label: "ohne Daten" }],
+    von: (d) => {
+      if (!d._termine.length) return "ohne";
+      if (!d._naechster) return "verg";
+      const j = +d._naechster.key.slice(0, 4) - JAHR;
+      return j <= 0 ? "t0" : j === 1 ? "t1" : j <= 3 ? "t2" : "t4";
+    }
+  }
+};
+let ansicht = null, letzteLesart = null;
+
+/* ---------- Zustand aus der Adresse ---------- */
+function zustand() {
+  const z = lesen();
+  const sp = LESART[z.sp] ? z.sp : "status";
+  const L = LESART[sp];
+  return { z, sp, L, q: z.q || "", test: z.test === "1",
+    zeile: BER[z.zeile] ? z.zeile : null, spalte: L.spalten.some((c) => c.k === z.spalte) ? z.spalte : null,
+    offen: z.baustein && byId[z.baustein] ? z.baustein : null };
+}
+// Die Auswahl: Zeile, Spalte und Suche schneiden sich.
+function auswahl(s) {
+  const set = treffer(s.q, s.test);
+  return DATA.filter((d) => (!s.zeile || d.layer === s.zeile) && (!s.spalte || s.L.von(d) === s.spalte) && (!set || set.has(d.id)));
+}
+const hatAuswahl = (s) => !!(s.zeile || s.spalte || s.q.trim());
+function auswahlName(s) {
+  return [s.zeile && BER[s.zeile].name, s.spalte && s.L.spalten.find((c) => c.k === s.spalte).label, s.q.trim() && `Suche „${s.q.trim()}“`].filter(Boolean).join(" · ");
+}
+
+/* ---------- Matrix ---------- */
+function markeHtml(d, s, drin) {
+  const raute = s.sp === "termin" && d._naechster && d._naechster.ende;
+  return `<a class="m st-${esc(d.status)}${drin ? "" : " aus"}${raute ? " ende" : ""}" href="${bausteinHref(d.id)}" data-id="${esc(d.id)}" tabindex="-1" aria-label="${esc(etikett(d))}">${d.status !== "aktiv" && STATUS[d.status] ? ico(d.status) : ""}</a>`;
+}
+function matrixZeigen(s, liste) {
+  const drin = new Set(liste.map((d) => d.id)), aktiv = hatAuswahl(s);
+  const set = treffer(s.q, s.test);
+  const passt = (d) => !set || set.has(d.id);
+  const cols = s.L.spalten;
+  const feld = {}; // "zeile|spalte" -> Bausteine
+  DATA.forEach((d) => { const k = d.layer + "|" + s.L.von(d); (feld[k] ||= []).push(d); });
+  const max = cols.map((c) => Math.max(2.4, ...BEREICHE.map(([lid]) => (feld[lid + "|" + c.k] || []).length)));
+  const bewegt = letzteLesart && letzteLesart !== s.sp && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const alt = bewegt ? new Map($$("#matrix .matrix .m[data-id]").map((el) => [el.dataset.id, el.getBoundingClientRect()])) : null;
+
+  $("#matrix").innerHTML = `<div class="matrix" role="table" aria-label="Lagebild: Bausteine nach Bereich und ${esc(s.L.name)}. Ein Feld, eine Zeile oder eine Spalte wählen zeigt die Bausteine in der Auswahl." style="--spalten: ${max.map((w, i) => `minmax(${cols[i].label.length > 10 ? 128 : 116}px, ${w}fr)`).join(" ")}">
+    <div class="mz kopfz" role="row"><div class="mk eck" role="columnheader">Bereich</div>${cols.map((c) => {
+      const n = DATA.filter((d) => s.L.von(d) === c.k && passt(d)).length;
+      return `<div class="mk" role="columnheader"><button type="button" class="sk" data-s="${c.k}" aria-pressed="${s.spalte === c.k && !s.zeile}"><span class="sk-w">${c.kopf || ""}<span>${esc(c.label)}</span></span> <span class="n">${n}</span></button></div>`;
+    }).join("")}</div>
+    ${BEREICHE.map(([lid, name]) => {
+      const n = DATA.filter((d) => d.layer === lid && passt(d)).length;
+      return `<div class="mz" role="row"><div class="mb" role="rowheader"><button type="button" class="zk" data-z="${lid}" aria-pressed="${s.zeile === lid && !s.spalte}"><span>${esc(name)}</span> <span class="n">${n}</span></button></div>${cols.map((c) => {
+        const ds = feld[lid + "|" + c.k] || [];
+        if (!ds.length) return `<div class="zelle leer" role="cell"></div>`;
+        const gew = aktiv && (!s.zeile || s.zeile === lid) && (!s.spalte || s.spalte === c.k) && (s.zeile || s.spalte);
+        const zahl = ds.filter(passt).length;
+        return `<div class="zelle${gew ? " gew" : ""}" role="cell" data-z="${lid}" data-s="${c.k}"><div class="zelle-in"><span class="sp-m">${esc(c.label)}</span>
+          <button type="button" class="zz${zahl ? "" : " null"}" aria-pressed="${s.zeile === lid && s.spalte === c.k}" aria-label="${esc(name)}, ${esc(c.label)}: ${zahl} ${zahl === 1 ? "Baustein" : "Bausteine"} auswählen">${zahl}</button>
+          <span class="ms">${ds.map((d) => markeHtml(d, s, !aktiv || drin.has(d.id))).join("")}</span></div></div>`;
+      }).join("")}</div>`;
+    }).join("")}</div>
+    <p class="legende" aria-hidden="true"><span><span class="m st-aktiv"></span>aktiv</span>${["neu", "umbenannt", "auslaufend", "abgekuendigt"].map((k) => `<span><span class="m st-${k}">${ico(k)}</span>${STATUS[k]}</span>`).join("")}${s.sp === "termin" ? `<span><span class="m st-aktiv ende"></span>nächster Termin ist ein Wartungsende</span>` : ""}<span>Eine Marke ist ein Baustein.</span></p>`;
+  $("#matrix").removeAttribute("aria-busy");
+
+  // Wechselt die Lesart, wandern alle Marken an ihren neuen Platz.
+  if (alt) $$("#matrix .matrix .m[data-id]").forEach((el) => {
+    const a = alt.get(el.dataset.id); if (!a) return;
+    const b = el.getBoundingClientRect(), dx = a.left - b.left, dy = a.top - b.top;
+    if (dx || dy) el.animate([{ translate: `${dx}px ${dy}px` }, { translate: "0 0" }], { duration: 250, easing: "cubic-bezier(.16, 1, .3, 1)" });
+  });
+  letzteLesart = s.sp;
+  $$("#pivot button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sp === s.sp)));
+  $("#zaehler").innerHTML = aktiv ? `<strong>${liste.length}</strong> von ${DATA.length} Bausteinen in der Auswahl` : `<strong>${DATA.length}</strong> Bausteine in ${BEREICHE.length} Bereichen`;
+}
+
+/* ---------- Auswahl ---------- */
+function fakt(d, s) {
+  if (s.sp === "beleg") return `<b>${esc(BELEG[d.belegt] || d.belegt)}</b>${d.hinweis ? " · " + esc(d.hinweis.length > 120 ? d.hinweis.slice(0, 117).replace(/\s+\S*$/, "") + " …" : d.hinweis) : ""}`;
+  if (s.sp === "termin") return d._naechster ? `<b>${fmtDatum(d._naechster.datum)}</b> ${esc(d._naechster.text)}` : (d._termine.length ? "kein kommender Termin" : "keine Daten hinterlegt");
+  return esc(d.statusText || "");
+}
+function panelZeigen(s, liste) {
+  const p = $("#panel");
+  if (!hatAuswahl(s)) {
+    const zahl = (k) => DATA.filter((d) => d.status === k).length;
+    const enden = DATA.flatMap((d) => d._termine.filter((t) => t.kommt && t.ende).map((t) => ({ d, t }))).sort((a, b) => a.t.key.localeCompare(b.t.key)).slice(0, 6);
+    p.innerHTML = `<h2>Die Lage</h2><p class="p-sub">${DATA.length} Bausteine in ${BEREICHE.length} Bereichen, ${STAND}</p>
+      <div class="p-kenn">${[["neu", "neu"], ["umbenannt", "umbenannt"], ["auslaufend", "laufen aus"], ["abgekuendigt", "abgekündigt"]].map(([k, wort]) =>
+        `<button type="button" data-kenn="${k}"><b>${zahl(k)}</b>${marke(k)}<span>${wort}</span></button>`).join("")}</div>
+      <h3>Nächste Wartungsenden</h3>
+      <ol class="p-liste">${enden.map(({ d, t }) => `<li><a class="p-bs" href="${bausteinHref(d.id)}" data-id="${esc(d.id)}"><span class="p-n">${fmtDatum(t.datum)} <span class="p-t">${esc(t.text)}</span></span>${marke(d.status)}<span class="p-f">im Steckbrief ${esc(d.name)}</span></a></li>`).join("")}</ol>
+      <p class="p-tipp">Ein Feld, eine Zeile oder eine Spalte wählen: Hier erscheinen die Bausteine dazu, und ihre Steckbriefe lassen sich der Reihe nach durchblättern.</p>`;
+    return;
+  }
+  p.innerHTML = `<div class="p-oben"><h2>${esc(auswahlName(s))}</h2><button type="button" class="btn nur-ico auf-violett" id="aufheben" aria-label="Auswahl aufheben" title="Auswahl aufheben">${ico("x")}</button></div>
+    <p class="p-sub">${liste.length} ${liste.length === 1 ? "Baustein" : "Bausteine"} · Lesart ${esc(s.L.name)}</p>
+    ${liste.length ? `<p class="p-blaettern"><button type="button" class="btn" data-id="${esc(liste[0].id)}">Steckbriefe durchblättern${ico("weiter")}</button></p>
+    <ol class="p-liste">${liste.map((d) => `<li><a class="p-bs" href="${bausteinHref(d.id)}" data-id="${esc(d.id)}"><span class="p-n">${mark(d.name, s.q)}</span>${marke(d.status)}<span class="p-k">${mark(d.kurz, s.q)}</span>${fakt(d, s) ? `<span class="p-f">${fakt(d, s)}</span>` : ""}</a></li>`).join("")}</ol>`
+    : `<p class="p-leer">In dieser Auswahl liegt kein Baustein.</p>`}`;
+}
+
+/* ---------- Steckbrief ---------- */
+function deckZeigen(d, s, liste) {
+  const ids = hatAuswahl(s) && liste.some((x) => x.id === d.id) ? liste.map((x) => x.id) : [d.id];
+  const i = ids.indexOf(d.id), f = sbFelder(d, s.test), rel = REL[d.id].alle.map((id) => byId[id]);
+  const dach = d.parent && byId[d.parent], kinder = KIDS[d.id] || [];
+  let zeit = "", gesetzt = false;
+  d._termine.forEach((t) => {
+    if (!gesetzt && t.kommt) { zeit += `<li class="heute"><span>heute</span></li>`; gesetzt = true; }
+    zeit += `<li class="${t.kommt ? "kommt" : "vorbei"}${t.ende ? " ende" : ""}"><time datetime="${esc(t.datum)}">${fmtDatum(t.datum)}</time>${t.ende ? `<span class="visually-hidden">Wartungsende: </span>` : ""}${esc(t.text)}</li>`;
+  });
+  if (d._termine.length && !gesetzt) zeit += `<li class="heute"><span>heute</span></li>`;
+  const name = ids.length > 1 || hatAuswahl(s) ? (ids.includes(d.id) && hatAuswahl(s) && liste.some((x) => x.id === d.id) ? `Auswahl: ${auswahlName(s)}` : "Außerhalb der Auswahl geöffnet") : "";
+  $("#deck").innerHTML = `<div class="deck-in">
+    <div class="deck-nav">
+      <a class="btn" href="${adresse({ sp: s.z.sp, zeile: s.z.zeile, spalte: s.z.spalte, q: s.z.q, test: s.z.test })}" id="zurueck">${ico("zurueck")}Zurück zum Lagebild</a>
+      <span class="pfad">${esc(name)}</span>
+      ${ids.length > 1 ? `<span class="blaettern"><button type="button" class="btn nur-ico" data-blatt="${esc(ids[i - 1] || "")}" aria-label="Vorheriger Steckbrief" ${i ? "" : "disabled"}>${ico("zurueck")}</button><span class="pos">${i + 1} von ${ids.length}</span><button type="button" class="btn nur-ico" data-blatt="${esc(ids[i + 1] || "")}" aria-label="Nächster Steckbrief" ${i < ids.length - 1 ? "" : "disabled"}>${ico("weiter")}</button></span>` : ""}
+    </div>
+    <article class="karte">
+      <header class="k-kopf auf-violett">
+        <h2 tabindex="-1">${esc(d.name)}</h2>
+        ${sbAka(d)}
+        <p class="k-ber">Bereich ${esc(BER[d.layer]?.name || d.layer)}${dach ? ` · Einzelprodukt im Portfolio ${esc(dach.name)}` : ""}</p>
+        <p class="lead">${esc(d.kurz)}</p>
+        <p class="k-status">${statusMarke(d)}${d.statusText ? `<span>${esc(d.statusText)}</span>` : ""}</p>
+      </header>
+      <section class="k-zeit" aria-label="Daten"><h3>Daten</h3>${zeit ? `<ol class="zl" tabindex="0" aria-label="Daten, seitlich rollbar">${zeit}</ol>` : `<p class="leer-hinweis">Keine Termine hinterlegt.</p>`}</section>
+      <div class="k-text"><div>${f.was}${f.wie}</div><div>${f.s4}${f.wann}${f.test}${f.lizenz}</div></div>
+      <footer class="k-fuss">
+        <section class="feld"><h3>Verwandte Bausteine (${rel.length})</h3>${rel.length ? `<div class="vliste">${rel.map((r) => bsLink(r, { bereich: true })).join("")}</div>` : `<p class="leer-hinweis">Keine Verweise hinterlegt.</p>`}
+          ${dach ? `<h3 style="margin-top:16px">Portfolio</h3><div class="vliste">${bsLink(dach)}</div>` : ""}
+          ${kinder.length ? `<h3 style="margin-top:16px">Einzelprodukte dieses Portfolios</h3><div class="vliste">${kinder.map((k) => bsLink(k)).join("")}</div>` : ""}</section>
+        ${sbBeleg(d)}
+        ${sbQuellen(d)}
+      </footer>
+    </article></div>`;
+  const zl = $("#deck .zl"), h = zl && $(".heute", zl);
+  if (h) zl.scrollLeft = Math.max(0, h.offsetLeft - zl.offsetLeft - 240);
+}
+
+/* ---------- Zeigen ---------- */
+function zeigen() {
+  const s = zustand();
+  kopfZeigen(s.z);
+  const liste = auswahl(s);
+  const d = s.offen && byId[s.offen];
+  const neu = d ? d.id : "";
+  const wechsel = neu !== ansicht, zwischenAnsichten = !!neu !== !!ansicht;
+  const vorher = ansicht;
+  $(".seite").classList.toggle("im-deck", !!d); $("#steuer").hidden = !!d; $("#inhalt").hidden = !!d; $("#panel").hidden = !!d; $("#deck").hidden = !d;
+  $("#tip").hidden = true;
+  document.title = d ? `${d.name} · S/4HANA-Landkarte` : "S/4HANA-Landkarte · Lagebild";
+  if (d) deckZeigen(d, s, liste); else { matrixZeigen(s, liste); panelZeigen(s, liste); }
+  if (wechsel && ansicht !== null) {
+    const y = history.state && history.state.y;
+    if (d) { if (zwischenAnsichten) window.scrollTo(0, 0); $(".k-kopf h2").focus({ preventScroll: true }); }
+    else {
+      window.scrollTo(0, y != null ? y : 0);
+      const el = vorher && $(`#panel [data-id="${CSS.escape(vorher)}"]`);
+      if (el) el.focus({ preventScroll: true });
+    }
+  }
+  ansicht = neu;
+}
+function oeffnen(id) {
+  if (!byId[id]) return;
+  const s = zustand(), imDeck = !!s.offen, d = byId[id];
+  if (!imDeck && !hatAuswahl(s)) gehe({ zeile: d.layer, spalte: s.L.von(d) }, { ersetzen: true });
+  if (!imDeck) merkeScroll();
+  gehe({ baustein: id }, { ersetzen: false });
+  if (imDeck) window.scrollTo(0, 0);
+}
+const schmal = () => matchMedia("(max-width: 899px)").matches;
+function waehle(aenderung) {
+  gehe(aenderung, { ersetzen: true });
+  if (schmal() && hatAuswahl(zustand())) { $("#panel").scrollIntoView({ block: "start" }); $("#panel").focus({ preventScroll: true }); }
+}
+
+/* ---------- Ereignisse ---------- */
+$("#matrix").addEventListener("click", (e) => {
+  const s = zustand();
+  const m = e.target.closest(".m[data-id]");
+  // Mit dem Finger ist eine Marke zu klein: Die Berührung wählt das Feld, die Liste darunter öffnet den Steckbrief.
+  const finger = e.pointerType === "touch" || e.pointerType === "pen" || matchMedia("(pointer: coarse)").matches;
+  if (m && !finger) return;
+  if (m) { e.preventDefault(); e.stopPropagation(); }
+  const sk = e.target.closest(".sk"), zk = e.target.closest(".zk"), zelle = e.target.closest(".zelle:not(.leer)");
+  if (sk) return waehle(s.spalte === sk.dataset.s && !s.zeile ? { spalte: null } : { spalte: sk.dataset.s, zeile: null });
+  if (zk) return waehle(s.zeile === zk.dataset.z && !s.spalte ? { zeile: null } : { zeile: zk.dataset.z, spalte: null });
+  if (zelle) return waehle(s.zeile === zelle.dataset.z && s.spalte === zelle.dataset.s ? { zeile: null, spalte: null } : { zeile: zelle.dataset.z, spalte: zelle.dataset.s });
+});
+$("#pivot").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) gehe({ sp: b.dataset.sp === "status" ? null : b.dataset.sp, spalte: null }, { ersetzen: true }); });
+$("#panel").addEventListener("click", (e) => {
+  if (e.target.closest("#aufheben")) { gehe({ zeile: null, spalte: null, q: null }, { ersetzen: true }); if (schmal()) $("#matrix").scrollIntoView({ block: "start" }); return; }
+  const k = e.target.closest("[data-kenn]");
+  if (k) waehle({ sp: null, spalte: k.dataset.kenn, zeile: null });
+});
+$("#deck").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-blatt]");
+  if (b && b.dataset.blatt) { gehe({ baustein: b.dataset.blatt }, { ersetzen: true }); return; }
+  if (e.target.closest("#zurueck") && !(e.metaKey || e.ctrlKey || e.shiftKey)) { e.preventDefault(); gehe({ baustein: null }); }
+});
+document.addEventListener("keydown", (e) => {
+  if (!zustand().offen || e.target.closest?.("input, select, .zl") || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "Escape") { e.preventDefault(); gehe({ baustein: null }); }
+  const b = e.key === "ArrowLeft" ? $$("[data-blatt]")[0] : e.key === "ArrowRight" ? $$("[data-blatt]")[1] : null;
+  if (b && b.dataset.blatt) { e.preventDefault(); gehe({ baustein: b.dataset.blatt }, { ersetzen: true }); }
+});
+
+// Name unter dem Zeiger
+const tip = $("#tip");
+$("#matrix").addEventListener("pointerover", (e) => {
+  const m = e.pointerType === "mouse" && e.target.closest(".m[data-id]"), d = m && byId[m.dataset.id];
+  if (!d) return;
+  tip.innerHTML = `<strong>${esc(d.name)}</strong><span>${esc(STATUS[d.status] || d.status)} · ${esc(d.kurz)}</span>`;
+  tip.hidden = false;
+  const r = m.getBoundingClientRect(), t = tip.getBoundingClientRect();
+  tip.style.left = Math.max(8, Math.min(innerWidth - t.width - 8, r.left + r.width / 2 - t.width / 2)) + "px";
+  tip.style.top = (r.top - t.height - 8 > 4 ? r.top - t.height - 8 : r.bottom + 8) + "px";
+});
+$("#matrix").addEventListener("pointerout", (e) => { if (e.target.closest(".m")) tip.hidden = true; });
+window.addEventListener("scroll", () => { tip.hidden = true; }, { passive: true });
+
+// Wer im Steckbrief sucht, sucht im Lagebild weiter.
+kopfVerdrahten(() => (zustand().offen ? { baustein: null } : {}));
+
+/* ---------- Start ---------- */
+laden().then(() => {
+  $("#stand").textContent = `Lagebild · ${STAND} · ${DATA.length} Steckbriefe`;
+  zeigen();
+}).catch((err) => { ladeFehler($("#matrix"), err); $("#panel").hidden = true; });
+</script>
+</body>
+</html>

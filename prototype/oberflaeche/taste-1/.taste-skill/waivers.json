@@ -1,0 +1,27 @@
+[
+ {
+  "check": "moment-none",
+  "target": "(the page)",
+  "reason": "Nachschlage-Werkzeug: ein inszenierter Moment (letters-assemble) hielte den Weg zum Baustein auf; Bewegung liegt im Einstieg und in der Antwort der Zellen auf Zeiger und Fokus."
+ },
+ {
+  "check": "hero-screen",
+  "target": "div#v-schnitt",
+  "reason": "Der Einstieg ist bewusst kurz, damit der Schnitt schon auf dem ersten Bildschirm beginnt; ein bildschirmhoher Hero schöbe das Werkzeug unter die Falz."
+ },
+ {
+  "check": "section-height",
+  "target": "div#v-schnitt",
+  "reason": "Der Schnitt zeigt 154 Bausteine in ihrer Lage und ist so hoch wie sein Inhalt; ein Raster aus ganzen Bildschirmen würde ihn zerschneiden."
+ },
+ {
+  "check": "one-section",
+  "target": "div#v-schnitt",
+  "reason": "Zwei Ansichten (Schnitt, Steckbrief-Blatt) liegen als Behälter in main und wechseln per URL; als Sektionen direkt in main zwänge das Kit jede auf Bildschirmhöhe."
+ },
+ {
+  "check": "cta",
+  "target": "section.hero.einstieg",
+  "reason": "Die Hauptaktion im Einstieg ist das Suchfeld selbst, es filtert beim Tippen; ein zusätzlicher Knopf daneben wäre ohne Funktion."
+ }
+]

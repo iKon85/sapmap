@@ -1,0 +1,27 @@
+[
+ {
+  "check": "moment-none",
+  "target": "(the page)",
+  "reason": "Nachschlage-Werkzeug: ein inszenierter Moment (counter-rolls) hielte den Weg zum Baustein auf; die Bewegung liegt in den Verbindungslinien, die dem Knoten folgen und unter Zeiger und Fokus hervortreten."
+ },
+ {
+  "check": "hero-screen",
+  "target": "div#v-start",
+  "reason": "Der Einstieg ist bewusst kurz: Titel und Suche, darunter sofort die Knotenpunkte; ein bildschirmhoher Hero schöbe das Werkzeug unter die Falz."
+ },
+ {
+  "check": "section-height",
+  "target": "div#v-start",
+  "reason": "Knotenpunkte und Verzeichnis sind so hoch wie ihre Daten (12 Balken, 154 Einträge); ein Raster aus ganzen Bildschirmen würde die Listen zerschneiden oder strecken."
+ },
+ {
+  "check": "one-section",
+  "target": "div#v-start",
+  "reason": "Zwei Ansichten (Einstieg, Netz mit Steckbrief) liegen als Behälter in main und wechseln per URL; als Sektionen direkt in main zwänge das Kit jede auf Bildschirmhöhe."
+ },
+ {
+  "check": "cta",
+  "target": "section.hero.einstieg",
+  "reason": "Die Hauptaktion im Einstieg ist das Suchfeld selbst, es schlägt beim Tippen Bausteine vor; ein zusätzlicher Knopf daneben wäre ohne Funktion."
+ }
+]

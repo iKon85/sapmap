@@ -10,7 +10,7 @@ html,body{margin:0;height:100%}iframe{border:0;width:100%;height:100%;display:bl
 <iframe id="f" title="Variante"></iframe>
 <div id="bar" role="toolbar" aria-label="Prototyp-Umschalter"><button id="p" aria-label="Vorige Variante">←</button><span id="lbl"></span><button id="n" aria-label="Nächste Variante">→</button></div>
 <script>
-const V=[['impeccable','A · impeccable'],['taste','B · design-taste-frontend']];
+const V=[['impeccable-1','i1 · impeccable · Verzeichnis'],['impeccable-2','i2 · impeccable · Architekturschnitt'],['impeccable-3','i3 · impeccable · Lagebild'],['taste-1','t1 · taste · Schnitt'],['taste-2','t2 · taste · Netz'],['taste-3','t3 · taste · Fristen'],['impeccable','A · impeccable · erster Entwurf'],['taste','B · taste · erster Entwurf']];
 const f=document.getElementById('f'),lbl=document.getElementById('lbl');
 function cur(){const v=new URLSearchParams(location.search).get('variant');const i=V.findIndex(x=>x[0]===v);return i<0?0:i}
 function show(i,push){const [k,l]=V[i];lbl.textContent=l;if(!f.src.includes('/'+k+'/'))f.src=k+'/';if(push){const u=new URL(location);u.searchParams.set('variant',k);history.replaceState(null,'',u)}}

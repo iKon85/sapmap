@@ -1,0 +1,7 @@
+[
+  { "check": "moment-none", "target": "(the page)", "reason": "Nachschlage-Werkzeug: ein gedealter Marketing-Moment (line-carries-colour) würde die Matrix und die Terminliste nur verzögern; Bewegung bleibt bei Einstieg, Hover und Aufklappen." },
+  { "check": "hero-screen", "target": "div#v-zeit", "reason": "Die Ansicht ist eine Arbeitsfläche: Matrix links, Terminliste rechts. Die Liste gehört auf den ersten Bildschirm und läuft darunter weiter, statt einem Hero allein Platz zu machen." },
+  { "check": "section-height", "target": "div#v-zeit", "reason": "Die Höhe folgt der Zahl der Termine (43 bis 365 Zeilen plus aufgeklappter Steckbrief) und lässt sich nicht auf ein oder zwei Bildschirme festlegen." },
+  { "check": "one-section", "target": "div#v-zeit", "reason": "Matrix und Liste müssen gemeinsam sichtbar sein, weil ein Feld der Matrix die Liste daneben filtert; eine Sektion pro Bildschirm würde diese Kopplung trennen." },
+  { "check": "no-visual", "target": "div#v-zeit > section.hero.einstieg", "reason": "Das Bild dieser Sektion ist die Matrix Bereich × Jahr, eine HTML-Tabelle aus echten Daten; der Check erkennt nur Fotos, Renderings und Kit-Grafiken." }
+]

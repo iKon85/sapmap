@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="de" data-type="software" data-radius="sharp" data-buttons="arrow" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>S/4HANA-Landkarte im Schnitt: SAP-Bausteine an ihrem Platz in der Architektur</title>
+<meta name="description" content="Nachschlagewerk für SAP-Berater: 154 Steckbriefe als Architekturschnitt, von der Infrastruktur über den S/4HANA-Kern bis zu den Anwenderkanälen.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="S/4HANA-Landkarte im Schnitt: SAP-Bausteine an ihrem Platz in der Architektur">
+<meta property="og:description" content="154 Steckbriefe zu SAP-Produkten in und um S/4HANA als Architekturschnitt.">
+<meta property="og:image" content="shot-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
+<!-- <link rel="canonical" href="https://[Domain der Landkarte]/"> -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<!-- Kit: system.css (Tokens, Knöpfe, Fokus, Navigation) und der Motion-Layer. Keine Google Fonts:
+     die Wavestone-CI verlangt Aptos als lokalen Font-Stack, ohne Webfont-Download.
+     Look: shadcn/ui-Preset b3QxdAzBg (Nova, Radius Small, Phosphor Icons, Menu Solid, Accent Bold); Farben und Schrift aus der CI. -->
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<!-- Palette aus: start.mjs brand --page software --bg #FFFFFF --ink #000000 --accent #451DC7 --surface #F4F2FC --muted #4A4A57 --type geist --radius sharp;
+     die Schriftzeilen auf den Aptos-Stack der Charta umgestellt (Kunden-CI, in kern.css).
+     kern.css hängt diese --p-* an die shadcn-Tokens (--background, --primary ...), damit .dark sie mitnimmt. -->
+<style>
+:root {
+  --p-bg: #ffffff; --p-surface: #f4f2fc; --p-ink: #000000; --p-muted: #4a4a57;
+  --p-accent: #451dc7; --p-accent-ink: #ffffff; --p-action: #451dc7; --p-action-ink: #ffffff;
+  --p-inv-bg: #000000; --p-inv-surface: #010101; --p-inv-ink: #ffffff; --p-inv-muted: #868686;
+  --p-inv-accent: #ffffff; --p-inv-accent-ink: #000000; --p-inv-action: #ffffff; --p-inv-action-ink: #000000;
+}
+</style>
+<link rel="stylesheet" href="kern.css">
+<link rel="stylesheet" href="seite.css">
+<script>try{var t=localStorage.getItem('landkarte-thema');if(t==='dunkel'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<!-- type: software (Nachschlage-Werkzeug, kein Marketing)
+     deal: hero centred, nav nav-cards, close close-word, footer footer-columns, rhythm dark-band, buttons arrow, mark dots; moment letters-assemble
+     genutzt: hero centred (Titel mittig über dem einen Fenster: hier der Schnitt), buttons arrow, mark dots, Einstiegs- und Hover-Motion.
+     nicht genutzt (Begründung in .taste-skill/waivers.json und im Bericht): Karten-Navigation, Schlusswort, Spalten-Fuß, dunkles Band, Moment letters-assemble.
+     Idee: die Landschaft als Architekturschnitt. Der Ort eines Bausteins trägt Bedeutung (oben Anwender, in der Mitte der Kern, unten Betrieb).
+     Bewegung: Einstieg (der Titel kommt, dann steht das Werkzeug); Hover (jede Zelle antwortet, ihre Verbindungen leuchten mit). -->
+<body>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Zum Inhalt</a>
+    <a class="nav__logo" href="./" data-zum-schnitt><span class="mark" data-mark="dots" aria-hidden="true"></span>S/4HANA-Landkarte</a>
+    <nav class="nav__links" aria-label="Seite">
+      <div class="nav__item"><a class="nav__link" href="#schnitt" data-zum-schnitt="schnitt">Schnitt</a></div>
+      <div class="nav__item"><a class="nav__link" href="#legende" data-zum-schnitt="legende">Legende</a></div>
+      <div class="nav__item"><a class="nav__link" href="#herkunft" data-zum-schnitt="herkunft">Herkunft</a></div>
+    </nav>
+    <div class="nav__actions">
+      <button class="thema" type="button" data-thema aria-pressed="false" aria-label="Dunkles Design"><span class="ic ic--mond" aria-hidden="true"></span><span class="ic ic--sonne" aria-hidden="true"></span></button>
+      <a class="btn btn--primary" href="#q" data-zur-suche>Baustein suchen</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menü">
+      <span class="ic ic--menue" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="top" tabindex="-1">
+  <!-- Ansicht 1: der Schnitt -->
+  <div id="v-schnitt">
+    <section class="hero einstieg" data-enter aria-labelledby="einstieg-h">
+      <div class="wrap">
+        <div class="einstieg__text">
+          <h1 id="einstieg-h">Architekturschnitt der SAP-Landschaft rund um S/4HANA</h1>
+          <p class="einstieg__lead"><span id="lead-zahl">154</span> Bausteine an ihrem Platz in der Architektur: oben die Kanäle der Anwender, in der Mitte der S/4HANA-Kern, unten Datenbank und Betrieb. Recherche-Stand Oktober 2026.</p>
+        </div>
+        <div class="werkzeug" role="search">
+          <div class="suche">
+            <div class="suche__feld">
+              <label for="q"><span class="ic ic--suche" aria-hidden="true"></span><span class="suche__wort">Suche</span></label>
+              <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="z. B. PI/PO, Datasphere, Tosca" aria-describedby="trefferzahl">
+              <button class="suche__leeren" type="button" data-suche-leeren aria-label="Suche leeren" hidden><span class="ic ic--zu" aria-hidden="true"></span></button>
+            </div>
+            <span class="suche__zahl" id="trefferzahl" role="status">154 Bausteine</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="schnitt-sektion" id="schnitt" aria-labelledby="schnitt-h">
+      <div class="wrap">
+        <h2 class="vh" id="schnitt-h">Schnitt durch die Landschaft</h2>
+        <nav class="sprung" aria-label="Schichten" id="sprung"></nav>
+        <div class="schnitt" id="schnitt-feld">
+          <noscript><p>Der Schnitt braucht JavaScript, weil er die Steckbriefe aus data/steckbriefe.json lädt.</p></noscript>
+        </div>
+        <div class="lesezeile" id="lesezeile" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="legende-sektion" id="legende" aria-labelledby="legende-h">
+      <div class="wrap">
+        <h2 id="legende-h">Legende des Schnitts</h2>
+        <div class="legende">
+          <div class="legende__gruppe">
+            <h3>Status hervorheben</h3>
+            <div class="legende__knoepfe" id="status-filter"></div>
+          </div>
+          <div class="legende__gruppe">
+            <h3>Zeichen im Schnitt</h3>
+            <ul class="legende__liste">
+              <li><span class="zelle zelle--muster ist-verwandt" aria-hidden="true">Baustein</span>verbunden mit dem Baustein unter dem Zeiger</li>
+              <li><span class="zelle zelle--muster zelle--kind" aria-hidden="true">Baustein</span>Produkt eines Portfolios, eingerückt unter seinem Dach</li>
+              <li><span class="grenze-muster" aria-hidden="true"></span>Clean-Core-Grenze: darunter nur über freigegebene Schnittstellen</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="herkunft-sektion" id="herkunft" aria-labelledby="herkunft-h">
+      <div class="wrap">
+        <h2 id="herkunft-h">Herkunft der Steckbriefe</h2>
+        <p class="herkunft__text">Jeder Steckbrief nennt seine Quellen und seinen Belegstatus. <span id="h-ja">94</span> Steckbriefe sind belegt, <span id="h-teilweise">58</span> teilweise und <span id="h-nein">2</span> nicht; die Lücken stehen im Steckbrief als Hinweis.</p>
+        <a class="btn btn--primary" href="#q" data-zur-suche>Baustein suchen</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Ansicht 2: der Steckbrief als eigenes Blatt -->
+  <div id="v-blatt" hidden>
+    <div class="wrap">
+      <div class="blatt__leiste">
+        <a class="zurueck" href="./" data-zum-schnitt><span class="ic ic--links" aria-hidden="true"></span>Zurück zum Schnitt</a>
+      </div>
+      <div class="blatt" id="blatt"></div>
+    </div>
+  </div>
+  <p class="vh" id="ansage" aria-live="polite"></p>
+</main>
+
+<footer class="fuss">
+  <div class="wrap">
+    <span>S/4HANA-Landkarte · Recherche-Stand Oktober 2026</span>
+    <span>Inhalte aus data/steckbriefe.json, Quellen je Steckbrief. Produktnamen sind Marken ihrer Inhaber.</span>
+  </div>
+</footer>
+
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="seite.js"></script>
+</body>
+</html>

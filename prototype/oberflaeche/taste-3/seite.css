@@ -1,0 +1,185 @@
+/* taste-3 "Fristen": Seiten-CSS. Links Titel und Matrix (Bereich × Jahr), rechts Filter und Terminliste;
+   der Steckbrief klappt unter dem gewählten Termin auf. */
+
+:root {
+  --container: 1360px;
+  /* Matrix: eine Farbe (Markenviolett), fünf Stufen von hell nach dunkel; die Zahl im Feld wechselt mit der Stufe die Textfarbe */
+  --h1: #ECE7FB; --h2: #CFC3F3; --h3: #A28DE6; --h4: #6F4FD6; --h5: #451DC7;
+  --t1: #000000; --t2: #000000; --t3: #000000; --t4: #FFFFFF; --t5: #FFFFFF;
+}
+/* dunkel: dieselbe Farbe, die Stufen laufen von der Fläche weg ins Helle */
+.dark {
+  --h1: #241963; --h2: #33219A; --h3: #4B25CC; --h4: #8468E6; --h5: #C1B3F5;
+  --t1: #FFFFFF; --t2: #FFFFFF; --t3: #FFFFFF; --t4: #000000; --t5: #000000;
+}
+
+/* ------------------------------------------------------------ Aufteilung */
+.einstieg { padding: var(--s-6) 0 var(--s-7); }
+.einstieg > .wrap { height: auto; display: grid; grid-template-rows: none; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); align-items: start; }
+.uebersicht { display: grid; gap: var(--s-4); min-width: 0; scroll-margin-top: calc(var(--nav) + var(--s-4)); }
+.einstieg h1 { font-size: clamp(26px, 1.2vw + 18px, 36px); line-height: 1.12; color: var(--titel); max-width: 26ch; }
+.einstieg__lead { font-size: 17px; line-height: 1.5; max-width: 70ch; }
+.einstieg__sprung { justify-self: start; }
+/* breit: zwölf Spalten, links sieben (Titel und Matrix, bleibt stehen), rechts fünf (Liste) */
+@media (min-width: 1280px) {
+  .einstieg > .wrap { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+  .uebersicht { grid-column: 1 / span 7; padding-right: var(--s-5); position: sticky; top: calc(var(--nav) + var(--s-5)); }
+  .liste { grid-column: 8 / span 5; }
+  .einstieg__sprung { display: none; }   /* die Suche steht hier schon daneben */
+}
+
+/* ------------------------------------------------------------ Matrix */
+.matrix-rahmen { display: grid; gap: var(--s-3); min-width: 0; max-width: 860px; margin-top: var(--s-2); }
+.matrix__titel { font: 600 15px/1.3 var(--font-text); color: var(--deep); }
+.matrix-rollen { position: relative; min-width: 0; outline: none; }   /* relative: hält die unsichtbaren Texte (.vh) im Scroll-Container */
+/* 2px Fläche zwischen den Feldern: je 1px Innenabstand der Zellen, so bleibt die Tabelle bündig im Rahmen */
+.matrix { width: 100%; table-layout: fixed; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.matrix th, .matrix td { padding: 1px; height: 36px; font-weight: 400; text-align: center; vertical-align: middle; }
+.matrix tbody th { padding-left: 0; }
+.matrix thead td { width: 216px; }
+.mx-kopf {
+  display: flex; align-items: center; justify-content: center; width: 100%; height: 34px; padding: 0 4px; border: 0; border-radius: var(--r-sm);
+  background: transparent; color: var(--ink); font: 500 13px/1.2 var(--font-text); white-space: nowrap; cursor: pointer;
+  transition: background-color 150ms var(--ease), color 150ms var(--ease);
+}
+/* Zeilenkopf: der Text steht bündig am Rand; Hover und Auswahl reichen als Schatten 8px nach links, ohne die Tabelle zu verbreitern */
+.mx-kopf--zeile { justify-content: flex-start; padding: 0 8px 0 0; border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 14px; text-align: left; overflow: hidden; text-overflow: ellipsis; }
+.matrix .mx-kopf--zeile[aria-pressed="true"] { box-shadow: -8px 0 0 var(--primary); }
+.matrix thead .mx-kopf { font-size: 12px; padding: 0 2px; }
+.matrix th.ist-heute .mx-kopf { box-shadow: inset 0 -2px 0 var(--brand); font-weight: 600; }
+.mx-kopf:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .mx-kopf:hover { background: var(--tint); } .mx-kopf--zeile:not([aria-pressed="true"]):hover { box-shadow: -8px 0 0 var(--tint); } }
+/* Menü-Akzent "Bold" des Presets: die gewählte Zeile oder Spalte in Primärfarbe */
+.mx-kopf[aria-pressed="true"] { background: var(--primary); color: var(--primary-foreground); box-shadow: none; }
+
+.zelle {
+  position: relative; display: grid; place-items: center; width: 100%; height: 34px; border: 0; border-radius: 3px; background: var(--zf); color: var(--zt);
+  font: 600 13px/1 var(--font-text); cursor: pointer; transition: opacity 150ms var(--ease), box-shadow 120ms var(--ease), transform 120ms var(--ease);
+}
+.zelle[data-stufe="1"], .skala i[data-stufe="1"] { --zf: var(--h1); --zt: var(--t1); }
+.zelle[data-stufe="2"], .skala i[data-stufe="2"] { --zf: var(--h2); --zt: var(--t2); }
+.zelle[data-stufe="3"], .skala i[data-stufe="3"] { --zf: var(--h3); --zt: var(--t3); }
+.zelle[data-stufe="4"], .skala i[data-stufe="4"] { --zf: var(--h4); --zt: var(--t4); }
+.zelle[data-stufe="5"], .skala i[data-stufe="5"] { --zf: var(--h5); --zt: var(--t5); }
+.dark .zelle, .dark .skala i[data-stufe] { box-shadow: inset 0 0 0 1px rgb(255 255 255 / .12); }
+.zelle.ist-aus { opacity: .45; }
+.zelle:active { transform: scale(.94); }
+@media (hover: hover) and (pointer: fine) { .zelle:hover { box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--frame); z-index: 1; opacity: 1; } }
+.zelle[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--foreground); z-index: 2; }
+/* Punkt oben rechts: das Feld enthält ein Wartungsende oder eine Frist (Statusfarbe der CI, dunkler Rand für helle Felder) */
+.zelle.hat-frist::after, .skala .eck { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 1px rgb(0 0 0 / .65); }
+.zelle.hat-frist::after { position: absolute; top: 4px; right: 4px; }
+.mx-leer::before { content: "·"; color: var(--frame); }
+
+.skala { display: flex; flex-wrap: wrap; align-items: center; gap: 6px var(--s-4); font-size: 13px; line-height: 1.3; color: var(--muted-foreground); }
+.skala__wort { font-weight: 500; color: var(--ink); }
+.skala__stufe { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.skala i { display: inline-block; flex: none; }
+.skala i[data-stufe] { width: 14px; height: 14px; border-radius: 3px; background: var(--zf); }
+.skala .strich { width: 14px; height: 2px; background: var(--brand); }
+.lesezeile { min-height: 2.9em; font-size: 14px; line-height: 1.45; color: var(--muted-foreground); }
+
+/* ------------------------------------------------------------ Filter über der Liste */
+.liste { display: grid; gap: var(--s-4); align-content: start; min-width: 0; scroll-margin-top: calc(var(--nav) + var(--s-3)); }
+.filter { display: grid; gap: var(--s-3); }
+.filter__kopf { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px var(--s-3); }
+.filter h2, .ohne h2 { font-size: 22px; line-height: 1.25; color: var(--deep); }
+.filter__zahl { font: 400 15px/1.3 var(--font-text); letter-spacing: 0; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.filter__schalter { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.filter__schalter .schalter { font-size: 14px; padding: 0 10px; }
+.filter__auswahl { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.wahl {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 6px 0 10px; border: 0; border-radius: var(--r-sm);
+  background: var(--primary); color: var(--primary-foreground); font: 500 14px/1.2 var(--font-text); cursor: pointer; transition: background-color 150ms var(--ease);
+}
+.wahl__art { font-weight: 400; }
+.wahl .ic { font-size: 14px; }
+.wahl:active { transform: scale(.985); }
+@media (hover: hover) and (pointer: fine) { .wahl:hover { background: var(--tief); } }
+
+/* ------------------------------------------------------------ Terminliste */
+.frueher { justify-self: start; gap: var(--s-2); max-width: 100%; height: auto; min-height: var(--btn-h); margin-bottom: var(--s-4); padding: 6px var(--s-4); white-space: normal; text-align: left; }
+.frueher .ic { font-size: 17px; color: var(--brand); }
+#agenda { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+#agenda .leer h3 { font-size: 19px; line-height: 1.3; color: var(--deep); }
+.jahr { display: flex; align-items: baseline; gap: var(--s-3); padding: var(--s-5) 0 var(--s-2); border-bottom: 1px solid var(--line-strong); }
+.jahr h3 { font: 600 20px/1.2 var(--font-text); letter-spacing: 0; color: var(--deep); font-variant-numeric: tabular-nums; }
+.jahr:first-of-type { padding-top: 0; }
+.jahr__zahl { font: 400 14px/1.3 var(--font-text); color: var(--muted-foreground); }
+.termine { list-style: none; margin: 0; padding: 0; }
+.tz { border-bottom: 1px solid var(--border); }
+.termin {
+  display: grid; grid-template-columns: 7.6em minmax(0, 1fr) auto; gap: var(--s-3); align-items: start; min-height: 44px; padding: 10px 0;
+  color: var(--ink); text-decoration: none; transition: background-color 150ms var(--ease);
+}
+.termin time { font-size: 14px; line-height: 1.45; font-weight: 600; color: var(--deep); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.termin__inhalt { display: grid; gap: 2px; min-width: 0; }
+.termin__kopf { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--s-2); }
+.termin__name { font-size: 15px; line-height: 1.35; font-weight: 600; overflow-wrap: anywhere; }
+.termin__text { font-size: 15px; line-height: 1.45; overflow-wrap: anywhere; }
+.termin__pfeil { margin-top: 3px; font-size: 16px; color: var(--muted-foreground); transition: transform 180ms var(--ease); }
+.termin[aria-expanded="true"] .termin__pfeil { transform: rotate(180deg); color: var(--brand); }
+.termin[aria-expanded="true"] .termin__name { color: var(--brand); }
+.termin:active { background: var(--tint); }
+@media (hover: hover) and (pointer: fine) {
+  .termin:hover { background: var(--tint); }
+  .termin:hover .termin__name { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
+  .termin:hover .termin__pfeil { transform: translateY(2px); }
+  .termin[aria-expanded="true"]:hover .termin__pfeil { transform: rotate(180deg) translateY(2px); }
+}
+.tz.ist-offen { border-bottom-color: transparent; }
+.heute { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-2) 0; font: 600 13px/1.2 var(--font-text); color: var(--brand); scroll-margin-top: calc(var(--nav) + var(--s-3)); }
+.heute::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: var(--brand); }
+
+/* ------------------------------------------------------------ Steckbrief, aufgeklappt unter dem Termin */
+.blatt {
+  display: grid; gap: 22px; min-width: 0; margin: 0 0 var(--s-4); padding: var(--s-5); background: var(--panel);
+  border: 1px solid var(--frame); border-left: 4px solid var(--brand); border-radius: var(--r-md);
+}
+.blatt__kopf { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s-3); }
+.blatt__titel { display: grid; gap: 4px; min-width: 0; }
+.blatt .sb__name { font-size: clamp(22px, .8vw + 16px, 28px); }
+.blatt .sb__kurz { font-size: 17px; }
+.blatt .sb__test { background: var(--bg); }
+.blatt__zu { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line-strong); border-radius: var(--r-btn); background: var(--bg); color: var(--ink); font-size: 16px; cursor: pointer; transition: background-color 150ms var(--ease); }
+.blatt__zu:active { transform: scale(.96); }
+@media (hover: hover) and (pointer: fine) { .blatt__zu:hover { background: var(--tint); } }
+.fluesse { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+.fluesse li { display: grid; gap: 2px; padding-left: var(--s-3); border-left: 2px solid var(--green); font-size: 15px; line-height: 1.5; }
+.fluesse a { color: var(--brand); text-decoration: underline; text-decoration-color: color-mix(in oklab, currentColor 35%, transparent); text-underline-offset: 3px; }
+.fluesse a:hover { text-decoration-color: currentColor; }
+#oben:empty, #ohne-blatt:empty { display: none; }
+
+/* ------------------------------------------------------------ Bausteine ohne Termin */
+.ohne { padding: var(--s-7) 0 var(--s-8); border-top: 1px solid var(--border); scroll-margin-top: var(--nav); }
+.ohne .wrap { display: grid; gap: var(--s-3); justify-items: start; }
+.sektion__lead { font-size: 16px; line-height: 1.5; color: var(--muted-foreground); max-width: 68ch; }
+#ohne-blatt { width: 100%; max-width: 760px; }
+.ohne .blatt { margin: var(--s-2) 0; }
+.ohne__leer { font-size: 15px; color: var(--muted-foreground); }
+.ohne .btn { margin-top: var(--s-4); }
+
+/* ------------------------------------------------------------ schmal: Matrix im eigenen Scroll-Container, Termine einspaltig */
+@media (max-width: 899px) {
+  .einstieg { padding: var(--s-5) 0 var(--s-6); }
+  .einstieg__lead { font-size: 16px; }
+  .suche__wort { display: none; }
+  .matrix-rollen { overflow-x: auto; padding-bottom: var(--s-2); scrollbar-width: thin; }
+  .matrix { width: 604px; }
+  .matrix th, .matrix td { height: 46px; }
+  .matrix thead td, .matrix tbody th { position: sticky; left: 0; z-index: 3; width: 136px; background: var(--background); }
+  .mx-kopf, .zelle { height: 44px; }
+  .mx-kopf--zeile { height: auto; min-height: 44px; padding: 0 6px 0 0; font-size: 13px; white-space: normal; overflow: visible; }
+  .matrix .mx-kopf--zeile[aria-pressed="true"] { padding-left: 6px; border-radius: var(--r-sm); box-shadow: none; }
+  .filter__schalter .schalter { flex: 1 1 100%; }
+  .wahl, .blatt__zu { min-height: 44px; }
+  .blatt__zu { width: 44px; }
+  .termin { grid-template-columns: minmax(0, 1fr) auto; gap: 2px var(--s-3); }
+  .termin time { grid-column: 1; grid-row: 1; }
+  .termin__pfeil { grid-column: 2; grid-row: 1; }
+  .termin__inhalt { grid-column: 1 / -1; grid-row: 2; }
+  .blatt { padding: var(--s-4); }
+}
+@media (pointer: coarse) { .wahl, .blatt__zu, .mx-kopf, .zelle { min-height: 44px; } .matrix th, .matrix td { height: 46px; } .blatt__zu { width: 44px; } }
+
+@media (prefers-reduced-motion: reduce) { .zelle, .mx-kopf, .termin, .termin__pfeil, .wahl, .blatt__zu { transition: none; } .termin:hover .termin__pfeil { transform: none; } }

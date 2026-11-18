@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de" data-type="software" data-radius="sharp" data-buttons="solid" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>S/4HANA-Landkarte als Netz: SAP-Bausteine und ihre Verbindungen</title>
+<meta name="description" content="Nachschlagewerk für SAP-Berater: 154 Steckbriefe rund um S/4HANA, erschlossen über ihre Verweise. Jeder Baustein zeigt, wer auf ihn verweist und worauf er verweist.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="S/4HANA-Landkarte als Netz: SAP-Bausteine und ihre Verbindungen">
+<meta property="og:description" content="154 Steckbriefe zu SAP-Produkten in und um S/4HANA, erschlossen über ihre Verbindungen.">
+<meta property="og:image" content="shot-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light dark">
+<!-- <link rel="canonical" href="https://[Domain der Landkarte]/"> -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<!-- Kit: system.css (Tokens, Knöpfe, Fokus, Navigation) und der Motion-Layer. Keine Google Fonts:
+     die Wavestone-CI verlangt Aptos als lokalen Font-Stack, ohne Webfont-Download.
+     Look: shadcn/ui-Preset b3QxdAzBg (Nova, Radius Small, Phosphor Icons, Menu Solid, Accent Bold); Farben und Schrift aus der CI. -->
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<!-- Palette aus: start.mjs brand --page software --bg #FFFFFF --ink #000000 --accent #451DC7 --surface #F4F2FC --muted #4A4A57 --type geist --radius sharp;
+     die Schriftzeilen auf den Aptos-Stack der Charta umgestellt (Kunden-CI, in kern.css).
+     kern.css hängt diese --p-* an die shadcn-Tokens (--background, --primary ...), damit .dark sie mitnimmt. -->
+<style>
+:root {
+  --p-bg: #ffffff; --p-surface: #f4f2fc; --p-ink: #000000; --p-muted: #4a4a57;
+  --p-accent: #451dc7; --p-accent-ink: #ffffff; --p-action: #451dc7; --p-action-ink: #ffffff;
+  --p-inv-bg: #000000; --p-inv-surface: #010101; --p-inv-ink: #ffffff; --p-inv-muted: #868686;
+  --p-inv-accent: #ffffff; --p-inv-accent-ink: #000000; --p-inv-action: #ffffff; --p-inv-action-ink: #000000;
+}
+</style>
+<link rel="stylesheet" href="kern.css">
+<link rel="stylesheet" href="seite.css">
+<script>try{var t=localStorage.getItem('landkarte-thema');if(t==='dunkel'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<!-- type: software (Nachschlage-Werkzeug, kein Marketing)
+     deal: hero centred, nav nav-mega, close close-word, footer footer-dark, rhythm surface-pairs, buttons solid, mark dots; moment counter-rolls
+     genutzt: hero centred (Titel und Suche mittig), buttons solid, mark dots, Einstiegs- und Hover-Motion.
+     nicht genutzt (Begründung in .taste-skill/waivers.json und im Bericht): Mega-Navigation, Schlusswort, dunkler Fuß, Flächenpaare, Moment counter-rolls.
+     Idee: die Landschaft als Netz. Ein Baustein steht in der Mitte, links wer auf ihn verweist, rechts worauf er verweist; ein Klick auf einen Nachbarn rückt diesen in die Mitte.
+     Bewegung: Einstieg (Titel, dann Suche); die Verbindungslinien folgen dem Knoten beim Scrollen und treten unter Zeiger und Fokus hervor. -->
+<body>
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Zum Inhalt</a>
+    <a class="nav__logo" href="./" data-zum-start><span class="mark" data-mark="dots" aria-hidden="true"></span>S/4HANA-Landkarte</a>
+    <nav class="nav__links" aria-label="Seite">
+      <div class="nav__item"><a class="nav__link" href="#knoten" data-zum-start="knoten">Knotenpunkte</a></div>
+      <div class="nav__item"><a class="nav__link" href="#verzeichnis" data-zum-start="verzeichnis">Verzeichnis</a></div>
+    </nav>
+    <div class="nav__actions">
+      <button class="thema" type="button" data-thema aria-pressed="false" aria-label="Dunkles Design"><span class="ic ic--mond" aria-hidden="true"></span><span class="ic ic--sonne" aria-hidden="true"></span></button>
+      <a class="btn btn--primary" href="#q" data-zur-suche>Baustein suchen</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menü">
+      <span class="ic ic--menue" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="top" tabindex="-1">
+  <!-- Ansicht 1: Einstieg ins Netz -->
+  <div id="v-start">
+    <section class="hero einstieg" data-enter aria-labelledby="einstieg-h">
+      <div class="wrap">
+        <div class="einstieg__text">
+          <h1 id="einstieg-h">Beziehungsnetz der SAP-Bausteine rund um S/4HANA</h1>
+          <p class="einstieg__lead"><span id="lead-zahl">154</span> Steckbriefe und <span id="lead-verweise">…</span> Verweise zwischen ihnen. Wer einen Baustein wählt, sieht, wer auf ihn verweist und worauf er verweist. Recherche-Stand Oktober 2026.</p>
+        </div>
+        <div id="start-suche" class="suchplatz">
+          <div class="werkzeug" id="werkzeug" role="search">
+            <div class="suche__feld">
+              <label for="q"><span class="ic ic--suche" aria-hidden="true"></span><span class="suche__wort">Suche</span></label>
+              <input id="q" type="search" role="combobox" aria-expanded="false" aria-controls="q-liste" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="z. B. Cloud ALM, PI/PO, Datasphere" aria-describedby="trefferzahl">
+              <button class="suche__leeren" type="button" data-suche-leeren aria-label="Suche leeren" hidden><span class="ic ic--zu" aria-hidden="true"></span></button>
+            </div>
+            <ul class="menue suche__liste" id="q-liste" role="listbox" aria-label="Treffer" hidden></ul>
+            <span class="vh" id="trefferzahl" role="status"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="knoten-sektion" id="knoten" aria-labelledby="knoten-h">
+      <div class="wrap">
+        <h2 id="knoten-h">Knotenpunkte der Landschaft</h2>
+        <p class="sektion__lead">Die zwölf Bausteine mit den meisten Verbindungen. Ein Klick stellt den Baustein in die Mitte seines Netzes.</p>
+        <p class="legende-zeile" aria-hidden="true"><span><i class="farbe farbe--aus"></i>eigene Verweise</span><span><i class="farbe farbe--ein"></i>Rückverweise anderer Bausteine</span></p>
+        <ol class="knoten-liste" id="knoten-liste">
+          <li><noscript>Das Netz braucht JavaScript, weil es die Steckbriefe aus data/steckbriefe.json lädt.</noscript></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="verzeichnis-sektion" id="verzeichnis" aria-labelledby="verzeichnis-h">
+      <div class="wrap">
+        <h2 id="verzeichnis-h">Verzeichnis nach Bereich</h2>
+        <p class="sektion__lead">Alle Bausteine, daneben die Zahl ihrer Verbindungen.</p>
+        <div class="verzeichnis" id="verzeichnis-feld"></div>
+        <a class="btn btn--primary" href="#q" data-zur-suche>Baustein suchen</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Ansicht 2: ein Baustein in der Mitte seines Netzes, darunter sein Steckbrief -->
+  <div id="v-fokus" hidden>
+    <div class="wrap">
+      <div class="leiste">
+        <a class="zurueck" href="./" data-zum-start><span class="ic ic--links" aria-hidden="true"></span>Übersicht</a>
+        <nav class="pfad" aria-label="Pfad durch das Netz"><ol id="pfad"></ol></nav>
+        <div id="fokus-suche" class="suchplatz"></div>
+      </div>
+      <div id="fokus"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="fuss">
+  <div class="wrap">
+    <span>S/4HANA-Landkarte · Recherche-Stand Oktober 2026</span>
+    <span>Inhalte aus data/steckbriefe.json und data/toolchain-flows.json, Quellen je Steckbrief. Produktnamen sind Marken ihrer Inhaber.</span>
+    <p class="vh" id="ansage" aria-live="polite"></p>
+  </div>
+</footer>
+
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="seite.js"></script>
+</body>
+</html>

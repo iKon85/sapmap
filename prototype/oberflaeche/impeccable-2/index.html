@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S/4HANA-Landkarte · Architekturschnitt</title>
+<link rel="icon" href="data:,">
+<script>try { document.documentElement.classList.toggle("dark", (localStorage.getItem("lk-thema") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark"); } catch (e) {}</script>
+<link rel="stylesheet" href="basis.css">
+<style>
+/* Alternative 2: Architekturschnitt. Die Landschaft als Schichtenbild, der Steckbrief mit Lageplan. */
+
+.breit { max-width: 1680px; margin: 0 auto; }
+
+/* ---------- Kopf ---------- */
+.kopf { background: var(--background); border-bottom: 1px solid var(--border); }
+.kopf-in { display: flex; align-items: center; gap: 10px 24px; padding: 10px 24px; }
+.titel h1 { font-size: 18px; font-weight: 700; line-height: 1.2; letter-spacing: -.01em; white-space: nowrap; }
+.titel h1 a { color: var(--primary-text); text-decoration: none; }
+.titel p { font-size: 12px; color: var(--muted-foreground); }
+.kopf .suche { flex: 0 1 480px; }
+.kopf-re { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+/* ---------- Leiste: Legende, die zugleich filtert, und die Lesezeile ---------- */
+.leiste { position: sticky; top: 0; z-index: 20; background: var(--background); border-bottom: 1px solid var(--border); }
+.leiste-in { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; padding: 8px 24px; }
+.filter { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.filter .lbl { margin-right: 2px; font-size: 13px; color: var(--muted-foreground); }
+.wahl { display: inline-flex; align-items: center; gap: 6px; height: var(--h); padding: 0 10px 0 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--background); font-size: 13px; }
+.wahl .n { color: var(--muted-foreground); }
+.wahl:hover { background: var(--muted); }
+.wahl[aria-pressed="true"] { border-color: var(--primary); background: var(--primary); color: var(--primary-foreground); font-weight: 600; }
+.wahl[aria-pressed="true"] .n { color: var(--primary-muted); }
+.lese { flex: 1 1 300px; min-width: 0; font-size: 13px; color: var(--muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lese strong { color: var(--foreground); font-weight: 600; }
+.zaehler { margin-left: auto; font-size: 13px; color: var(--muted-foreground); white-space: nowrap; }
+.zaehler strong { color: var(--foreground); font-weight: 600; }
+
+/* ---------- Das Bild ---------- */
+main { padding: 18px 24px 80px; }
+.plan { display: grid; grid-template-columns: minmax(0, 1fr) 392px; gap: 10px; align-items: start; }
+.stapel, .reihe { display: grid; gap: 10px; }
+.r1 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.r3 { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 4fr); }
+.r4 { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.saeule { position: relative; display: grid; gap: 10px; padding: 16px 8px 8px; border: 1px solid var(--input); border-radius: calc(var(--radius) + 4px); }
+.saeule-t { position: absolute; top: -9px; left: 10px; padding: 0 6px; font-size: 12px; font-weight: 600; line-height: 18px; color: var(--secondary-foreground); background: var(--background); }
+
+.band { min-width: 0; padding: 9px 12px 12px; background: var(--muted); border: 1px solid var(--border); border-radius: var(--radius); scroll-margin-top: 64px; }
+.band h2 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 8px; font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--secondary-foreground); }
+.band h2 .n { font-size: 12px; font-weight: 400; color: var(--muted-foreground); white-space: nowrap; }
+.band-b { margin: 1px 0 8px; font-size: 12px; line-height: 1.35; color: var(--muted-foreground); text-wrap: pretty; }
+.bsl { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 5px; }
+
+/* Der Kern ist die eine violette Fläche; die Clean-Core-Grenze liegt als grüne Linie an seinem Rand. */
+.kern { min-width: 0; display: flex; flex-direction: column; border-radius: var(--radius); overflow: clip; background: var(--primary); }
+.kern .band { border: 0; border-radius: 0; background: none; }
+.kern .b-core { flex: 1; padding: 12px 15px 15px; border-radius: var(--radius) var(--radius) 0 0; box-shadow: inset 0 0 0 3px var(--brand-green); }
+.kern .b-core h2 { color: var(--primary-foreground); }
+.kern .b-core .n, .kern .b-core .band-b { color: var(--primary-muted); }
+.kern .b-ext { background: #250F6B; padding-left: 15px; padding-right: 15px; }
+.kern .b-ext h2 { color: #fff; }
+.kern .b-ext .n, .kern .b-ext .band-b { color: var(--primary-muted); }
+.kern :focus-visible { outline-color: var(--brand-green); }
+
+/* Integration läuft als durchgehendes Band zwischen Anwendungen und Plattform. */
+.b-int { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 4px 16px; background: var(--secondary); border-color: var(--input); border-width: 1px 0; border-radius: 0; box-shadow: -1px 0 0 var(--secondary), 1px 0 0 var(--secondary); }
+.b-int .band-b { margin-bottom: 0; }
+
+/* ---------- Baustein im Bild ---------- */
+.bs {
+  display: inline-flex; align-items: center; gap: 6px; max-width: 100%; min-height: 26px; padding: 3px 8px;
+  font-size: 13px; line-height: 1.25; color: var(--card-foreground); text-decoration: none;
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md);
+  transition: background-color .15s ease-out, border-color .15s ease-out, opacity .15s ease-out;
+}
+.bs-n { min-width: 0; overflow-wrap: anywhere; }
+.bs .sap { color: color-mix(in srgb, var(--muted-foreground) 80%, var(--card)); }
+.bs .marke { width: 16px; height: 16px; }
+.bs .marke .ico { width: 11px; height: 11px; }
+.bs:hover, .bs.ich { border-color: var(--primary-text); box-shadow: inset 0 0 0 1px var(--primary-text); }
+.kern .bs { border-color: transparent; }
+.kern .bs:hover, .kern .bs.ich { border-color: var(--brand-green); box-shadow: inset 0 0 0 1px var(--brand-green); }
+.bs.dach { font-weight: 600; }
+.pf { display: inline-flex; flex-wrap: wrap; gap: 5px; max-width: 100%; padding: 4px; border: 1px dashed var(--input); border-radius: var(--radius); }
+
+.bs.rel { background: var(--brand-mint); color: #000; border-color: var(--brand-green); }
+.bs.rel .sap { color: inherit; }
+.plan.fokus .bs:not(.rel):not(.ich) { opacity: .6; }
+.bs.aus { opacity: .6; background: transparent; }
+.kern .bs.aus { color: #fff; border-color: rgba(255, 255, 255, .45); }
+.kern .bs.aus .sap { color: inherit; }
+.bs.zuletzt { background: #250F6B; color: #fff; border-color: var(--input); }
+.bs.zuletzt .sap { color: var(--primary-muted); }
+.bs mark { background: var(--brand-mint); color: #000; }
+
+/* ---------- Lageplan: das Bild als Miniatur ---------- */
+.mini { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 4px; }
+.mini .m-stapel, .mini .m-reihe, .mini .m-saeule { display: grid; gap: 4px; }
+.mini .m-r1 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.mini .m-r3 { grid-template-columns: minmax(0, 1.35fr) minmax(0, .75fr) minmax(0, 1fr); }
+.mini .m-r4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mini .m-saeule { grid-template-rows: auto 1fr auto; }
+.mini .m-kern { display: grid; gap: 0; border-radius: var(--radius-sm); overflow: clip; background: var(--primary); }
+.mini .m-kern .m-b { border: 0; border-radius: 0; color: #fff; background: none; }
+.mini .m-kern .m-b:hover { text-decoration: underline; }
+.mini .m-kern .m-b[data-band="core"] { border: 2px solid var(--brand-green); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.mini .m-kern .m-b[data-band="ext"] { background: #250F6B; }
+.m-b {
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 2px; min-width: 0; min-height: 40px; padding: 4px 5px;
+  font-size: 12px; line-height: 1.2; color: var(--foreground); text-align: left; text-decoration: none; overflow-wrap: break-word;
+  background: var(--muted); border: 1px solid var(--border); border-radius: var(--radius-sm);
+}
+button.m-b { width: 100%; }
+.m-b:hover { background: var(--secondary); }
+.m-b.hier { background: var(--background); font-weight: 700; box-shadow: inset 0 0 0 2px var(--foreground); }
+.mini .m-kern .m-b.hier { box-shadow: inset 0 0 0 2px #fff; }
+.m-n { padding: 0 6px; border-radius: 999px; font-size: 11px; font-weight: 600; line-height: 16px; background: var(--brand-mint); color: #000; }
+.m-n.still { padding: 0; background: none; color: var(--muted-foreground); font-weight: 400; }
+.mini .m-kern .m-n.still { color: var(--primary-muted); }
+.lage-mobil { display: none; }
+.f-beleg .probe { display: none; }
+
+/* ---------- Steckbrief ---------- */
+.sb-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 18px; }
+.pfad { font-size: 13px; color: var(--muted-foreground); }
+.sb-raster { display: grid; grid-template-columns: 300px minmax(0, 1fr) 340px; grid-template-areas: "lage kopf rand" "lage text rand"; gap: 0 44px; align-items: start; }
+.sb-kopf { grid-area: kopf; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--border); }
+.sb-kopf h2 { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -.015em; text-wrap: balance; }
+.sb-kopf h2:focus { outline: none; }
+.sb-kopf .sb-aka { margin-top: 6px; }
+.sb-kopf .lead { margin-top: 12px; max-width: 62ch; font-size: 17px; line-height: 1.45; text-wrap: pretty; }
+.sb-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 14px; font-size: 14px; }
+.sb-text { grid-area: text; min-width: 0; }
+.sb-lage { grid-area: lage; position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
+.sb-lage h3 { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--secondary-foreground); }
+.sb-lage .l-rel { margin-top: 22px; }
+.sb-lage h4 { margin: 12px 0 5px; font-size: 12px; font-weight: 400; color: var(--muted-foreground); }
+.vliste { display: grid; gap: 5px; }
+.sb-rand { grid-area: rand; min-width: 0; display: grid; gap: 22px; }
+.sb-rand .feld + .feld { margin-top: 0; }
+
+/* ---------- Schmaler ---------- */
+@media (max-width: 1279px) {
+  .plan { grid-template-columns: minmax(0, 1fr) 320px; }
+  .sb-raster { grid-template-columns: 280px minmax(0, 1fr); grid-template-areas: "lage kopf" "lage text" "lage rand"; gap: 0 36px; }
+  .sb-rand { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); }
+}
+@media (max-width: 899px) {
+  .kopf-in { flex-wrap: wrap; padding: 12px 16px; }
+  .titel { flex: 1 1 100%; }
+  .kopf .suche { flex: 1 1 100%; order: 2; }
+  .kopf-re { margin-left: 0; order: 3; flex: 1 1 100%; justify-content: space-between; }
+  .leiste { position: static; }
+  .leiste-in { padding: 10px 16px; }
+  .zaehler { margin-left: 0; }
+  main { padding: 14px 12px 72px; }
+  .lese { display: none; }
+  .lage-mobil { display: block; margin-bottom: 14px; }
+  .lage-mobil h2 { margin-bottom: 6px; font-size: 13px; font-weight: 600; color: var(--secondary-foreground); }
+  .plan, .r1, .r3, .r4, .b-int { grid-template-columns: minmax(0, 1fr); }
+  .band { scroll-margin-top: 8px; }
+  .bs { min-height: 34px; padding: 5px 10px; font-size: 14px; }
+  .sb-raster { grid-template-columns: minmax(0, 1fr); grid-template-areas: none; gap: 0; }
+  .sb-raster > *, .sb-rand > * { grid-area: auto; }
+  .sb-rand { display: contents; }
+  .sb-kopf { order: 1; }
+  .sb-kopf h2 { font-size: 24px; }
+  .sb-lage { display: contents; }
+  .l-plan { order: 2; margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .sb-kopf { border-bottom: 0; margin-bottom: 0; }
+  .sb-text { order: 3; }
+  .sb-rand .f-daten { order: 4; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .sb-lage .l-rel { order: 5; margin-top: 22px; padding: 20px 0 0; border-top: 1px solid var(--border); }
+  .sb-rand .f-beleg { order: 6; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .sb-rand .f-quellen { order: 7; margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kopf">
+  <div class="kopf-in breit">
+    <div class="titel">
+      <h1><a href="./">S/4HANA-Landkarte</a></h1>
+      <p id="stand">Architekturschnitt · Stand Oktober 2026</p>
+    </div>
+    <div class="suche">
+      <label for="q" class="visually-hidden">Bausteine durchsuchen</label>
+      <svg class="ico" aria-hidden="true"><use href="#i-suche"/></svg>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Suchen: PI/PO, Datasphere, Tosca …">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <div class="kopf-re">
+      <button type="button" class="switch" id="testperspektive" role="switch" aria-checked="false">
+        <span class="track" aria-hidden="true"><span class="thumb"></span></span><span>Testperspektive</span>
+      </button>
+      <button type="button" class="btn nur-ico" id="thema" aria-pressed="false"></button>
+    </div>
+  </div>
+</header>
+
+<div class="leiste" id="leiste">
+  <div class="leiste-in breit">
+    <div class="filter" role="group" aria-label="Nach Status hervorheben" id="filter"></div>
+    <p class="lese" id="lese" aria-hidden="true"></p>
+    <p class="zaehler" id="zaehler" role="status"></p>
+    <button type="button" class="linkbtn" id="leeren" hidden>Suche und Filter zurücksetzen</button>
+  </div>
+</div>
+
+<main id="inhalt" class="breit" tabindex="-1">
+  <div id="schnitt" aria-busy="true"><p class="laden">Steckbriefe werden geladen …</p></div>
+  <article id="steckbrief" hidden></article>
+</main>
+
+<noscript><p class="meldung">Die Landkarte braucht JavaScript.</p></noscript>
+<script src="kern.js"></script>
+<script>
+"use strict";
+/* Anordnung der Bereiche nach dem Schichtenmodell der bisherigen Seite:
+   Anwendungen oben, Integration dazwischen, Plattform darunter, Betrieb als Fundament, Projekt & Lebenszyklus als Säule. */
+const KURZ = { core: "Kern", ext: "Clean Core", lob: "LoB & Branchen", int: "Integration", btp: "Plattform", ai: "AI", data: "Daten", sec: "Security", ops: "Betrieb", pm: "Projekt", tool: "Toolchain & Test", mig: "Migration" };
+const HINWEIS = "Zeiger auf einen Baustein zeigt seine verwandten Bausteine, ein Klick öffnet den Steckbrief.";
+let EL = {};          // id -> Element im Bild
+let ansicht = null;   // zuletzt gezeigter Steckbrief (id) oder "" für das Bild
+let zuletzt = null;
+
+const imBereich = (lid) => DATA.filter((d) => d.layer === lid);
+function nameHtml(d, q) {
+  const sap = d.name.startsWith("SAP ");
+  return (sap ? `<span class="sap">SAP </span>` : "") + mark(sap ? d.name.slice(4) : d.name, q);
+}
+function bs(d, klasse = "") {
+  return `<a class="bs ${klasse}" href="${bausteinHref(d.id)}" data-id="${esc(d.id)}" aria-label="${esc(etikett(d))}"><span class="bs-n">${nameHtml(d, "")}</span>${marke(d.status).replace(/ title="[^"]*"/, "")}</a>`;
+}
+function band(lid) {
+  const [, name, beschr] = BEREICHE[BER[lid].i];
+  const liste = imBereich(lid);
+  const html = liste.filter((d) => !(d.parent && byId[d.parent] && byId[d.parent].layer === lid)).map((d) => {
+    const kinder = (KIDS[d.id] || []).filter((k) => k.layer === lid);
+    return kinder.length ? `<span class="pf" role="group" aria-label="Portfolio ${esc(d.name)}">${bs(d, "dach")}${kinder.map((k) => bs(k)).join("")}</span>` : bs(d);
+  }).join("");
+  return `<section class="band b-${lid}" id="b-${lid}" aria-labelledby="h-${lid}">
+    <div><h2 id="h-${lid}">${esc(name)} <span class="n" data-n="${lid}">${liste.length}</span></h2><p class="band-b">${esc(beschr)}</p></div>
+    <div class="bsl">${html}</div></section>`;
+}
+// Der Lageplan zeigt dieselbe Anordnung als Miniatur. zahl(lid) liefert den Text der Zählmarke, ziel(lid) das Element.
+function lageplan({ hier = null, zahl, still = false, etikettFn }) {
+  const b = (lid) => { const n = zahl(lid); return `<button type="button" class="m-b${lid === hier ? " hier" : ""}" data-band="${lid}"${lid === hier ? ` aria-current="true"` : ""} aria-label="${esc(etikettFn(lid, n))}"><span>${KURZ[lid]}</span>${n ? `<span class="m-n${still ? " still" : ""}">${n}</span>` : ""}</button>`; };
+  return `<div class="mini"><div class="m-stapel">
+    <div class="m-reihe m-r1"><div class="m-kern">${b("core")}${b("ext")}</div>${b("lob")}</div>
+    <div class="m-reihe">${b("int")}</div>
+    <div class="m-reihe m-r3">${b("btp")}${b("ai")}${b("data")}</div>
+    <div class="m-reihe m-r4">${b("sec")}${b("ops")}</div>
+  </div><div class="m-saeule">${b("pm")}${b("tool")}${b("mig")}</div></div>`;
+}
+
+function bildBauen() {
+  $("#schnitt").innerHTML = `<nav class="lage-mobil" aria-label="Lageplan"><h2>Lageplan</h2><div id="lage-mobil"></div></nav>
+  <div class="plan" id="plan">
+    <div class="stapel">
+      <div class="reihe r1"><div class="kern">${band("core")}${band("ext")}</div>${band("lob")}</div>
+      <div class="reihe">${band("int")}</div>
+      <div class="reihe r3">${band("btp")}${band("ai")}${band("data")}</div>
+      <div class="reihe r4">${band("sec")}${band("ops")}</div>
+    </div>
+    <div class="saeule" role="group" aria-label="Projekt und Lebenszyklus"><p class="saeule-t">Projekt &amp; Lebenszyklus</p>${band("pm")}${band("tool")}${band("mig")}</div>
+  </div>`;
+  $("#schnitt").removeAttribute("aria-busy");
+  EL = Object.fromEntries($$("#plan .bs").map((el) => [el.dataset.id, el]));
+}
+
+/* ---------- Zustand aus der Adresse ---------- */
+function zustand() {
+  const z = lesen();
+  return { z, q: z.q || "", test: z.test === "1", status: new Set((z.status || "").split(",").filter((k) => STATUS[k])), offen: z.baustein && byId[z.baustein] ? z.baustein : null };
+}
+
+function bildZeigen(s) {
+  const set = treffer(s.q, s.test);
+  const passt = (d) => (!set || set.has(d.id)) && (!s.status.size || s.status.has(d.status));
+  const gefiltert = !!set || s.status.size > 0;
+  let summe = 0; const je = {};
+  DATA.forEach((d) => {
+    const el = EL[d.id], ok = passt(d);
+    if (ok) { summe++; je[d.layer] = (je[d.layer] || 0) + 1; }
+    el.classList.toggle("aus", !ok);
+    el.classList.toggle("zuletzt", d.id === zuletzt);
+    el.querySelector(".bs-n").innerHTML = nameHtml(d, ok ? s.q : "");
+    el.href = bausteinHref(d.id);
+  });
+  BEREICHE.forEach(([lid]) => { const alle = imBereich(lid).length; $(`[data-n="${lid}"]`).textContent = gefiltert ? `${je[lid] || 0} von ${alle}` : alle; });
+  $$("#filter .wahl").forEach((b) => b.setAttribute("aria-pressed", String(s.status.has(b.dataset.status))));
+  $("#zaehler").innerHTML = gefiltert
+    ? (summe ? `<strong>${summe}</strong> von ${DATA.length} Bausteinen hervorgehoben` : `Kein Baustein passt${s.q ? ` zu „${esc(s.q)}“` : ""}.`)
+    : `<strong>${DATA.length}</strong> Bausteine in ${BEREICHE.length} Bereichen`;
+  $("#leeren").hidden = !gefiltert;
+  $("#lage-mobil").innerHTML = lageplan({ still: true, zahl: (lid) => gefiltert ? (je[lid] || 0) + "/" + imBereich(lid).length : String(imBereich(lid).length),
+    etikettFn: (lid, n) => `${BER[lid].name}, ${n.replace("/", " von ")} Bausteine` });
+  hervorheben(null);
+}
+
+/* ---------- Steckbrief ---------- */
+function steckbriefZeigen(d, s) {
+  const b = BER[d.layer], f = sbFelder(d, s.test), rel = REL[d.id].alle.map((id) => byId[id]);
+  const je = {}; rel.forEach((r) => (je[r.layer] ||= []).push(r));
+  const dach = d.parent && byId[d.parent], kinder = KIDS[d.id] || [];
+  $("#steckbrief").innerHTML = `
+  <div class="sb-nav">
+    <a class="btn" href="${adresse({ q: s.z.q, test: s.z.test, status: s.z.status })}" id="zurueck">${ico("zurueck")}Zurück zum Bild</a>
+    <span class="pfad">${esc(b.name)}${dach ? ` · Einzelprodukt im Portfolio ${esc(dach.name)}` : ""}</span>
+  </div>
+  <div class="sb-raster">
+    <header class="sb-kopf">
+      <h2 tabindex="-1">${esc(d.name)}</h2>
+      ${sbAka(d)}
+      <p class="lead">${esc(d.kurz)}</p>
+      <p class="sb-status">${statusMarke(d)}${d.statusText ? `<span>${esc(d.statusText)}</span>` : ""}</p>
+    </header>
+    <aside class="sb-lage" aria-label="Lage und verwandte Bausteine">
+      <div class="l-plan"><h3>Lageplan</h3>
+      ${lageplan({ hier: d.layer, zahl: (lid) => je[lid] ? String(je[lid].length) : "", etikettFn: (lid, n) => `${BER[lid].name}${lid === d.layer ? ", Bereich dieses Bausteins" : ""}${n ? `, ${n} verwandte Bausteine` : ""}: im Bild zeigen` })}</div>
+      <div class="l-rel"><h3>Verwandte Bausteine <span class="n">(${rel.length})</span></h3>
+      ${rel.length ? BEREICHE.filter(([lid]) => je[lid]).map(([lid, name]) => `<h4>${esc(name)}</h4><div class="vliste">${je[lid].map((r) => bsLink(r)).join("")}</div>`).join("") : `<p class="leer-hinweis">Keine Verweise hinterlegt.</p>`}</div>
+    </aside>
+    <div class="sb-text">
+      ${f.was}${f.wie}${f.s4}${f.wann}${f.test}${f.lizenz}
+      ${dach ? `<section class="feld"><h3>Portfolio</h3><div class="vliste">${bsLink(dach)}</div></section>` : ""}
+      ${kinder.length ? `<section class="feld"><h3>Einzelprodukte dieses Portfolios</h3><div class="vliste">${kinder.map((k) => bsLink(k)).join("")}</div></section>` : ""}
+    </div>
+    <div class="sb-rand">
+      <div class="f-daten">${sbDaten(d) || `<section class="feld"><h3>Daten</h3><p class="leer-hinweis">Keine Termine hinterlegt.</p></section>`}</div>
+      <div class="f-beleg">${sbBeleg(d)}</div>
+      <div class="f-quellen">${sbQuellen(d)}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------- Zeigen ---------- */
+function zeigen() {
+  const s = zustand();
+  kopfZeigen(s.z);
+  const d = s.offen && byId[s.offen];
+  const neu = d ? d.id : "";
+  const wechsel = neu !== ansicht;
+  if (wechsel && ansicht) zuletzt = ansicht;
+  $("#schnitt").hidden = !!d;
+  $("#steckbrief").hidden = !d;
+  $("#leiste").hidden = !!d;
+  document.title = d ? `${d.name} · S/4HANA-Landkarte` : "S/4HANA-Landkarte · Architekturschnitt";
+  if (d) steckbriefZeigen(d, s); else bildZeigen(s);
+  if (wechsel) {
+    const y = history.state && history.state.y;
+    if (y != null) window.scrollTo(0, y);
+    else if (d) window.scrollTo(0, 0);
+    else if (zuletzt && EL[zuletzt]) EL[zuletzt].scrollIntoView({ block: "center" });
+    if (ansicht !== null) {
+      if (d) $(".sb-kopf h2").focus({ preventScroll: true });
+      else if (zuletzt && EL[zuletzt]) EL[zuletzt].focus({ preventScroll: true });
+    }
+  }
+  ansicht = neu;
+}
+function oeffnen(id) {
+  if (!byId[id]) return;
+  merkeScroll();
+  gehe({ baustein: id });
+}
+function zumBand(lid) {
+  if (zustand().offen) { merkeScroll(); gehe({ baustein: null }); }
+  const el = $("#b-" + lid);
+  el.scrollIntoView({ block: "start" });
+  const erster = $(".bs", el); if (erster) erster.focus({ preventScroll: true });
+}
+
+/* ---------- Verwandte im Bild hervorheben ---------- */
+let hoverT = 0;
+function hervorheben(id) {
+  $$("#plan .rel, #plan .ich").forEach((el) => el.classList.remove("rel", "ich"));
+  const d = id && byId[id];
+  $("#plan").classList.toggle("fokus", !!d);
+  if (!d) { $("#lese").textContent = HINWEIS; return; }
+  EL[id].classList.add("ich");
+  REL[id].alle.forEach((v) => EL[v] && EL[v].classList.add("rel"));
+  const n = REL[id].alle.length;
+  $("#lese").innerHTML = `<strong>${esc(d.name)}</strong> · ${n} ${n === 1 ? "verwandter Baustein" : "verwandte Bausteine"} · ${esc(d.kurz)}`;
+}
+function hervorhebenBald(id) { clearTimeout(hoverT); hoverT = setTimeout(() => hervorheben(id), id ? 90 : 60); }
+
+$("#schnitt").addEventListener("pointerover", (e) => { if (e.pointerType === "touch") return; const a = e.target.closest(".bs"); if (a) hervorhebenBald(a.dataset.id); });
+$("#schnitt").addEventListener("pointerout", (e) => { if (e.pointerType === "touch") return; if (e.target.closest(".bs") && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(".bs"))) hervorhebenBald(null); });
+$("#schnitt").addEventListener("focusin", (e) => { const a = e.target.closest(".bs"); if (a && a.matches(":focus-visible")) hervorhebenBald(a.dataset.id); });
+$("#schnitt").addEventListener("focusout", (e) => { if (e.target.closest(".bs")) hervorhebenBald(null); });
+
+/* ---------- Ereignisse ---------- */
+document.addEventListener("click", (e) => {
+  const m = e.target.closest("[data-band]");
+  if (m) { zumBand(m.dataset.band); return; }
+  if (e.target.closest("#zurueck") && !(e.metaKey || e.ctrlKey || e.shiftKey)) { e.preventDefault(); gehe({ baustein: null }); }
+});
+$("#filter").addEventListener("click", (e) => {
+  const b = e.target.closest(".wahl"); if (!b) return;
+  const st = zustand().status; st.has(b.dataset.status) ? st.delete(b.dataset.status) : st.add(b.dataset.status);
+  gehe({ status: [...st].join(",") || null }, { ersetzen: true });
+});
+$("#leeren").addEventListener("click", () => { gehe({ q: null, status: null }, { ersetzen: true }); $("#q").focus(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && zustand().offen && !e.target.closest?.("input, select")) { e.preventDefault(); gehe({ baustein: null }); }
+});
+// Wer im Steckbrief sucht, sucht im Bild weiter.
+kopfVerdrahten(() => (zustand().offen ? { baustein: null } : {}));
+
+/* ---------- Start ---------- */
+laden().then(() => {
+  $("#stand").textContent = `Architekturschnitt · ${STAND} · ${DATA.length} Steckbriefe`;
+  const zahl = (k) => DATA.filter((d) => d.status === k).length;
+  $("#filter").innerHTML = `<span class="lbl">Status</span>` + ["neu", "umbenannt", "auslaufend", "abgekuendigt"].map((k) =>
+    `<button type="button" class="wahl" data-status="${k}" aria-pressed="false">${marke(k)}${STATUS[k]} <span class="n">${zahl(k)}</span></button>`).join("");
+  bildBauen();
+  zeigen();
+}).catch((err) => ladeFehler($("#schnitt"), err));
+</script>
+</body>
+</html>

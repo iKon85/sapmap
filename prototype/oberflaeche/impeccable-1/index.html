@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>S/4HANA-Landkarte · Verzeichnis</title>
+<link rel="icon" href="data:,">
+<script>try { document.documentElement.classList.toggle("dark", (localStorage.getItem("lk-thema") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark"); } catch (e) {}</script>
+<link rel="stylesheet" href="basis.css">
+<style>
+/* Alternative 1: Verzeichnis. Bereich, Baustein und Steckbrief klappen in einer Tabelle auf. */
+
+.breit { max-width: 1680px; margin: 0 auto; }
+
+/* ---------- Kopfband ---------- */
+.kopf { background: var(--primary); color: var(--primary-foreground); }
+.kopf-in { display: flex; align-items: center; gap: 16px 28px; padding: 11px 24px; }
+.titel h1 { font-size: 20px; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; white-space: nowrap; }
+.titel h1 a { color: inherit; text-decoration: none; }
+.titel p { font-size: 13px; color: var(--primary-muted); }
+.kopf .suche { flex: 0 1 520px; }
+.kopf .suche input { border-color: transparent; }
+.kopf .suche input:focus-visible { outline-color: var(--brand-green); border-color: transparent; }
+.kopf-re { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+/* ---------- Leiste ---------- */
+.leiste { position: sticky; top: 0; z-index: 20; background: var(--background); border-bottom: 1px solid var(--border); }
+.leiste-in { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 22px; padding: 10px 24px; }
+.filter { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.filter .lbl, .sortier { font-size: 13px; color: var(--muted-foreground); }
+.filter .lbl { margin-right: 2px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; height: var(--h); padding: 0 10px 0 8px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--background); font-size: 13px; }
+.chip .n { color: var(--muted-foreground); }
+.chip:hover { background: var(--muted); }
+.chip[aria-pressed="true"] { border-color: var(--primary); background: var(--primary); color: var(--primary-foreground); font-weight: 600; }
+.chip[aria-pressed="true"] .n { color: var(--primary-muted); }
+.sortier { display: none; align-items: center; gap: 8px; }
+.sortier select { height: var(--h); padding: 0 8px; border: 1px solid var(--input); border-radius: var(--radius); background: var(--background); font-size: 14px; color: var(--foreground); }
+.zaehler { margin-left: auto; font-size: 14px; color: var(--muted-foreground); }
+.zaehler strong { color: var(--foreground); font-weight: 600; }
+
+/* ---------- Tabelle ---------- */
+main { padding: 0 12px 96px; }
+.verz { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+.verz col.c-st { width: 138px; }
+.verz col.c-achse { width: 352px; }
+.verz col.c-termin { width: 250px; }
+.verz col.c-beleg { width: 160px; }
+
+.verz thead th {
+  position: sticky; top: calc(var(--l-h, 55px) - 1px); z-index: 10; height: 54px;
+  padding: 0 12px 9px; text-align: left; vertical-align: bottom;
+  font-size: 13px; font-weight: 600; color: var(--muted-foreground);
+  background: var(--background); border-bottom: 1px solid var(--secondary-foreground);
+}
+.verz thead button { display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; margin: -2px -6px; border: 0; border-radius: var(--radius-sm); background: none; font-weight: 600; }
+.verz thead button:hover { color: var(--foreground); background: var(--muted); }
+.verz thead button .ico { width: 12px; height: 12px; opacity: .4; }
+.verz thead th[aria-sort] button { color: var(--foreground); }
+.verz thead th[aria-sort] button .ico { opacity: 1; }
+.verz thead th[aria-sort="ascending"] button .ico { transform: rotate(180deg); }
+
+.verz tbody th, .verz tbody td { padding: 11px 12px; text-align: left; vertical-align: top; font-weight: 400; border-bottom: 1px solid var(--border); }
+.auf { display: flex; align-items: flex-start; gap: 8px; width: 100%; padding: 0; border: 0; background: none; text-align: left; }
+.auf > .ico { margin-top: 3px; width: 14px; height: 14px; margin-right: 2px; color: var(--input); transform: rotate(-90deg); transition: transform .18s var(--aus); }
+.auf[aria-expanded="true"] > .ico { transform: none; }
+.nm { min-width: 0; overflow-wrap: anywhere; }
+.kurz, .teil, .ber, .verz .fund { margin-left: 24px; font-size: 13px; color: var(--muted-foreground); }
+.verz .fund { margin-top: 3px; font-size: 13px; }
+.kurz { margin-top: 1px; max-width: 78ch; text-wrap: pretty; }
+.teil, .ber { display: block; font-size: 12px; }
+
+tr.grp, tr.bs { cursor: pointer; }
+tr.grp .nm { font-size: 15px; font-weight: 600; color: var(--secondary-foreground); }
+tr.grp .zahl { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted-foreground); white-space: nowrap; }
+tr.grp > * { padding-top: 7px; padding-bottom: 7px; }
+tr.grp .auf { line-height: 1.35; }
+tbody:not(.auf-b) tr.grp .kurz { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+tbody:not(.auf-b) tr.grp .termin { -webkit-line-clamp: 2; }
+tr.grp:hover > *, tr.bs:not(.offen):hover > * { background: var(--muted); }
+tbody.auf-b tr.grp > * { background: var(--muted); border-bottom-color: var(--input); }
+tr.bs .nm { font-weight: 600; }
+.verz:not(.flach) tr.bs th { padding-left: 36px; }
+.verz:not(.flach) tr.bs.kind th { padding-left: 60px; }
+
+.mz { display: inline-flex; align-items: center; gap: 4px; margin-right: 8px; font-size: 13px; }
+.bz { display: inline-flex; align-items: center; gap: 4px; margin-right: 8px; font-size: 13px; }
+.bz .probe { width: 16px; }
+.c-st, .c-beleg { white-space: nowrap; }
+
+.termin { font-size: 13px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.termin .t-d { font-weight: 600; margin-right: 6px; }
+.termin .t-t { color: var(--muted-foreground); }
+.termin .marke { width: 16px; height: 16px; margin-right: 6px; vertical-align: -3px; }
+.kein { color: var(--muted-foreground); font-size: 13px; }
+
+/* ---------- Zeitachse ---------- */
+.verz .c-achse { padding: 0; }
+.verz tbody .c-achse { position: relative; }
+.strip, .jahre { position: absolute; inset: 0 26px; }
+.strip { background-image: linear-gradient(to right, var(--border) 0 1px, transparent 1px); background-size: calc(100% / 9) 100%; border-right: 1px solid var(--border); }
+.strip::after { content: ""; position: absolute; z-index: 2; top: 0; bottom: -1px; left: calc(var(--heute) * 100%); width: 3px; margin-left: -1.5px; background: linear-gradient(to right, var(--secondary-foreground) 0 1px, var(--brand-green) 1px 3px); }
+.p { position: absolute; z-index: 1; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--chart-1); border: 1.5px solid var(--chart-1); }
+.p.v { background: var(--background); border-color: var(--input); }
+.p.e { z-index: 3; border-radius: 1px; transform: rotate(45deg); background: var(--warning); border-color: var(--foreground); }
+.p.e.v { background: var(--background); border-color: var(--foreground); }
+.grob .p { width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; }
+.grob .p:not(.e):not(.v) { opacity: .6; }
+.grob .p.l1 { top: 30%; }
+.grob .p.l2 { top: 70%; }
+.aus { position: absolute; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--muted-foreground); }
+.aus.vor { right: 100%; margin-right: 5px; }
+.aus.nach { left: 100%; margin-left: 5px; }
+.jahre span { position: absolute; bottom: 9px; padding-left: 4px; font-size: 12px; font-weight: 400; }
+.jahre .h { bottom: 29px; padding: 0 6px; transform: translateX(-50%); border-radius: 999px; background: var(--brand-green); color: #000; font-weight: 600; }
+.jahre span:nth-child(even):not(.h) { display: none; }
+.achse-mobil { display: none; }
+.legende { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; margin: 0; padding: 14px 12px 0; font-size: 13px; color: var(--muted-foreground); }
+.legende span { display: inline-flex; align-items: center; gap: 7px; }
+.legende .p { position: static; margin: 0; flex: none; }
+.legende .p.e { margin: 0 2px; }
+.legende .probe { width: 16px; }
+.legende b { font-weight: 600; color: var(--foreground); }
+
+/* ---------- Geöffneter Baustein ---------- */
+tr.bs.offen > * {
+  position: sticky; top: calc(var(--l-h, 55px) + var(--t-h, 54px) - 2px); z-index: 8;
+  background: var(--primary); color: var(--primary-foreground); border-bottom-color: var(--primary);
+}
+tr.bs.offen .kurz, tr.bs.offen .fund, tr.bs.offen .teil, tr.bs.offen .ber, tr.bs.offen .aktiv, tr.bs.offen .t-t, tr.bs.offen .kein, tr.bs.offen .aus { color: var(--primary-muted); }
+tr.bs.offen .auf > .ico { color: var(--primary-foreground); }
+tr.bs.offen .probe { border-color: var(--primary-foreground); }
+tr.bs.offen mark { background: var(--brand-mint); color: #000; }
+tr.bs.offen .strip { background-image: linear-gradient(to right, rgba(255, 255, 255, .3) 0 1px, transparent 1px); border-right-color: rgba(255, 255, 255, .3); }
+tr.bs.offen .p { background: var(--primary-foreground); border-color: var(--primary-foreground); }
+tr.bs.offen .p.v { background: transparent; }
+tr.bs.offen .p.e { background: var(--warning); border-color: #000; }
+tr.bs.offen .p.e.v { background: transparent; border-color: var(--warning); }
+
+tr.sb > td { padding: 0; background: var(--muted); border-bottom: 2px solid var(--primary); }
+.sb-in { padding: 20px 24px 28px 36px; }
+.sb-in.neu { animation: klapp .18s var(--aus); }
+@keyframes klapp { from { clip-path: inset(0 0 60% 0); opacity: .5; } to { clip-path: inset(0); opacity: 1; } }
+.sb-oben { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 28px; margin-bottom: 20px; }
+.sb-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14px; }
+.sb-sp { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, .95fr); gap: 22px 44px; }
+.rel { display: grid; gap: 6px; }
+.rel + h3 { margin-top: 16px; }
+.sb-fuss { display: flex; align-items: center; gap: 18px; margin-top: 26px; }
+.leer td { padding: 40px 12px; }
+.leer p + p { margin: 6px 0 16px; color: var(--muted-foreground); }
+
+/* ---------- Schmaler ---------- */
+@media (max-width: 1240px) {
+  .verz col.c-beleg, .verz .c-beleg { display: none; }
+  .verz col.c-achse { width: 330px; }
+  .verz col.c-termin { width: 220px; }
+}
+@media (max-width: 1020px) {
+  .verz col.c-termin, .verz .c-termin { display: none; }
+  .sb-sp { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .kopf-in { flex-wrap: wrap; padding: 14px 16px 16px; }
+  .titel { flex: 1 1 100%; }
+  .kopf .suche { flex: 1 1 100%; order: 2; }
+  .kopf-re { margin-left: 0; order: 3; flex: 1 1 100%; justify-content: space-between; }
+  .leiste { position: static; }
+  .leiste-in { padding: 12px 16px; gap: 10px 12px; }
+  .sortier { display: inline-flex; }
+  .filter { flex: 1 1 100%; min-width: 0; flex-wrap: nowrap; overflow-x: auto; margin: -4px -16px; padding: 4px 16px; scrollbar-width: none; }
+  .filter > * { flex: none; }
+  .zaehler { margin-left: 0; flex: 1 1 auto; }
+  tr.bs.offen .kurz { display: none; }
+  .legende { padding: 14px 16px 0; }
+  main { padding: 0 0 72px; }
+  .achse-mobil { display: block; position: sticky; top: 0; z-index: 9; height: 44px; background: var(--background); border-bottom: 1px solid var(--secondary-foreground); }
+  .achse-mobil .jahre { inset: 0 34px; }
+
+  .verz, .verz tbody, .verz tr, .verz tbody th, .verz tbody td { display: block; }
+  .verz thead, .verz colgroup { display: none; }
+  .verz tbody th, .verz tbody td { padding: 0 16px; border-bottom: 0; }
+  .verz tr.grp, .verz tr.bs { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .verz tbody th { padding-left: 16px !important; }
+  .verz tr.bs.kind th { padding-left: 34px !important; }
+  .verz tr.bs .c-achse, .verz tr.bs .c-beleg { display: none; }
+  .verz tr.grp .c-beleg { display: none; }
+  .verz .c-st { margin: 8px 0 0 24px; }
+  .verz tr.bs.kind .c-st, .verz tr.bs.kind .c-termin { margin-left: 42px; }
+  .verz .c-termin { display: block; margin: 6px 0 0 24px; }
+  .verz tr.grp .c-achse { height: 30px; margin-top: 10px; }
+  .verz tr.grp .strip { inset: 0 34px; }
+  .verz tr.grp:hover > *, .verz tr.bs:not(.offen):hover > * { background: none; }
+  tbody.auf-b tr.grp { background: var(--muted); }
+  tbody.auf-b tr.grp > * { background: none; }
+  tr.bs.offen { position: sticky; top: 44px; z-index: 8; background: var(--primary); }
+  tr.bs.offen > * { position: static; background: none; }
+  tr.sb > td { padding: 0; }
+  .sb-in { padding: 16px 16px 24px; }
+  .sb-sp { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+<header class="kopf auf-violett">
+  <div class="kopf-in breit">
+    <div class="titel">
+      <h1><a href="./">S/4HANA-Landkarte</a></h1>
+      <p id="stand">Verzeichnis · Stand Oktober 2026</p>
+    </div>
+    <div class="suche">
+      <label for="q" class="visually-hidden">Bausteine durchsuchen</label>
+      <svg class="ico" aria-hidden="true"><use href="#i-suche"/></svg>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Suchen: PI/PO, Datasphere, Tosca …">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <div class="kopf-re">
+      <button type="button" class="switch auf-violett" id="testperspektive" role="switch" aria-checked="false">
+        <span class="track" aria-hidden="true"><span class="thumb"></span></span><span>Testperspektive</span>
+      </button>
+      <button type="button" class="btn nur-ico auf-violett" id="thema" aria-pressed="false"></button>
+    </div>
+  </div>
+</header>
+
+<div class="leiste" id="leiste">
+  <div class="leiste-in breit">
+    <div class="seg" role="group" aria-label="Gliederung">
+      <button type="button" data-liste="" aria-pressed="true">Nach Bereich</button>
+      <button type="button" data-liste="flach" aria-pressed="false">Alle Bausteine</button>
+    </div>
+    <div class="filter" role="group" aria-label="Nach Status filtern" id="filter"></div>
+    <label class="sortier">Sortieren
+      <select id="sort">
+        <option value="">Reihenfolge der Landkarte</option>
+        <option value="name">Name</option>
+        <option value="status">Status</option>
+        <option value="termin">Nächster Termin</option>
+        <option value="beleg">Belegstatus</option>
+      </select>
+    </label>
+    <p class="zaehler" id="zaehler" aria-live="polite"></p>
+    <button type="button" class="linkbtn" id="alle">Alle aufklappen</button>
+  </div>
+</div>
+
+<main id="inhalt" class="breit" tabindex="-1">
+  <div class="achse-mobil c-achse" aria-hidden="true"><div class="jahre" data-jahre></div></div>
+  <table class="verz" id="verz" aria-busy="true">
+    <caption class="visually-hidden">Verzeichnis der Bausteine nach Bereich. Eine Zeile aufklappen zeigt den Steckbrief.</caption>
+    <colgroup><col><col class="c-st"><col class="c-achse"><col class="c-termin"><col class="c-beleg"></colgroup>
+    <thead>
+      <tr>
+        <th scope="col" data-spalte="name"><button type="button" data-sort="name">Baustein<svg class="ico" aria-hidden="true"><use href="#i-auf"/></svg></button></th>
+        <th scope="col" class="c-st" data-spalte="status"><button type="button" data-sort="status">Status<svg class="ico" aria-hidden="true"><use href="#i-auf"/></svg></button></th>
+        <th scope="col" class="c-achse"><span class="visually-hidden">Zeitachse 2023 bis 2031</span><div class="jahre" aria-hidden="true" data-jahre></div></th>
+        <th scope="col" class="c-termin" data-spalte="termin"><button type="button" data-sort="termin">Nächster Termin<svg class="ico" aria-hidden="true"><use href="#i-auf"/></svg></button></th>
+        <th scope="col" class="c-beleg" data-spalte="beleg"><button type="button" data-sort="beleg">Belegstatus<svg class="ico" aria-hidden="true"><use href="#i-auf"/></svg></button></th>
+      </tr>
+    </thead>
+    <tbody><tr><td colspan="5"><p class="laden">Steckbriefe werden geladen …</p></td></tr></tbody>
+  </table>
+  <p class="legende" id="legende">
+    <b>Zeitachse</b>
+    <span><i class="p" aria-hidden="true"></i>kommender Termin</span>
+    <span><i class="p v" aria-hidden="true"></i>vergangener Termin</span>
+    <span><i class="p e" aria-hidden="true"></i>Wartungsende</span>
+    <span>+3 am Rand: Termine vor 2023 oder nach 2031</span>
+    <b>Belegstatus</b>
+    <span><i class="probe b-ja" aria-hidden="true"></i>belegt</span>
+    <span><i class="probe b-teilweise" aria-hidden="true"></i>teilweise belegt</span>
+    <span><i class="probe b-nein" aria-hidden="true"></i>nicht belegt</span>
+  </p>
+</main>
+
+<noscript><p class="meldung">Die Landkarte braucht JavaScript.</p></noscript>
+<script src="kern.js"></script>
+<script>
+"use strict";
+
+/* ---------- Zeitachse ---------- */
+const A_VON = 2023, A_BIS = 2032, JAHRE = A_BIS - A_VON;
+const pct = (lage) => ((lage - A_VON) / JAHRE * 100).toFixed(2);
+const heuteLage = zeitraum(HEUTE).lage;
+document.documentElement.style.setProperty("--heute", ((heuteLage - A_VON) / JAHRE).toFixed(4));
+$$("[data-jahre]").forEach((el) => {
+  el.innerHTML = Array.from({ length: JAHRE }, (_, i) => `<span style="left:${(i / JAHRE * 100).toFixed(2)}%">${A_VON + i}</span>`).join("")
+    + `<span class="h" style="left:${pct(heuteLage)}%">heute</span>`;
+});
+
+function strip(liste, grob) {
+  let vor = 0, nach = 0, n = 0;
+  const punkte = [], enden = [];
+  liste.forEach((d) => d._termine.forEach((t) => {
+    if (t.lage < A_VON) { vor++; return; }
+    if (t.lage >= A_BIS) { nach++; return; }
+    const titel = `${fmtDatum(t.datum)}: ${grob ? d.name + " – " : ""}${t.text}`;
+    (t.ende ? enden : punkte).push(`<i class="p${t.kommt ? "" : " v"}${t.ende ? " e" : ` l${n++ % 3}`}" style="left:${pct(t.lage)}%" title="${esc(titel)}"></i>`);
+  }));
+  const rand = (zahl, wo, text) => zahl ? `<span class="aus ${wo}" title="${zahl} ${zahl === 1 ? "Termin" : "Termine"} ${text}">+${zahl}</span>` : "";
+  return `<div class="strip${grob ? " grob" : ""}" aria-hidden="true">${rand(vor, "vor", "vor " + A_VON)}${punkte.join("")}${enden.join("")}${rand(nach, "nach", "nach " + (A_BIS - 1))}</div>`;
+}
+
+function terminZelle(t, name) {
+  if (!t) return `<span class="kein">kein kommender Termin</span>`;
+  return `<p class="termin" title="${esc(t.text)}">${t.ende ? `<span class="marke st-auslaufend">${ico("auslaufend")}</span><span class="visually-hidden">Wartungsende </span>` : ""}<span class="t-d">${fmtDatum(t.datum)}</span><span class="t-t">${name ? esc(name) + ": " : ""}${esc(t.text)}</span></p>`;
+}
+
+/* ---------- Zustand ---------- */
+const liste = (s) => (s || "").split(",").filter(Boolean);
+function zustand() {
+  const z = lesen();
+  return {
+    z, flach: z.liste === "flach", sort: z.sort || "", q: z.q || "", test: z.test === "1",
+    status: new Set(liste(z.status).filter((s) => STATUS[s])), auf: new Set(liste(z.auf)),
+    offen: z.baustein && byId[z.baustein] ? z.baustein : null
+  };
+}
+const SORT = {
+  name: (a, b) => a.name.localeCompare(b.name, "de"),
+  status: (a, b) => STATUS_FOLGE.indexOf(b.status) - STATUS_FOLGE.indexOf(a.status),
+  termin: (a, b) => (a._naechster?.key || "9999").localeCompare(b._naechster?.key || "9999"),
+  beleg: (a, b) => BELEG_FOLGE.indexOf(b.belegt) - BELEG_FOLGE.indexOf(a.belegt)
+};
+function sortiert(l, sort) {
+  const ab = sort.startsWith("-"), k = ab ? sort.slice(1) : sort;
+  if (!SORT[k]) return l;
+  const s = l.slice().sort(SORT[k]);
+  return ab ? s.reverse() : s;
+}
+
+/* ---------- Zeilen ---------- */
+function steckbriefZeile(d, s, neu) {
+  const f = sbFelder(d, s.test), rel = REL[d.id], kids = KIDS[d.id] || [], parent = d.parent && byId[d.parent];
+  const gruppe = (titel, ids) => ids.length ? `<h3>${titel}</h3><div class="rel">${ids.map((x) => bsLink(typeof x === "string" ? byId[x] : x, { bereich: true })).join("")}</div>` : "";
+  return `<tr class="sb" id="sb-${esc(d.id)}"><td colspan="5"><div class="sb-in${neu ? " neu" : ""}">
+    <div class="sb-oben">
+      <p class="sb-status">${statusMarke(d)}${d.statusText ? `<span>${esc(d.statusText)}</span>` : ""}</p>
+      ${sbAka(d)}
+    </div>
+    <div class="sb-sp">
+      <div>${f.was}${f.wie}</div>
+      <div>${f.s4}${f.wann}${f.test}${f.lizenz}</div>
+      <div>${sbBeleg(d)}${sbDaten(d)}${sbQuellen(d)}
+        <section class="feld">${gruppe("Gehört zu", parent ? [parent] : [])}${gruppe("Einzelprodukte", kids)}${gruppe("Verwandte Bausteine", rel.eigen)}${gruppe("Verweisen hierher", rel.rueck)}</section>
+      </div>
+    </div>
+    <div class="sb-fuss">
+      <button type="button" class="btn" data-zu>Zuklappen</button>
+      <a class="linkbtn" href="${bausteinHref(d.id)}">Link zu diesem Steckbrief</a>
+    </div>
+  </div></td></tr>`;
+}
+
+function zeile(d, s, neu) {
+  const offen = s.offen === d.id, parent = d.parent && byId[d.parent];
+  const kind = parent && !s.flach && !s.sort;
+  return `<tr class="bs${offen ? " offen auf-violett" : ""}${kind ? " kind" : ""}" data-id="${esc(d.id)}">
+    <th scope="row"><button type="button" class="auf" data-id="${esc(d.id)}" data-fokus="b-${esc(d.id)}" aria-expanded="${offen}"${offen ? ` aria-controls="sb-${esc(d.id)}"` : ""}>${ico("auf")}<span class="nm">${mark(d.name, s.q)}</span></button>
+      ${s.flach ? `<span class="ber">${esc(BER[d.layer].name)}</span>` : ""}${parent && !kind ? `<span class="teil">Teil von ${esc(parent.name)}</span>` : ""}
+      <p class="kurz">${mark(d.kurz, s.q)}</p>${s.q ? fundstelle(d, s.q, s.test) : ""}</th>
+    <td class="c-st">${statusMarke(d)}</td>
+    <td class="c-achse">${strip([d], false)}</td>
+    <td class="c-termin">${terminZelle(d._naechster)}</td>
+    <td class="c-beleg">${belegHtml(d.belegt, true)}</td>
+  </tr>${offen ? steckbriefZeile(d, s, neu) : ""}`;
+}
+
+function gruppenZeile(lid, alle, da, offen, gefiltert) {
+  const st = STATUS_FOLGE.slice(1).map((k) => [k, da.filter((d) => d.status === k).length]).filter(([, n]) => n);
+  const bel = BELEG_FOLGE.map((k) => [k, da.filter((d) => d.belegt === k).length]).filter(([, n]) => n);
+  const naechster = da.filter((d) => d._naechster).sort(SORT.termin)[0];
+  return `<tr class="grp" data-b="${lid}">
+    <th scope="rowgroup"><button type="button" class="auf" data-grp="${lid}" data-fokus="g-${lid}" aria-expanded="${offen}">${ico("auf")}<span class="nm">${esc(BER[lid].name)}<span class="zahl">${gefiltert ? `${da.length} von ${alle.length}` : alle.length}<span class="visually-hidden"> Bausteine</span></span></span></button>
+      <p class="kurz">${esc(BER[lid].beschr)}</p></th>
+    <td class="c-st">${st.length ? st.map(([k, n]) => `<span class="mz">${marke(k)}${n}<span class="visually-hidden"> ${STATUS[k]}</span></span>`).join("") : `<span class="aktiv">alle aktiv</span>`}</td>
+    <td class="c-achse">${strip(da, true)}</td>
+    <td class="c-termin">${terminZelle(naechster && naechster._naechster, naechster && naechster.name)}</td>
+    <td class="c-beleg">${bel.map(([k, n]) => `<span class="bz" title="${n} ${BELEG[k]}"><span class="probe b-${k}" aria-hidden="true"></span>${n}<span class="visually-hidden"> ${BELEG[k]}</span></span>`).join("")}</td>
+  </tr>`;
+}
+
+/* ---------- Anzeige ---------- */
+let letzterOffen;
+function zeigen() {
+  const s = zustand();
+  kopfZeigen(s.z);
+  if (!DATA.length) return;
+
+  const set = treffer(s.q, s.test);
+  const passt = (d) => (!set || set.has(d.id)) && (!s.status.size || s.status.has(d.status));
+  const gefiltert = !!set || s.status.size > 0;
+  const neu = letzterOffen !== undefined && s.offen !== letzterOffen;
+  const fokus = document.activeElement && document.activeElement.dataset.fokus;
+  const imVerz = $("#verz").contains(document.activeElement);
+  let sichtbar = 0, html = "";
+
+  if (s.flach) {
+    const da = sortiert(DATA.filter(passt), s.sort);
+    sichtbar = da.length;
+    html = `<tbody>${da.map((d) => zeile(d, s, neu)).join("")}</tbody>`;
+  } else {
+    const alleAuf = s.auf.has("alle");
+    BEREICHE.forEach(([lid]) => {
+      const alle = DATA.filter((d) => d.layer === lid), da = alle.filter(passt);
+      sichtbar += da.length;
+      if (gefiltert && !da.length) return;
+      const offen = gefiltert || alleAuf || s.auf.has(lid) || (s.offen && byId[s.offen].layer === lid);
+      html += `<tbody class="${offen ? "auf-b" : ""}">${gruppenZeile(lid, alle, da, !!offen, gefiltert)}${offen ? sortiert(da, s.sort).map((d) => zeile(d, s, neu)).join("") : ""}</tbody>`;
+    });
+  }
+  if (!sichtbar) {
+    html = `<tbody><tr class="leer"><td colspan="5"><p><strong>Keine Treffer</strong>${s.q ? ` für „${esc(s.q)}“` : ""}${s.status.size ? " mit diesem Status" : ""}.</p>
+      <p>Gesucht wird in Name, früheren Namen, Kurzbeschreibung und allen Textfeldern der Steckbriefe.</p>
+      <button type="button" class="btn" id="zurueck">Suche und Filter zurücksetzen</button></td></tr></tbody>`;
+  }
+
+  const verz = $("#verz");
+  $$("tbody", verz).forEach((b) => b.remove());
+  verz.insertAdjacentHTML("beforeend", html);
+  verz.classList.toggle("flach", s.flach);
+  verz.removeAttribute("aria-busy");
+
+  // Leiste
+  $$(".seg button").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.liste === "flach") === s.flach)));
+  $$("#filter .chip").forEach((b) => b.setAttribute("aria-pressed", String(s.status.has(b.dataset.status))));
+  $("#zaehler").innerHTML = gefiltert
+    ? `<strong>${sichtbar}</strong> von ${DATA.length} Bausteinen`
+    : `<strong>${DATA.length}</strong> Bausteine in ${BEREICHE.length} Bereichen`;
+  const alle = $("#alle");
+  alle.hidden = s.flach || gefiltert;
+  alle.textContent = s.auf.has("alle") ? "Alle zuklappen" : "Alle aufklappen";
+  const k = s.sort.replace(/^-/, "");
+  $$("#verz thead th[data-spalte]").forEach((th) => {
+    if (th.dataset.spalte === k) th.setAttribute("aria-sort", s.sort.startsWith("-") ? "descending" : "ascending");
+    else th.removeAttribute("aria-sort");
+  });
+  $("#sort").value = SORT[k] ? k : "";
+  document.title = s.offen ? `${byId[s.offen].name} · S/4HANA-Landkarte` : "S/4HANA-Landkarte · Verzeichnis";
+
+  if (fokus) { const el = $(`[data-fokus="${CSS.escape(fokus)}"]`); if (el) el.focus({ preventScroll: true }); }
+  if (imVerz && !$("#verz").contains(document.activeElement)) {
+    const ziel = s.offen || letzterOffen, el = ziel && $(`[data-fokus="b-${CSS.escape(ziel)}"]`);
+    if (el) el.focus({ preventScroll: true });
+  }
+
+  // Die geöffnete Zeile direkt unter den Tabellenkopf holen; beim Zuklappen dort bleiben.
+  if (s.offen !== letzterOffen) {
+    const ziel = s.offen || letzterOffen;
+    const tr = ziel && $(`tr.bs[data-id="${CSS.escape(ziel)}"]`);
+    if (tr) {
+      const oben = hoehen();
+      const sb = s.offen && tr.nextElementSibling;
+      const y = sb ? sb.getBoundingClientRect().top - tr.offsetHeight : tr.getBoundingClientRect().top;
+      if (letzterOffen !== undefined || s.offen) window.scrollTo(0, Math.max(0, window.scrollY + y - oben));
+    }
+    letzterOffen = s.offen;
+  }
+}
+
+// Höhen der klebenden Leisten, damit Tabellenkopf und geöffnete Zeile darunter andocken.
+function hoehen() {
+  const leiste = $("#leiste"), kopf = $("#verz thead"), mobil = $(".achse-mobil");
+  const lh = getComputedStyle(leiste).position === "sticky" ? leiste.getBoundingClientRect().height : 0;
+  const th = kopf.getBoundingClientRect().height || mobil.getBoundingClientRect().height;
+  document.documentElement.style.setProperty("--l-h", lh + "px");
+  document.documentElement.style.setProperty("--t-h", th + "px");
+  return lh + th;
+}
+
+function oeffnen(id) {
+  const s = zustand(), d = byId[id];
+  if (!d) return;
+  if (s.offen === id) { gehe({ baustein: null }); return; }
+  const set = treffer(s.q, s.test);
+  const verdeckt = (set && !set.has(id)) || (s.status.size && !s.status.has(d.status));
+  gehe(Object.assign({ baustein: id }, verdeckt ? { q: null, status: null } : {}));
+}
+
+/* ---------- Ereignisse ---------- */
+function gruppeSchalten(lid) {
+  const s = zustand();
+  let auf = s.auf.has("alle") ? new Set(BEREICHE.map(([l]) => l)) : new Set(s.auf);
+  if (s.offen && byId[s.offen].layer === lid) { auf.delete(lid); gehe({ baustein: null, auf: [...auf].join(",") || null }, { ersetzen: true }); return; }
+  auf.has(lid) ? auf.delete(lid) : auf.add(lid);
+  gehe({ auf: [...auf].join(",") || null }, { ersetzen: true });
+}
+
+$("#verz").addEventListener("click", (e) => {
+  if (e.target.closest("[data-zu]")) { const id = zustand().offen; gehe({ baustein: null }); const b = id && $(`[data-fokus="b-${CSS.escape(id)}"]`); if (b) b.focus({ preventScroll: true }); return; }
+  if (e.target.closest("#zurueck")) { gehe({ q: null, status: null }, { ersetzen: true }); $("#q").focus(); return; }
+  const sortKnopf = e.target.closest("[data-sort]");
+  if (sortKnopf) { const k = sortKnopf.dataset.sort, jetzt = zustand().sort; gehe({ sort: jetzt === k ? "-" + k : jetzt === "-" + k ? null : k }, { ersetzen: true }); return; }
+  if (e.target.closest("a, .sb")) return;
+  const grp = e.target.closest("tr.grp");
+  if (grp) { gruppeSchalten(grp.dataset.b); return; }
+  const bs = e.target.closest("tr.bs");
+  if (bs && !e.target.closest("button")) oeffnen(bs.dataset.id);
+});
+$(".seg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) gehe({ liste: b.dataset.liste || null }, { ersetzen: true }); });
+$("#filter").addEventListener("click", (e) => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const st = zustand().status; st.has(b.dataset.status) ? st.delete(b.dataset.status) : st.add(b.dataset.status);
+  gehe({ status: [...st].join(",") || null }, { ersetzen: true });
+});
+$("#sort").addEventListener("change", (e) => gehe({ sort: e.target.value || null }, { ersetzen: true }));
+$("#alle").addEventListener("click", () => gehe({ auf: zustand().auf.has("alle") ? null : "alle" }, { ersetzen: true }));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && zustand().offen && !e.target.closest?.("input, select")) { e.preventDefault(); gehe({ baustein: null }); }
+});
+kopfVerdrahten();
+new ResizeObserver(hoehen).observe($("#leiste"));
+window.addEventListener("resize", hoehen);
+
+/* ---------- Start ---------- */
+laden().then(() => {
+  $("#stand").textContent = `Verzeichnis · ${STAND} · ${DATA.length} Steckbriefe`;
+  const zahl = (k) => DATA.filter((d) => d.status === k).length;
+  $("#filter").innerHTML = `<span class="lbl">Status</span>` + ["neu", "umbenannt", "auslaufend", "abgekuendigt", "aktiv"].map((k) =>
+    `<button type="button" class="chip" data-status="${k}" aria-pressed="false">${marke(k)}${STATUS[k]} <span class="n">${zahl(k)}</span></button>`).join("");
+  hoehen();
+  zeigen();
+}).catch((err) => { $$("#verz tbody").forEach((b) => b.remove()); $("#verz").insertAdjacentHTML("beforeend", `<tbody><tr><td colspan="5" id="fehler"></td></tr></tbody>`); ladeFehler($("#fehler"), err); });
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+/* S/4HANA-Landkarte, Alternativen "taste-1..3": gemeinsamer Kern über assets/system.css.
+   Look: shadcn/ui-Preset b3QxdAzBg (Style Nova, Radius Small, Phosphor Icons, Menu Default/Solid, Menu Accent Bold),
+   Farben und Schrift aus der Wavestone-CI: Weiß, Schwarz, Markenviolett #451DC7 als --primary, Energiegrün #04F06A,
+   Mint #CAFEE0, Tiefviolett #250F6B; Gelb und Rot nur als Statussignal. Schrift Aptos als lokaler Stack.
+   Token-Struktur nach shadcn-Muster: :root = hell, .dark = dunkel. Die Kit-Tokens (--p-*) hängen daran. */
+
+:root {
+  color-scheme: light;
+  --radius: 0.45rem;                                  /* Preset: Radius Small */
+  --background: #FFFFFF;   --foreground: #000000;
+  --card: #FFFFFF;         --card-foreground: #000000;
+  --popover: #FFFFFF;      --popover-foreground: #000000;
+  --primary: #451DC7;      --primary-foreground: #FFFFFF;   /* Charta: weißer Text auf Markenviolett */
+  --secondary: #F1EDFD;    --secondary-foreground: #250F6B;
+  --muted: #F7F6FB;        --muted-foreground: #4A4A57;
+  --accent: #F1EDFD;       --accent-foreground: #250F6B;    /* leise Hover-Fläche, Violett 8 % */
+  --destructive: #FF2A49;
+  --border: #E3E0EC;       --input: #8A8699;                /* Rahmen von Bedienelementen: 3,5:1 auf Weiß */
+  --ring: #451DC7;
+  /* Diagrammfarben aus der Charta: die Themenfarben; --chart-5 dort nur für komplexe Infografiken */
+  --chart-1: #451DC7; --chart-2: #04F06A; --chart-3: #250F6B; --chart-4: #CAFEE0; --chart-5: #4682B4;
+
+  /* CI-Konstanten, in beiden Modi gleich */
+  --green: #04F06A;                 /* nie mit weißem Text */
+  --mint: #CAFEE0;                  /* nie unter hellem Text */
+  --amber: #FFCA4A;                 /* nur Statussignal */
+  --red: #FF2A49;                   /* nur Statussignal */
+  --tief: #250F6B;                  /* tiefe Fläche, weißer Text darauf */
+
+  /* Rollen, die zwischen hell und dunkel wechseln */
+  --brand: #451DC7;                 /* Links, Auswahlrahmen: als Text- und Linienfarbe lesbar */
+  --titel: #451DC7;                 /* große Titel */
+  --deep: #250F6B;                  /* Zwischenüberschriften */
+  --tint-2: #DCD3F8;                /* Fläche unter dem Zeiger */
+  --frame: var(--input);
+  --panel: var(--muted);
+  --tint: var(--accent);
+  --karte: var(--card);
+
+  --font-display: Aptos, "Segoe UI", system-ui, sans-serif;
+  --font-text: Aptos, "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --display-weight: 600;            /* Charta: Titel in Aptos SemiBold */
+  --display-tracking: -0.01em;
+  --nav: 60px;
+}
+.dark {
+  color-scheme: dark;
+  --background: #0D0826;   --foreground: #FFFFFF;
+  --card: #1A1145;         --card-foreground: #FFFFFF;
+  --popover: #1A1145;      --popover-foreground: #FFFFFF;
+  --primary: #451DC7;      --primary-foreground: #FFFFFF;
+  --secondary: #250F6B;    --secondary-foreground: #FFFFFF;
+  --muted: #150D38;        --muted-foreground: #C2BDD6;
+  --accent: #2E1D78;       --accent-foreground: #FFFFFF;
+  --destructive: #FF2A49;
+  --border: rgb(255 255 255 / 0.14); --input: #8D86A8;
+  --ring: #04F06A;
+  --brand: #04F06A;                 /* Violett trägt auf dunklem Grund keinen Text: Links und Auswahl in Energiegrün */
+  --titel: #FFFFFF;
+  --deep: #CAFEE0;
+  --tint-2: #451DC7;
+}
+/* das Kit rechnet alles aus --p-*: an die shadcn-Tokens hängen, dann folgt es dem Modus */
+:root, .dark {
+  --p-bg: var(--background); --p-surface: var(--muted); --p-ink: var(--foreground); --p-muted: var(--muted-foreground);
+  --p-accent: var(--primary); --p-accent-ink: var(--primary-foreground); --p-action: var(--primary); --p-action-ink: var(--primary-foreground);
+}
+/* Namenskollision: das Kit belegt --muted (gedämpfter Text), --accent (Markenfarbe) und --card (Fläche) selbst.
+   Die shadcn-Bedeutung steht an <html>; ab <body> gilt für diese drei Namen die Kit-Bedeutung, damit dessen Regeln stimmen.
+   Das Seiten-CSS liest die shadcn-Werte deshalb über --panel (muted), --tint (accent) und --karte (card). */
+body { --muted: var(--muted-foreground); --accent: var(--primary); --card: var(--panel); }
+html[data-radius] { --r-sm: calc(var(--radius) - 3px); --r-md: var(--radius); --r-lg: calc(var(--radius) + 3px); --r-btn: calc(var(--radius) - 1px); }
+:focus-visible { outline-color: var(--ring); }
+
+/* ------------------------------------------------------------ Icons: Phosphor, lokale SVGs als Maske in der Textfarbe */
+.ic { display: inline-block; flex: none; width: 1em; height: 1em; background: currentColor; -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat; }
+.ic--suche { --ic: url(assets/icons/magnifying-glass.svg); }
+.ic--zu { --ic: url(assets/icons/x.svg); }
+.ic--menue { --ic: url(assets/icons/list.svg); }
+.ic--links { --ic: url(assets/icons/caret-left.svg); }
+.ic--rechts { --ic: url(assets/icons/caret-right.svg); }
+.ic--sonne { --ic: url(assets/icons/sun.svg); }
+.ic--mond { --ic: url(assets/icons/moon.svg); }
+.ic--runter { --ic: url(assets/icons/caret-down.svg); }
+.ic--fluss { --ic: url(assets/icons/arrows-left-right.svg); }
+.ic--pfeil { --ic: url(assets/icons/arrow-right.svg); }
+.ic--kalender { --ic: url(assets/icons/calendar-blank.svg); }
+.ic--warnung { --ic: url(assets/icons/warning.svg); }
+
+body { font-size: 16px; line-height: 1.55; }
+main { padding-top: var(--nav); display: block; }
+.vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+h1, h2, h3, h4 { letter-spacing: var(--display-tracking); }
+
+/* ------------------------------------------------------------ Kopf (Kit: header.nav) */
+.nav__logo { font-weight: 600; font-size: 19px; color: var(--titel); letter-spacing: -0.01em; }
+.nav__logo .mark { background: var(--titel); }
+.nav__toggle .ic { font-size: 20px; }
+/* Hell/Dunkel: ein Knopf, das Icon zeigt den Modus, in den er schaltet */
+.thema { display: inline-grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line-strong); border-radius: var(--r-btn); background: transparent; color: var(--ink); cursor: pointer; font-size: 18px; transition: background-color 150ms var(--ease); }
+.thema:active { transform: scale(.96); }
+@media (hover: hover) and (pointer: fine) { .thema:hover { background: var(--tint); } }
+.thema .ic--sonne, .dark .thema .ic--mond { display: none; }
+.dark .thema .ic--sonne { display: inline-block; }
+@media (max-width: 1023px) { .nav.is-open .nav__actions .thema { width: 100%; height: 48px; } }
+@media (min-width: 1024px) { .nav__bar { gap: var(--s-7); } }
+/* Handy: der Kopf trägt nur Marke und Menü; die Suche steht direkt darunter auf der Seite */
+@media (max-width: 639px) {
+  .nav:not(.is-open) .nav__actions { display: none; }
+  .nav:not(.is-open) .nav__actions + .nav__toggle { margin-left: auto; }
+  .nav__logo { font-size: 18px; }
+}
+.nav__link[aria-current="true"]::after { content: ""; position: absolute; left: var(--s-3); right: var(--s-3); bottom: -2px; height: 2px; border-radius: 2px; background: var(--brand); }
+
+/* ------------------------------------------------------------ Suchfeld */
+.suche { display: flex; align-items: center; gap: var(--s-3); min-width: 0; }
+.suche__feld {
+  position: relative; display: flex; align-items: center; flex: 1; min-width: 0; height: 44px; border: 1px solid var(--frame); border-radius: var(--r-btn);
+  background: var(--bg); transition: border-color 140ms var(--ease), box-shadow 140ms var(--ease);
+}
+.suche__feld:focus-within { border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 18%, transparent); }
+.suche__feld label { display: flex; align-items: center; gap: var(--s-2); padding: 0 var(--s-1) 0 var(--s-3); font-size: 14px; font-weight: 500; color: var(--deep); white-space: nowrap; cursor: text; }
+.suche__feld label .ic { font-size: 17px; }
+.suche__feld input {
+  flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; border-radius: var(--r-sm); color: var(--ink);
+  font: 400 16px/1 var(--font-text); padding: 0 var(--s-2); outline-offset: -2px;
+}
+.suche__feld input::placeholder { color: var(--muted-foreground); opacity: 1; }
+.suche__feld input::-webkit-search-cancel-button { display: none; }
+.suche__leeren { flex: none; width: 44px; height: 44px; margin-right: 1px; display: grid; place-items: center; border: 0; background: none; color: var(--muted-foreground); border-radius: var(--r-sm); cursor: pointer; }
+.suche__leeren:hover { color: var(--ink); background: var(--tint); }
+.suche__leeren .ic { font-size: 16px; }
+.suche__zahl { font-size: 14px; color: var(--muted-foreground); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------ Schalter (Testperspektive, Filter) */
+.schalter {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 var(--s-3); border-radius: var(--r-btn);
+  border: 1px solid var(--line-strong); background: var(--bg); color: var(--ink); font: 500 15px/1.2 var(--font-text); cursor: pointer; text-align: left;
+  transition: background-color 150ms var(--ease), border-color 150ms var(--ease);
+}
+.schalter:active { transform: scale(.985); }
+@media (hover: hover) and (pointer: fine) { .schalter:hover { background: var(--tint); border-color: var(--frame); } }
+.schalter__spur { position: relative; flex: none; width: 34px; height: 20px; border-radius: 999px; border: 1px solid var(--frame); background: var(--bg); }
+.schalter__spur::before { content: ""; position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--frame); transition: transform 180ms var(--ease); }
+[aria-checked="true"] > .schalter__spur { background: var(--primary); border-color: var(--primary); }
+[aria-checked="true"] > .schalter__spur::before { transform: translateX(14px); background: #FFFFFF; }
+.schalter__wert { font-size: 13px; font-weight: 400; color: var(--muted-foreground); min-width: 2.2em; }
+
+/* ------------------------------------------------------------ Status (Wort, Zeichen und Farbe) */
+.status {
+  display: inline-flex; align-items: center; gap: 5px; flex: none; height: 22px; padding: 0 7px; border-radius: 3px;
+  font: 500 13px/1 var(--font-text); white-space: nowrap; color: #000000; border: 1px solid transparent;
+}
+.status[data-status]:not([data-status="aktiv"])::before { content: ""; flex: none; width: 13px; height: 13px; background: currentColor; -webkit-mask: var(--zeichen) center / contain no-repeat; mask: var(--zeichen) center / contain no-repeat; }
+.status[data-status="neu"] { background: var(--green); --zeichen: url(assets/icons/plus-bold.svg); }
+.status[data-status="umbenannt"] { background: #FFFFFF; color: #451DC7; border-color: currentColor; --zeichen: url(assets/icons/swap-bold.svg); }
+.status[data-status="auslaufend"] { background: var(--amber); --zeichen: url(assets/icons/hourglass-medium-bold.svg); }
+.status[data-status="abgekuendigt"] { background: var(--red); --zeichen: url(assets/icons/prohibit-bold.svg); }
+.status[data-status="aktiv"] { background: transparent; color: var(--muted-foreground); border-color: var(--line-strong); }
+.status[data-status="frist"] { background: var(--amber); --zeichen: url(assets/icons/warning-bold.svg); }
+
+/* Status als kleines Kennzeichen (Zeichen und Farbe) neben einem Namen; das Wort steht im title und im aria-label */
+.marke { display: inline-block; flex: none; width: 16px; height: 16px; border-radius: 3px; background: var(--farbe) var(--zeichen) center / 11px 11px no-repeat; }
+.marke[data-status="neu"] { --farbe: var(--green); --zeichen: url(assets/icons/plus-bold.svg); }
+.marke[data-status="umbenannt"] { --farbe: #FFFFFF; --zeichen: url(assets/icons/swap-bold.svg); box-shadow: inset 0 0 0 1px #451DC7; }
+.marke[data-status="auslaufend"] { --farbe: var(--amber); --zeichen: url(assets/icons/hourglass-medium-bold.svg); }
+.marke[data-status="abgekuendigt"] { --farbe: var(--red); --zeichen: url(assets/icons/prohibit-bold.svg); }
+.marke[data-status="frist"] { --farbe: var(--amber); --zeichen: url(assets/icons/warning-bold.svg); }
+
+/* Belegstatus: Rahmenart (durchgezogen, gestrichelt, gepunktet) plus Wort */
+.rahmen { display: inline-block; flex: none; width: 28px; height: 18px; border: 1.5px solid var(--frame); border-radius: 3px; background: var(--karte); }
+.rahmen[data-belegt="teilweise"] { border-style: dashed; }
+.rahmen[data-belegt="nein"] { border-style: dotted; border-width: 2px; }
+
+/* ------------------------------------------------------------ Steckbrief-Bausteine */
+.sb__bereich { font-size: 14px; font-weight: 500; color: var(--muted-foreground); }
+.sb__name { font-size: clamp(26px, 1.2vw + 18px, 38px); line-height: 1.12; color: var(--titel); outline-offset: 4px; overflow-wrap: anywhere; }
+.sb__aka { font-size: 14px; color: var(--muted-foreground); }
+.sb__kurz { font-size: 19px; line-height: 1.5; max-width: 60ch; }
+.sb__status { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) 10px; font-size: 15px; }
+.sb__status p { flex: 1 1 220px; min-width: 0; }
+.sb__feld { display: grid; gap: 6px; align-content: start; }
+.sb__feld > h3, .sb__test h3, .sb__belegbox h3 { font: 600 15px/1.3 var(--font-text); color: var(--deep); letter-spacing: 0; }
+.sb__feld > p { font-size: 16px; line-height: 1.6; max-width: 68ch; }
+.sb__test { padding: var(--s-4); border-radius: var(--r-md); border: 1px solid var(--frame); background: var(--panel); display: grid; gap: 10px; }
+.sb__testkopf h3 { display: inline-flex; align-items: center; gap: 6px; }
+.sb__testkopf h3::before { content: ""; width: 18px; height: 18px; background: currentColor; -webkit-mask: url(assets/icons/flask.svg) center / contain no-repeat; mask: url(assets/icons/flask.svg) center / contain no-repeat; }
+.sb__testkopf { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
+.sb__test p { font-size: 16px; line-height: 1.6; max-width: 68ch; }
+.sb__test .sb__test-aus { color: var(--muted-foreground); font-size: 15px; }
+html[data-test="an"] .sb__test { border-color: var(--brand); border-left-width: 4px; }
+html[data-test="an"] .sb__test-aus, html:not([data-test="an"]) .sb__test-an { display: none; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 4px 10px; border: 1px solid var(--frame); border-radius: var(--r-sm);
+  background: var(--karte); color: var(--ink); font-size: 15px; line-height: 1.3; font-weight: 500; text-decoration: none; text-align: left;
+  transition: background-color 150ms var(--ease), border-color 150ms var(--ease);
+}
+.chip:active { transform: scale(.985); }
+@media (hover: hover) and (pointer: fine) { .chip:hover { background: var(--tint); border-color: var(--brand); } }
+.chip__art { font-size: 13px; font-weight: 400; color: var(--muted-foreground); }
+
+.daten { display: grid; gap: 0; list-style: none; padding: 0; margin: 0; }
+.daten li { display: grid; grid-template-columns: 7.4em minmax(0, 1fr); gap: var(--s-3); padding: 8px 0; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.5; }
+.daten li:first-child { border-top: 0; padding-top: 2px; }
+.daten time { font-weight: 600; color: var(--deep); font-variant-numeric: tabular-nums; }
+.daten li.ist-zukunft time::after { content: " \00b7 kommt"; font-weight: 400; color: var(--muted-foreground); font-size: 13px; }
+.daten li.ist-gewaehlt { background: var(--mint); color: #000000; margin: 0 calc(-1 * var(--s-2)); padding-left: var(--s-2); padding-right: var(--s-2); border-top-color: transparent; border-radius: 3px; }
+.daten li.ist-gewaehlt time, .daten li.ist-gewaehlt time::after { color: #000000; }
+
+.quellen { display: grid; gap: var(--s-2); counter-reset: q; list-style: none; padding: 0; margin: 0; }
+.quellen li { display: grid; grid-template-columns: 1.6em minmax(0, 1fr); font-size: 15px; line-height: 1.45; counter-increment: q; }
+.quellen li::before { content: counter(q) "."; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.quellen a { color: var(--brand); text-decoration: underline; text-decoration-color: color-mix(in oklab, currentColor 35%, transparent); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.quellen a:hover { text-decoration-color: currentColor; }
+.quellen a::after { content: ""; display: inline-block; width: 13px; height: 13px; margin-left: 4px; vertical-align: -1px; background: currentColor; -webkit-mask: url(assets/icons/arrow-up-right.svg) center / contain no-repeat; mask: url(assets/icons/arrow-up-right.svg) center / contain no-repeat; }
+.quellen__host { display: block; font-size: 13px; color: var(--muted-foreground); }
+
+.sb__belegbox { padding: var(--s-4); border: 1.5px solid var(--frame); border-radius: var(--r-md); display: grid; gap: 6px; }
+.sb__belegbox[data-belegt="teilweise"] { border-style: dashed; }
+.sb__belegbox[data-belegt="nein"] { border-style: dotted; border-width: 2px; }
+.sb__belegbox p { font-size: 15px; line-height: 1.55; }
+
+/* ------------------------------------------------------------ Menü (Preset: Default/Solid, Accent Bold): solide Fläche, der aktive Eintrag in Primärfarbe */
+.menue { list-style: none; margin: 0; padding: 4px; background: var(--popover); color: var(--popover-foreground); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: 0 8px 24px rgb(0 0 0 / .14); }
+.menue__eintrag { display: flex; align-items: center; gap: var(--s-3); min-height: 40px; padding: 6px 10px; border-radius: var(--r-sm); font-size: 15px; line-height: 1.3; color: inherit; text-decoration: none; cursor: pointer; }
+.menue__eintrag small { margin-left: auto; font-size: 13px; color: var(--muted-foreground); white-space: nowrap; }
+.menue__eintrag[aria-selected="true"], .menue__eintrag.ist-aktiv { background: var(--primary); color: var(--primary-foreground); }
+.menue__eintrag[aria-selected="true"] small, .menue__eintrag.ist-aktiv small { color: var(--primary-foreground); }
+@media (hover: hover) and (pointer: fine) { .menue__eintrag:hover { background: var(--primary); color: var(--primary-foreground); } .menue__eintrag:hover small { color: var(--primary-foreground); } }
+
+/* ------------------------------------------------------------ Leerzustand, Fuß */
+.leer { display: grid; gap: var(--s-4); justify-items: start; padding: var(--s-6); border: 1px solid var(--line-strong); border-radius: var(--r-md); background: var(--panel); max-width: 62ch; }
+.leer h2 { font-size: 22px; line-height: 1.25; color: var(--deep); }
+
+.fuss { border-top: 1px solid var(--line); padding: var(--s-5) 0 var(--s-6); font-size: 14px; color: var(--muted-foreground); }
+.fuss .wrap { display: grid; gap: var(--s-1); }
+
+@media (max-width: 899px), (pointer: coarse) {
+  .chip { min-height: 44px; }
+  .schalter, .menue__eintrag { min-height: 44px; }
+  .thema { width: 44px; height: 44px; }
+  .chips { gap: var(--s-2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .schalter, .chip, .schalter__spur::before, .suche__feld { transition: none; }
+}
