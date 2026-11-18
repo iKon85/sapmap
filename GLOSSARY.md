@@ -58,6 +58,26 @@ _Avoid_: Bewertung, Impact-Analyse
 Das Datum, zu dem die Inhalte der Steckbriefe zuletzt gegen Quellen geprüft wurden.
 _Avoid_: Version, Release
 
+**Roadmap-Eintrag**:
+Eine von SAP angekündigte, geplante Neuerung zu einem Baustein, mit dem Quartal, in dem sie kommen soll.
+_Avoid_: Roadmap-Item, Plan, Feature
+
+**Release Note**:
+Eine von SAP veröffentlichte Neuerung in einem bereits ausgelieferten Release eines Bausteins (What's New).
+_Avoid_: Change Note, SAP-Hinweis, Änderung
+
+**Abo**:
+Die Bausteine, zu deren Änderungen ein Konto benachrichtigt wird.
+_Avoid_: Thema, Interesse, Watchlist
+
+**Mitteilung**:
+Der Hinweis an ein Konto, dass sich an einem abonnierten Baustein etwas geändert hat; erscheint in der Sammelmail und unter „Mitteilungen“ auf der Seite.
+_Avoid_: Notification, Message, Update
+
+**Prüflauf**:
+Der wöchentliche Durchgang, der SAP-Quellen auf neue oder geänderte Roadmap-Einträge und Release Notes prüft und daraus Änderungsvorschläge für Steckbriefe macht.
+_Avoid_: Crawl, Scan, Sync, Abzug
+
 ## Einführung
 
 **Einführung steuern**:
