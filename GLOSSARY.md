@@ -24,9 +24,17 @@ _Avoid_: Kind, Unterprodukt
 Die fachliche Heimat eines Bausteins; jeder Baustein hat genau einen Bereich (Feld `layer`).
 _Avoid_: Layer, Zone, Schicht, Kategorie
 
+**Bereichsgruppe**:
+Ein Kasten der Landkarte, der einen oder mehrere Bereiche zusammenfasst (z. B. SAP BTP mit Plattform, Business AI, Integration und Daten); ändert die Heimat keines Bausteins.
+_Avoid_: Zone, Spalte, Band
+
 **Mehrfachzuordnung**:
 Die zusätzliche Anzeige eines Bausteins in einem weiteren Bereich, ohne dass sich seine Heimat ändert.
 _Avoid_: ALSO, Zweitbereich
+
+**Branche**:
+Die Industrie, für die ein Baustein gebaut ist (z. B. Utilities); ein Merkmal des Bausteins, kein Bereich.
+_Avoid_: Industrie, Branchenbereich
 
 **Verwandter Baustein**:
 Ein Baustein, der mit einem anderen fachlich zusammenhängt; die Beziehung gilt in beide Richtungen.
