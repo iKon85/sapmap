@@ -17,9 +17,15 @@ export const STECKBRIEF = [
   { key: "spalte", kurz: "", name: "angedockt" },
 ] as const
 
+export const KANTE = [
+  { key: "oben", kurz: "", name: "mit Oberkante" },
+  { key: "ohne", kurz: "", name: "ohne" },
+] as const
+
 export type LayoutKey = (typeof LAYOUTS)[number]["key"]
 export type FarbenKey = (typeof FARBEN)[number]["key"]
 export type SteckbriefKey = (typeof STECKBRIEF)[number]["key"]
+export type KanteKey = (typeof KANTE)[number]["key"]
 
 /** Search-Params; Standardwerte bleiben aus der URL heraus. */
 export interface ProtoSearch {
@@ -27,6 +33,7 @@ export interface ProtoSearch {
   layout?: LayoutKey
   farben?: FarbenKey
   steckbrief?: SteckbriefKey
+  kante?: KanteKey
 }
 
 export function validateProtoSearch(s: Record<string, unknown>): ProtoSearch {
@@ -38,6 +45,7 @@ export function validateProtoSearch(s: Record<string, unknown>): ProtoSearch {
     ...(layout === "b" || layout === "c" ? { layout } : {}),
     ...(farben === "infografik" || farben === "ruhig" ? { farben } : {}),
     ...(s.steckbrief === "spalte" ? { steckbrief: "spalte" as const } : {}),
+    ...(s.kante === "ohne" ? { kante: "ohne" as const } : {}),
   }
 }
 
@@ -48,6 +56,7 @@ export interface Proto {
   layout: LayoutKey
   farben: FarbenKey
   steckbrief: SteckbriefKey
+  kante: KanteKey
   q: string
   setQ: (q: string) => void
   status: string

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "src/styles.css"
+        ],
+        "createdAt": "2026-11-19T07:19:27.492Z",
+        "reason": "user confirmed: Niko hat am 19.11.2026 nach Vorher-Nachher-Screenshots 'mit Oberkante' gewählt (iKon85/sapmap#31); die Kante trägt die Bereichsfarbe"
+      }
+    ]
+  }
+}

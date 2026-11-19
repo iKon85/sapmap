@@ -3,7 +3,7 @@ import * as React from "react"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { cn } from "cn"
 import type { ProtoSearch } from "@/lib/proto"
-import { FARBEN, LAYOUTS, STECKBRIEF, useProto } from "@/lib/proto"
+import { FARBEN, KANTE, LAYOUTS, STECKBRIEF, useProto } from "@/lib/proto"
 
 function Gruppe<TKey extends string>({
   titel,
@@ -59,7 +59,7 @@ function Gruppe<TKey extends string>({
 }
 
 export function PrototypeSwitcher() {
-  const { layout, farben, steckbrief } = useProto()
+  const { layout, farben, steckbrief, kante } = useProto()
   const navigate = useNavigate()
   const [mass, setMass] = React.useState<{ fenster: number; grafik: number }>()
 
@@ -129,6 +129,13 @@ export function PrototypeSwitcher() {
           aktuell={steckbrief}
           standard="overlay"
           className="max-[899px]:hidden"
+        />
+        <Gruppe
+          titel="Kante"
+          param="kante"
+          optionen={KANTE}
+          aktuell={kante}
+          standard="oben"
         />
         {mass ? (
           <span className="font-mono text-[11px] text-white/60 max-[639px]:hidden">

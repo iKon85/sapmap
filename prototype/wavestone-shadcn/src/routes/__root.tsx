@@ -45,8 +45,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   const farben = useRouterState({
     select: (s) => validateProtoSearch(s.location.search).farben ?? "tonstufen",
   })
+  const kante = useRouterState({
+    select: (s) => validateProtoSearch(s.location.search).kante ?? "oben",
+  })
   return (
-    <html lang="de" data-farben={farben} suppressHydrationWarning>
+    <html lang="de" data-farben={farben} data-kante={kante} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <HeadContent />
@@ -91,6 +94,7 @@ function RootLayout() {
     layout: search.layout ?? "a",
     farben: search.farben ?? "tonstufen",
     steckbrief: search.steckbrief ?? "overlay",
+    kante: search.kante ?? "oben",
     q,
     setQ,
     status,

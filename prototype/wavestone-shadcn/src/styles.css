@@ -466,6 +466,13 @@
 .gruppe .zone {
   background: var(--muted);
 }
+/* Variante ohne farbige Oberkante: die Bereichsfarbe tragen Überschrift und Flächenton */
+:root[data-kante="ohne"] .zone,
+:root[data-kante="ohne"] .gruppe {
+  border-top: 1px solid var(--border);
+}
+:root[data-kante="ohne"] .zone { background: var(--zt); }
+:root[data-kante="ohne"] .tile { background: var(--card); }
 .subgrid {
   display: grid;
   gap: 8px;

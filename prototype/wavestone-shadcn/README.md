@@ -20,7 +20,10 @@ Die schwarze Leiste am unteren Rand schaltet um; die Pfeiltasten blättern durch
 | `layout` | `a` (Standard), `b`, `c` | A fünf Spalten · B Security als Zeile unter der Mitte · C Clean Core als Band über Kern und BTP |
 | `farben` | `tonstufen` (Standard), `infografik`, `ruhig` | Wie die Bereiche farblich unterschieden werden |
 | `steckbrief` | `overlay` (Standard), `spalte` | Steckbrief überlagert die Karte oder steht als feste Spalte daneben |
+| `kante` | `oben` (Standard), `ohne` | Bereichsfarbe als farbige Oberkante am Kasten oder nur über Überschrift und Flächenton |
 | `b` | ID eines Bausteins | geöffneter Steckbrief |
+
+Gewählt am 19.11.2026: `?layout=c&farben=infografik`, Steckbrief überlagert, mit Oberkante.
 
 Seiten: `/` Landkarte, `/schichtenmodell` Schichtenmodell. Die übrigen Ansichten sind bewusst nur als ausgegraute Reiter vorhanden.
 
